@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
+            $table->string('ip_address');
+
             $table->timestamps();
         });
     }

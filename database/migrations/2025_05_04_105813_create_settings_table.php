@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,6 +12,23 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('site_name');
+            $table->string('site_email');
+            $table->string('site_phone');
+            $table->string('site_address');
+            $table->string('site_logo');
+            $table->string('meta_title');
+            $table->text('meta_description');
+            $table->string('site_favicon');
+            $table->string('facebook_link')->nullable();
+            $table->string('twitter_link')->nullable();
+            $table->string('instagram_link')->nullable();
+            $table->string('linkedin_link')->nullable();
+            $table->string('youtube_link')->nullable();
+            $table->string('tiktok_link')->nullable();
+            $table->string('street');
+            $table->string('city');
+            $table->string('country');
             $table->timestamps();
         });
     }
