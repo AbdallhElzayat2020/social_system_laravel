@@ -2,10 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\HomeController;
 
-Route::get('/', function () {
-    return view('frontend.pages.contact-us');
-});
+Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
