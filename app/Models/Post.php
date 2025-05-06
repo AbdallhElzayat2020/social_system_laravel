@@ -39,7 +39,9 @@ class Post extends Model
 
 
     /**
+     *================================
      * RelationShip
+     * ================================
      */
     public function category(): BelongsTo
     {

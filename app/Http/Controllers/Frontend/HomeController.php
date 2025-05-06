@@ -10,7 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['images'])->paginate();
+        $posts = Post::with('images')->paginate(9);
+//        return $posts;
+
         return view('frontend.pages.home', compact('posts'));
     }
 }
