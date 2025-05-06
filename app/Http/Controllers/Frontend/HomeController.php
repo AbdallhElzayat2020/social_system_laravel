@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,19 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        return view('frontend.pages.home', compact('posts', 'greatest_posts_views', 'oldest_posts', 'popular_posts'));
+        $categories = Category::all();
+
+        $categories_with_posts = $categories->map(function (Category $category) {
+            $category->posts = $category->posts()->limit(4)->get();
+            return $category;
+        });
+
+        return view('frontend.pages.home', compact(
+            'posts',
+            'greatest_posts_views',
+            'oldest_posts',
+            'popular_posts',
+            'categories_with_posts'
+        ));
     }
 }
