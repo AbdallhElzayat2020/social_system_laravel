@@ -11,8 +11,8 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::with('images')->latest()->paginate(9);
-//        return $posts;
+        $greatest_posts_views = Post::orderBy('num_of_views', 'desc')->limit(3)->get();
 
-        return view('frontend.pages.home', compact('posts'));
+        return view('frontend.pages.home', compact('posts', 'greatest_posts_views'));
     }
 }

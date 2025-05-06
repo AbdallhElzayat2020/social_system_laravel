@@ -25,6 +25,7 @@ class PostFactory extends Factory
             'status' => $this->faker->randomElement(['active', 'inactive']),
             'comment_able' => $this->faker->boolean(),
             'user_id' => User::inRandomOrder()->first()->id,
+            'num_of_views' => $this->faker->numberBetween(1, 100),
             'category_id' => Category::inRandomOrder()->first()->id,
             'created_at' => $date,
             'updated_at' => $date,

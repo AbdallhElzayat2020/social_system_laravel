@@ -311,14 +311,10 @@
                 <div class="col-md-6">
                     <ul class="nav nav-pills nav-justified">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="pill" href="#m-viewed"
-                            >Latest Posts</a
-                            >
+                            <a class="nav-link active" data-toggle="pill" href="#m-viewed">Latest Posts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#m-read"
-                            >Most Read</a
-                            >
+                            <a class="nav-link" data-toggle="pill" href="#m-read">Most Read</a>
                         </li>
 
                     </ul>
@@ -345,30 +341,16 @@
                         </div>
 
                         <div id="m-read" class="container tab-pane fade">
-                            <div class="tn-news">
-                                <div class="tn-img">
-                                    <img src="{{asset('assets/frontend')}}/img/news-350x223-2.jpg"/>
+                            @foreach($greatest_posts_views as $post)
+                                <div class="tn-news">
+                                    <div class="tn-img">
+                                        <img src="{{asset('assets/frontend')}}/img/news-350x223-2.jpg" alt="{{$post->title}}"/>
+                                    </div>
+                                    <div class="tn-title">
+                                        <a href="">{{$post->title}} ({{$post->num_of_views}} <i class="fa-solid fa-eye"></i>)</a>
+                                    </div>
                                 </div>
-                                <div class="tn-title">
-                                    <a href="">Lorem ipsum dolor sit amet</a>
-                                </div>
-                            </div>
-                            <div class="tn-news">
-                                <div class="tn-img">
-                                    <img src="{{asset('assets/frontend')}}/img/news-350x223-1.jpg"/>
-                                </div>
-                                <div class="tn-title">
-                                    <a href="">Lorem ipsum dolor sit amet</a>
-                                </div>
-                            </div>
-                            <div class="tn-news">
-                                <div class="tn-img">
-                                    <img src="{{asset('assets/frontend')}}/img/news-350x223-3.jpg"/>
-                                </div>
-                                <div class="tn-title">
-                                    <a href="">Lorem ipsum dolor sit amet</a>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
