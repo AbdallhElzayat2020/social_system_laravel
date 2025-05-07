@@ -22,12 +22,10 @@ class CacheServicesProvider extends ServiceProvider
     public function boot(): void
     {
         if (!Cache::has('read_more_posts')) {
-
-            $read_more_posts = Post::select('id', 'title')->latest()->limit(10)->get();
+            $read_more_posts = Post::select('id', 'title')->latest()->take(10)->get();
             Cache::remember('read_more_posts', 3600, function () use ($read_more_posts) {
                 return $read_more_posts;
             });
-
         }
 
         $read_more_posts = Cache::get('read_more_posts');
@@ -35,5 +33,20 @@ class CacheServicesProvider extends ServiceProvider
         view()->share([
             'read_more_posts' => $read_more_posts,
         ]);
+
+//        if (!Cache::has('read_more_posts')) {
+//
+//            $read_more_posts = Post::select('id', 'title')->latest()->limit(10)->get();
+//            Cache::remember('read_more_posts', 3600, function () use ($read_more_posts) {
+//                return $read_more_posts;
+//            });
+//
+//        }
+//
+//        $read_more_posts = Cache::get('read_more_posts');
+//
+//        view()->share([
+//            'read_more_posts' => $read_more_posts,
+//        ]);
     }
 }

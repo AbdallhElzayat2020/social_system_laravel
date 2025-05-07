@@ -190,10 +190,11 @@
                     <div class="mn-list">
                         <h2>Read More</h2>
                         <ul>
-                            @foreach($read_more_posts as $post)
 
+                            @foreach($read_more_posts as $post)
                                 <li><a href="">{{$post->title}}</a></li>
                             @endforeach
+
                         </ul>
                     </div>
                 </div>
