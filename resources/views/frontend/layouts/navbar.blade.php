@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="tb-contact">
-                    <p><i class="fas fa-envelope"></i>info@mail.com</p>
-                    <p><i class="fas fa-phone-alt"></i>+012 345 6789</p>
+                    <p><i class="fas fa-envelope"></i>{{@$getSetting->site_email}}</p>
+                    <p><i class="fas fa-phone-alt"></i>{{@$getSetting->site_phone}}</p>
                 </div>
             </div>
             <div class="col-md-6">
@@ -27,16 +27,14 @@
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4">
                 <div class="b-logo">
-                    <a href="index.html">
-                        <img src="{{asset('assets/frontend')}}/img/logo.png" alt="Logo"/>
+                    <a href="">
+                        <img src="{{asset('assets/frontend')}}{{$getSetting->site_logo}}" alt="{{$getSetting->site_name}}"/>
                     </a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-4">
                 <div class="b-ads">
-                    <a href="https://htmlcodex.com">
-                        <img src="{{asset('assets/frontend')}}/img/ads-1.jpg" alt="Ads"/>
-                    </a>
+
                 </div>
             </div>
             <div class="col-lg-3 col-md-4">
@@ -59,15 +57,13 @@
                     type="button"
                     class="navbar-toggler"
                     data-toggle="collapse"
-                    data-target="#navbarCollapse"
-            >
+                    data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div
                     class="collapse navbar-collapse justify-content-between"
-                    id="navbarCollapse"
-            >
+                    id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <div class="nav-item dropdown">
@@ -89,11 +85,11 @@
                     <a href="contact.html" class="nav-item nav-link">Contact Us</a>
                 </div>
                 <div class="social ml-auto">
-                    <a href=""><i class="fab fa-twitter"></i></a>
-                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                    <a href=""><i class="fab fa-instagram"></i></a>
-                    <a href=""><i class="fab fa-youtube"></i></a>
+                    <a target="_blank" href="{{$getSetting->twitter_link}}" title="twitter"><i class="fab fa-twitter"></i></a>
+                    <a target="_blank" href="{{$getSetting->facebook_link}}" title="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a target="_blank" href="{{$getSetting->linkedin_link}}" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a target="_blank" href="{{$getSetting->instagram_link}}" title="instagram"><i class="fab fa-instagram"></i></a>
+                    <a target="_blank" href="{{$getSetting->youtube_link}}" title="youtube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </nav>

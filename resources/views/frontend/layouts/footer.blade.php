@@ -6,15 +6,15 @@
                 <div class="footer-widget">
                     <h3 class="title">Get in Touch</h3>
                     <div class="contact-info">
-                        <p><i class="fa fa-map-marker"></i>123 News Street, NY, USA</p>
-                        <p><i class="fa fa-envelope"></i>info@example.com</p>
-                        <p><i class="fa fa-phone"></i>+123-456-7890</p>
+                        <p><i class="fa fa-map-marker"></i>{{$getSetting->street}} , {{$getSetting->city}} , {{$getSetting->country}}</p>
+                        <p><i class="fa fa-envelope"></i>{{$getSetting->site_email}}</p>
+                        <p><i class="fa fa-phone"></i>{{$getSetting->site_phone}}</p>
                         <div class="social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href=""><i class="fab fa-youtube"></i></a>
+                            <a target="_blank" href="{{$getSetting->twitter_link}}" title="twitter"><i class="fab fa-twitter"></i></a>
+                            <a target="_blank" href="{{$getSetting->facebook_link}}" title="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a target="_blank" href="{{$getSetting->linkedin_link}}" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                            <a target="_blank" href="{{$getSetting->instagram_link}}" title="instagram"><i class="fab fa-instagram"></i></a>
+                            <a target="_blank" href="{{$getSetting->youtube_link}}" title="youtube"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
@@ -24,11 +24,9 @@
                 <div class="footer-widget">
                     <h3 class="title">Useful Links</h3>
                     <ul>
-                        <li><a href="#">Lorem ipsum</a></li>
-                        <li><a href="#">Pellentesque</a></li>
-                        <li><a href="#">Aenean vulputate</a></li>
-                        <li><a href="#">Vestibulum sit amet</a></li>
-                        <li><a href="#">Nam dignissim</a></li>
+                        @foreach($relatedSites as $link)
+                            <li><a target="_blank" title="{{$link->name}}" href="{{$link->url}}">{{$link->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -96,9 +94,8 @@
                 </p>
             </div>
 
-            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
             <div class="col-md-6 template-by">
-                <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                <p>Designed By <a target="_blank" href="https://abdallh-elzayat.me/">Abdallh Elzayat</a></p>
             </div>
         </div>
     </div>
