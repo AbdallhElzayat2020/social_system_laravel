@@ -7,7 +7,7 @@
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('frontend.index') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="">Posts</a></li>
-                <li class="breadcrumb-item active">{{$post->title}}</li>
+                <li class="breadcrumb-item active">{{$mainPost->title}}</li>
             </ul>
         </div>
     </div>
@@ -27,14 +27,14 @@
                         </ol>
                         <div class="carousel-inner">
 
-                            @foreach($post->images as $key=> $image)
+                            @foreach($mainPost->images as $key=> $image)
                                 <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
                                     <img src="{{$image->path}}" class="d-block w-100" alt="First Slide">
                                     <img src="{{asset('assets/frontend/img/news-825x525.jpg')}}" class="d-block w-100" alt="First Slide">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <h5>{!! $post->title !!}</h5>
+                                        <h5>{!! $mainPost->title !!}</h5>
                                         <p>
-                                            {!! substr($post->description, 0, 70) !!}
+                                            {!! substr($mainPost->description, 0, 70) !!}
                                         </p>
                                     </div>
                                 </div>
@@ -50,34 +50,37 @@
                         </a>
                     </div>
                     <div class="sn-content">
-                        {!! $post->description !!}
+                        {!! $mainPost->description !!}
                     </div>
 
                     <!-- Comment Section -->
                     <div class="comment-section">
                         <!-- Comment Input -->
-                        <div class="comment-input">
-                            <input type="text" placeholder="Add a comment..." id="commentBox"/>
-                            <button id="addCommentBtn">Post</button>
-                        </div>
+                        <form action="{{ route('frontend.post.comments.store') }}" method="post" id="commentForm">
+                            <div class="comment-input">
+                                @csrf
+                                <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentBox"/>
+                                <input type="hidden" name="user_id" value="1">
+                                <input type="hidden" name="post_id" value="{{$mainPost->id}}">
+                                @error('comment')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <button type="submit">Post</button>
+                            </div>
+                        </form>
 
                         <!-- Display Comments -->
                         <div class="comments">
-                            <div class="comment">
-                                <img src="./img/news-450x350-2.jpg" alt="User Image" class="comment-img"/>
-                                <div class="comment-content">
-                                    <span class="username">User1</span>
-                                    <p class="comment-text">This is an example comment.</p>
+                            @foreach($mainPost->comments as $comment)
+                                <div class="comment">
+                                    <img src="{{$comment->user->image}}" alt="User Image" class="comment-img"/>
+                                    <div class="comment-content">
+                                        <span class="username">{{@$comment->user->name}}</span>
+                                        <p class="comment-text">{{@$comment->comment}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="comment">
-                                <img src="./img/news-450x350-2.jpg" alt="User Image" class="comment-img"/>
-                                <div class="comment-content">
-                                    <span class="username">User2</span>
-                                    <p class="comment-text">This is an example comment.</p>
-                                </div>
-                            </div>
-                            <!-- Add more comments here for demonstration -->
+                            @endforeach
+
                         </div>
 
                         <!-- Show More Button -->
@@ -192,3 +195,57 @@
     <!-- Single News End-->
 
 @endsection
+
+@push('js')
+    <script>
+        {{-- Show more comments --}}
+        $(document).on('click', '#showMoreBtn', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{route('frontend.post.getAllComments',$mainPost->slug)}}",
+                type: "GET",
+
+                success: function (data) {
+                    $('.comment').empty();
+                    $.each(data, function (key, comment) {
+                        $('.comments').append(`
+                           <div class="comment">
+                                <img src="${comment.user.image}" alt="User Image" class="comment-img"/>
+                                 <div class="comment-content">
+                                <span class="username">${comment.user.name}</span>
+                                <p class="comment-text">${comment.comment}</p>
+                           </div>
+                        `);
+
+                        $('#showMoreBtn').hide();
+                    });
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
+        });
+
+        {{-- Post comment --}}
+        $(document).on('submit', '#commentForm', function (e) {
+            e.preventDefault();
+
+            let formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: "{{route('frontend.post.comments.store')}}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+
+                success: function (data) {
+
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    </script>
+@endpush
