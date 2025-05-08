@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\RelatedNewsSite;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -43,14 +45,25 @@ class ViewServiesProvider extends ServiceProvider
             });
         }
 
+        // share the related sites with all views from the database
+        $relatedSites = RelatedNewsSite::select('id', 'name', 'url')->get();
 
+        //share categories with all views from the database
+        $categories = Category::select('id', 'name', 'slug')->get();
+
+
+
+        // Get the latest posts and popular posts from the cache
         $latest_posts = Cache::get('latest_posts');
 
+        // Get the popular posts with comments from the cache
         $popular_posts_comments = Cache::get('popular_posts_comments');
 
         view()->share([
             'latest_posts' => $latest_posts,
             'popular_posts_comments' => $popular_posts_comments,
+            'relatedSites' => $relatedSites,
+            'categories' => $categories,
         ]);
     }
 }

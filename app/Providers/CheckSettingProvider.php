@@ -44,18 +44,9 @@ class CheckSettingProvider extends ServiceProvider
         });
 
 
-        // share the related sites with all views
-        $relatedSites = RelatedNewsSite::select('name', 'url')->get();
-
-        //share categories with all views
-        $categories = Category::select('name', 'slug')->get();
-
-
         // Share the setting with all views
         view()->share([
             'getSetting' => $getSetting,
-            'relatedSites' => $relatedSites,
-            'categories' => $categories,
         ]);
     }
 }
