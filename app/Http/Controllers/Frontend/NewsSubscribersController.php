@@ -27,7 +27,6 @@ class NewsSubscribersController extends Controller
             return redirect()->back();
         }
 
-
         // Send a welcome email to the subscriber
         Mail::to($request->email)->send(new NewSubscriberMail());
 

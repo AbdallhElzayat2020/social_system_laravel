@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\RelatedNewsSite;
 use App\Models\Setting;
 use Illuminate\Support\ServiceProvider;
@@ -42,16 +43,19 @@ class CheckSettingProvider extends ServiceProvider
             ]);
         });
 
-        // Share the setting with all views
-        view()->share([
-            'getSetting' => $getSetting,
-        ]);
 
         // share the related sites with all views
         $relatedSites = RelatedNewsSite::select('name', 'url')->get();
 
+        //share categories with all views
+        $categories = Category::select('name', 'slug')->get();
+
+
+        // Share the setting with all views
         view()->share([
+            'getSetting' => $getSetting,
             'relatedSites' => $relatedSites,
+            'categories' => $categories,
         ]);
     }
 }
