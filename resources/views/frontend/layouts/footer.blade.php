@@ -1,5 +1,5 @@
 <!-- Footer Start -->
-<div class="footer">
+<div class="footer" id="subscribers">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6">
@@ -52,12 +52,12 @@
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             Vivamus sed porta dui. Class aptent taciti sociosqu
                         </p>
-                        <form>
-                            <input
-                                    class="form-control"
-                                    type="email"
-                                    placeholder="Your email here"
-                            />
+                        <form action="{{ route('frontend.news.subscribers') }}" method="post">
+                            @csrf
+                            <input class="form-control" type="email" name="email" required placeholder="Your email here"/>
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             <button class="btn">Submit</button>
                         </form>
                     </div>
