@@ -240,7 +240,14 @@
                 contentType: false,
 
                 success: function (data) {
-
+                    $('.comments').prepend(`
+                       <div class="comment">
+                                <img src="${data.comment.user.image}" alt="${data.comment.user.name}" class="comment-img"/>
+                                 <div class="comment-content">
+                                <span class="username">${data.comment.user.name}</span>
+                                <p class="comment-text">${data.comment.comment}</p>
+                       </div>
+                    `)
                 },
                 error: function (data) {
                     console.log(data)

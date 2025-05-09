@@ -12,7 +12,7 @@ class PostController extends Controller
     public function show($slug)
     {
         $mainPost = Post::with(['comments' => function ($query) {
-            $query->limit(3);
+            $query->latest()->limit(3);
         }])->whereSlug($slug)->first();
         $category = $mainPost->category;
         $relatedPosts = $category->posts()
@@ -49,6 +49,9 @@ class PostController extends Controller
             'comment' => $request->comment,
         ]);
 
+
+        $comment->load('user');
+
         if (!$comment) {
             return response()->json([
                 'data' => 'Failed to save comment',
@@ -57,7 +60,7 @@ class PostController extends Controller
         }
         return response()->json([
             'msg' => 'Comment saved successfully!',
-            'data' => $comment,
+            'comment' => $comment,
             'status' => 201
         ]);
     }
