@@ -59,7 +59,7 @@
                         <h4 class="mb-0">Login</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
+                        <form method="POST" action="{{ route('login') }}" class="needs-validation">
                             @csrf
                             <div class="mb-3">
                                 <label for="login" class="form-label">Email or Username</label>

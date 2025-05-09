@@ -55,6 +55,11 @@
 @extends('frontend.layouts.master')
 @section('title', 'Register')
 
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active">Register</li>
+@endsection
+
 @section('content')
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -66,18 +71,18 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
-
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="name" class="form-label">Full Name</label>
+                                    <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                                            value="{{ old('name') }}" required>
                                     @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label for="username" class="form-label">Username</label>
+                                    <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username"
                                            value="{{ old('username') }}" required>
                                     @error('username')
@@ -88,15 +93,16 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="email" class="form-label">Email Address</label>
+                                    <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
                                            value="{{ old('email') }}" required>
                                     @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
                                     <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone"
                                            value="{{ old('phone') }}" required>
                                     @error('phone')
@@ -134,7 +140,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
                                            required>
                                     @error('password')
@@ -142,14 +148,15 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                    <label for="password_confirmation" class="form-label">Confirm Password <span class="text-danger">*</span></label>
                                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="image" class="form-label">Profile Picture</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                                {{--                                <label for="image" class="form-label">Profile Picture <span class="text-danger">*</span></label>--}}
+                                <label for="formFileMultiple" class="form-label">Profile Picture <span class="text-danger">*</span></label>
+                                <input class="form-control" name="image" type="file" id="formFileMultiple" multiple>
                                 @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
