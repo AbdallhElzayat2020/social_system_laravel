@@ -59,16 +59,16 @@
                         <form action="{{ route('frontend.post.comments.store') }}" method="post" id="commentForm">
                             <div class="comment-input">
                                 @csrf
-                                <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentBox"/>
+                                <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentInput"/>
                                 <input type="hidden" name="user_id" value="1">
                                 <input type="hidden" name="post_id" value="{{$mainPost->id}}">
-                                @error('comment')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
                                 <button type="submit">Post</button>
                             </div>
                         </form>
 
+                        <div style="display: none" id="errorMsg" class="alert alert-danger">
+                            {{-- display errors--}}
+                        </div>
                         <!-- Display Comments -->
                         <div class="comments">
                             @foreach($mainPost->comments as $comment)
@@ -229,8 +229,8 @@
         {{-- Post comment --}}
         $(document).on('submit', '#commentForm', function (e) {
             e.preventDefault();
-
             let formData = new FormData($(this)[0]);
+            $('#commentInput').val('');
 
             $.ajax({
                 url: "{{route('frontend.post.comments.store')}}",
@@ -240,6 +240,7 @@
                 contentType: false,
 
                 success: function (data) {
+                    $('#errorMsg').hide();
                     $('.comments').prepend(`
                        <div class="comment">
                                 <img src="${data.comment.user.image}" alt="${data.comment.user.name}" class="comment-img"/>
@@ -250,7 +251,8 @@
                     `)
                 },
                 error: function (data) {
-                    console.log(data)
+                    let response = $.parseJSON(data.responseText);
+                    $('#errorMsg').text(response.errors.comment).show();
                 }
             })
         })
