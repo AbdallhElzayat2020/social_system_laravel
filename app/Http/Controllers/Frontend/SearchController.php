@@ -7,8 +7,6 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 
 
-
-
 class SearchController extends Controller
 {
     /**
@@ -16,16 +14,18 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
+        $request->validate([
+            'search' => ['nullable', 'string', 'max:50'],
+        ]);
+        $keyword = strip_tags($request->search);
 
-            ->orWhere('description', 'like', '%' . $request->search . '%')
+        $posts = Post::where('title', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('description', 'like', '%' . $keyword . '%')
+            ->orWhereHas('category', function ($query) use ($keyword) {
 
-            ->orWhereHas('category', function ($query) use ($request) {
-
-                $query->where('name', 'like', '%' . $request->search . '%');
+                $query->where('name', 'like', '%' . $keyword . '%');
 
             })->paginate(14)
-
             ->withQueryString();
 
         return view('frontend.pages.search', compact('posts'));
