@@ -13,8 +13,24 @@ class Category extends Model
         'status',
     ];
 
+
+    /*
+     *================================
+     * RelationShip
+     *  *================================
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'category_id');
+    }
+
+    /*
+     *================================
+     * Scopes
+     *  *================================
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
     }
 }

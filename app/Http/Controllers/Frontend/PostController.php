@@ -11,10 +11,12 @@ class PostController extends Controller
 {
     public function show($slug)
     {
-        $mainPost = Post::with(['comments' => function ($query) {
+        $mainPost = Post::active()->with(['comments' => function ($query) {
             $query->latest()->limit(3);
         }])->whereSlug($slug)->first();
         $category = $mainPost->category;
+
+
         $relatedPosts = $category->posts()
             ->select('id', 'slug', 'title')
             ->limit(5)
@@ -27,7 +29,7 @@ class PostController extends Controller
     public function getAllPosts($slug)
     {
 
-        $post = Post::whereSlug($slug)->first();
+        $post = Post::active()->whereSlug($slug)->first();
 
         $comments = $post->comments()->with('user')->get();
 

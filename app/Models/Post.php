@@ -62,4 +62,16 @@ class Post extends Model
     {
         return $this->hasMany(Image::class, 'post_id');
     }
+
+
+    /**
+     *================================
+     * Global Scopes
+     * ================================
+     */
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function __invoke($slug)
     {
-        $category = Category::whereSlug($slug)->first();  //$category = Category::where('slug', $slug)->first();
+        $category = Category::active()->whereSlug($slug)->first();  //$category = Category::where('slug', $slug)->first();
 
         $posts = $category->posts()->paginate(9)->withQueryString();
 
