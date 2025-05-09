@@ -13,7 +13,7 @@
                     <a href="">About</a>
                     <a href="">Privacy</a>
                     <a href="">Terms</a>
-                    <a href="">Contact</a>
+                    <a title="contact" href="{{ route('frontend.contact.index') }}">Contact</a>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
                     class="collapse navbar-collapse justify-content-between"
                     id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="{{ route('frontend.index') }}" title="home" class="nav-item nav-link active">Home</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
                         <div class="dropdown-menu">
@@ -77,7 +77,7 @@
                     </div>
                     <a href="single-page.html" class="nav-item nav-link">Single Page</a>
                     <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <a href="{{ route('frontend.contact.index') }}" class="nav-item nav-link">Contact Us</a>
                 </div>
                 <div class="social ml-auto">
                     <a target="_blank" href="{{$getSetting->twitter_link}}" title="twitter"><i class="fab fa-twitter"></i></a>

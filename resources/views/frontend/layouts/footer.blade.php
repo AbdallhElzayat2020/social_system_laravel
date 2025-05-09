@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="footer-widget">
-                    <h3 class="title">Get in Touch</h3>
+                    <h3 class="title">{{$getSetting->site_name}}</h3>
                     <div class="contact-info">
                         <p><i class="fa fa-map-marker"></i>{{$getSetting->street}} , {{$getSetting->city}} , {{$getSetting->country}}</p>
                         <p><i class="fa fa-envelope"></i>{{$getSetting->site_email}}</p>
@@ -56,7 +56,7 @@
                             @csrf
                             <input class="form-control" type="email" name="email" required placeholder="Your email here"/>
                             @error('email')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <button class="btn">Submit</button>
                         </form>
