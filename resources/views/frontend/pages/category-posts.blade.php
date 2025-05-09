@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 @section('title', 'Category Posts')
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active">{{$category->name}}</li>
+@endsection
 @section('content')
     <div class="main-news mt-4">
         <div class="container mt-4">

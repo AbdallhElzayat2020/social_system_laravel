@@ -26,7 +26,7 @@ class ContactController extends Controller
             'ip_address' => $request->ip(),
         ]);
         if ($contact) {
-            Session::flash('success', 'Your message has been sent successfully. We will get back to you soon.');
+            Session::flash('success', 'Your message has been sent successfully');
             return redirect()->back();
         } else {
             Session::flash('error', 'Something went wrong. Please try again later.');

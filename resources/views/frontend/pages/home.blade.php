@@ -1,5 +1,12 @@
 @extends('frontend.layouts.master')
 @section('title', 'Home')
+
+<!-- Breadcrumb Start -->
+@section('breadcrumb')
+    @parent
+@endsection
+<!-- Breadcrumb End -->
+
 @section('content')
     @php
         $latest_three_posts =$posts->take(3);
@@ -106,7 +113,8 @@
                                         <img src="{{asset('assets/frontend')}}/img/news-350x223-4.jpg" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
-                                        <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->comments_count }} <i class="fa-solid fa-comment"></i>)</a>
+                                        <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->comments_count }} <i
+                                                    class="fa-solid fa-comment"></i>)</a>
                                     </div>
                                 </div>
                             @endforeach
@@ -151,7 +159,8 @@
                                         <img src="{{asset('assets/frontend')}}/img/news-350x223-2.jpg" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
-                                        <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->num_of_views}} <i class="fa-solid fa-eye"></i>)</a>
+                                        <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->num_of_views}} <i
+                                                    class="fa-solid fa-eye"></i>)</a>
                                     </div>
                                 </div>
                             @endforeach

@@ -1,16 +1,14 @@
 @extends('frontend.layouts.master')
 @section('title', 'Contact Us')
+
+<!-- Breadcrumb Start -->
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active">Contact</li>
+@endsection
+<!-- Breadcrumb End -->
+
 @section('content')
-    <!-- Breadcrumb Start -->
-    <div class="breadcrumb-wrap">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('frontend.index') }}">Home</a></li>
-                <li class="breadcrumb-item active">Contact</li>
-            </ul>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
 
     <!-- Contact Start -->
     <div class="contact">

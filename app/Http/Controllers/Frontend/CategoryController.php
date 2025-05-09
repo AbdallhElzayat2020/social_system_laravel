@@ -18,6 +18,6 @@ class CategoryController extends Controller
 
         $posts = $category->posts()->paginate(9)->withQueryString();
 
-        return view('frontend.pages.category-posts', compact('posts'));
+        return view('frontend.pages.category-posts', compact('posts', 'category'));
     }
 }
