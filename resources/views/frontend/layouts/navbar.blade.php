@@ -10,10 +10,23 @@
             </div>
             <div class="col-md-6">
                 <div class="tb-menu">
-                    <a href="">About</a>
-                    <a href="">Privacy</a>
-                    <a href="">Terms</a>
-                    <a title="contact" href="{{ route('frontend.contact.index') }}">Contact</a>
+                    @guest
+                        <a href="{{ route('register') }}"><i class="fas fa-user-plus"></i> Register</a>
+                        <a href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    @endguest
+
+                    {{-- logout --}}
+                    @auth
+                        <div class="d-flex justify-content-end">
+                            <form action="{{ route('logout') }}" id="formLogout" method="post">
+                                @csrf
+                                <a onclick="event.preventDefault(); document.getElementById('formLogout').submit();" href="javascript:void(0);">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </a>
+                            </form>
+                            <a href="{{ route('profile.edit') }}"><i class="fas fa-user"></i> Profile</a>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </div>

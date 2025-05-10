@@ -28,7 +28,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $request->session()->flash('success', 'Login successful!');
+        //flash message for Login
+        $request->session()->flash('success', 'Welcome back, ' . Auth::user()->name . '!');
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -43,7 +45,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        $request->session()->flash('success', 'Logout successful!');
 
-        return redirect('/');
+        return to_route('frontend.index');
     }
 }

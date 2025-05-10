@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -39,7 +40,7 @@ class RegisteredUserController extends Controller
             'country' => ['nullable', 'string', 'max:50'],
             'city' => ['nullable', 'string', 'max:50'],
             'street' => ['nullable', 'string', 'max:50'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:`jpeg,png,jpg,gif,svg'],
         ]);
 
         $user = User::create([
@@ -52,6 +53,20 @@ class RegisteredUserController extends Controller
             'city' => $request->city,
             'street' => $request->street,
         ]);
+
+        /* handle imag for user */
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+
+            $filename = Str::slug($user->username) . time() . '.' . $file->getClientOriginalExtension();
+
+            $path = $file->storeAs('uploads/users', $filename, ['disk' => 'uploads']);
+
+            $user->update([
+                'image' => $path,
+            ]);
+        }
 
         event(new Registered($user));
 
