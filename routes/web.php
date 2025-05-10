@@ -13,7 +13,6 @@ Route::group([
     'as' => 'frontend.',
 ], function () {
 
-
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
     Route::post('news-subscribers', [NewsSubscribersController::class, 'store'])->name('news.subscribers');

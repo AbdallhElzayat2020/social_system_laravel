@@ -1,33 +1,60 @@
-{{--<x-guest-layout>--}}
-{{--    <div class="mb-4 text-sm text-gray-600">--}}
-{{--        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}--}}
-{{--    </div>--}}
-
-{{--    <!-- Session Status -->--}}
-{{--    <x-auth-session-status class="mb-4" :status="session('status')" />--}}
-
-{{--    <form method="POST" action="{{ route('password.email') }}">--}}
-{{--        @csrf--}}
-
-{{--        <!-- Email Address -->--}}
-{{--        <div>--}}
-{{--            <x-input-label for="email" :value="__('Email')" />--}}
-{{--            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />--}}
-{{--            <x-input-error :messages="$errors->get('email')" class="mt-2" />--}}
-{{--        </div>--}}
-
-{{--        <div class="flex items-center justify-end mt-4">--}}
-{{--            <x-primary-button>--}}
-{{--                {{ __('Email Password Reset Link') }}--}}
-{{--            </x-primary-button>--}}
-{{--        </div>--}}
-{{--    </form>--}}
-{{--</x-guest-layout>--}}
-
-
 @extends('frontend.layouts.master')
-@section('title', 'Login')
+@section('title', 'Forgot Password')
+
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active">Forgot Password</li>
+@endsection
 
 @section('content')
+    <br>
+    <br>
+    <br>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Reset Password') }}</div>
 
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('password.email') }}" autocomplete="off">
+                            @csrf
+                            <div class="mb-3">
+                                <p class="text-muted">
+                                    {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                                </p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                                       value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Email Password Reset Link') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
 @endsection
