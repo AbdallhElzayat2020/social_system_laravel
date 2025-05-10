@@ -39,8 +39,8 @@ Route::group([
     });
 
     /* Search Posts */
-
     Route::match(['post', 'get'], 'search', SearchController::class)->name('search');
+
 });
 
 

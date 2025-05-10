@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title', ' Post Details')
+@section('title', $mainPost->title)
 
 <!-- Breadcrumb Start -->
 @section('breadcrumb')

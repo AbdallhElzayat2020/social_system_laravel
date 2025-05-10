@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title', 'Contact Us')
+@section('title','Search Posts')
 @section('content')
     <!-- Main News Start-->
     <div class="main-news">
