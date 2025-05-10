@@ -74,19 +74,18 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
+                                    <input type="text" class="form-control" id="name" name="name"
                                            value="{{ old('name') }}" required>
                                     @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username"
-                                           value="{{ old('username') }}" required>
+                                    <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
                                     @error('username')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -94,19 +93,20 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
+                                    <input type="email" class="form-control" id="email" name="email"
                                            value="{{ old('email') }}" required>
                                     @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone"
+                                    <input type="tel" class="form-control" id="phone" name="phone"
                                            value="{{ old('phone') }}" required>
                                     @error('phone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
+
                                     @enderror
                                 </div>
                             </div>
@@ -114,26 +114,29 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="country" class="form-label">Country</label>
-                                    <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" name="country"
+                                    <input type="text" class="form-control" id="country" name="country"
                                            value="{{ old('country') }}">
                                     @error('country')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
+
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label for="city" class="form-label">City</label>
-                                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city"
+                                    <input type="text" class="form-control" id="city" name="city"
                                            value="{{ old('city') }}">
                                     @error('city')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
+
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label for="street" class="form-label">Street</label>
-                                    <input type="text" class="form-control @error('street') is-invalid @enderror" id="street" name="street"
+                                    <input type="text" class="form-control" id="street" name="street"
                                            value="{{ old('street') }}">
                                     @error('street')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
+
                                     @enderror
                                 </div>
                             </div>
@@ -141,10 +144,11 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
+                                    <input type="password" class="form-control" id="password" name="password"
                                            required>
                                     @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
+
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
@@ -158,7 +162,8 @@
                                 <label for="formFileMultiple" class="form-label">Profile Picture <span class="text-danger">*</span></label>
                                 <input class="form-control" name="image" type="file" id="formFileMultiple" multiple>
                                 @error('image')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
+
                                 @enderror
                             </div>
 

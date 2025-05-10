@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -27,14 +28,14 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'username' => ['required', 'unique:' . User::class, 'string', 'max:50'],
-            'phone' => ['required', 'string', 'max:20', 'unique:' . User::class],
+            'phone' => ['nullable', 'string', 'max:20', 'unique:users,username'],
             'country' => ['nullable', 'string', 'max:50'],
             'city' => ['nullable', 'string', 'max:50'],
             'street' => ['nullable', 'string', 'max:50'],
@@ -56,6 +57,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        Session::flash('success', 'Registration successful!');
+
         return redirect(route('dashboard', absolute: false));
+
     }
 }
