@@ -41,6 +41,10 @@ Route::group([
     /* Search Posts */
     Route::match(['post', 'get'], 'search', SearchController::class)->name('search');
 
+    Route::get('test', function () {
+        return view('frontend.dashboard.profile');
+    });
+
 });
 
 

@@ -21,5 +21,12 @@
           referrerpolicy="no-referrer"/>
     <!-- Template Stylesheet -->
     @stack('css')
+
+    {{-- fileInput Css --}}
+    <link rel="stylesheet" href="{{asset('assets/vendor/file-input/css/fileinput.min.css')}}">
+    {{-- summernote Plugine --}}
+    <link rel="stylesheet" href="{{asset('assets/vendor/summernote/summernote-bs4.min.css')}}">
+
+
     <link href="{{asset('assets/frontend/css/style.css')}}" rel="stylesheet"/>
 </head>
