@@ -25,8 +25,7 @@
 
                             @foreach($mainPost->images as $key=> $image)
                                 <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                                    <img src="{{$image->path}}" class="d-block w-100" alt="First Slide">
-                                    <img src="{{asset('assets/frontend/img/news-825x525.jpg')}}" class="d-block w-100" alt="First Slide">
+                                    <img style=" height: 380px" src="{{asset($image->path)}}" class="d-block w-100" alt="{{$mainPost->title}}">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5>{!! $mainPost->title !!}</h5>
                                         <p>
@@ -36,12 +35,14 @@
                                 </div>
                             @endforeach
                         </div>
-                        <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev"
+                           style="background: rgba(0,0,0,0.8); width: 40px; height: 40px; border-radius: 50%; margin-top: 170px;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: brightness(0) invert(1);"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next"
+                           style="background: rgba(0,0,0,0.8); width: 40px; height: 40px; border-radius: 50%; margin-top: 170px;">
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: brightness(0) invert(1);"></span>
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
@@ -91,8 +92,9 @@
 
                                 <div class="col-md-4">
                                     <div class="sn-img">
-                                        <img src="{{$post->images->first()->path}}" class="img-fluid" title="{{$post->title}}"
+                                        <img style="width: 254px; height:134px " src="{{asset($post->images->first()->path)}}"
                                              alt="{{$post->title}}"/>
+                                        alt="{{$post->title}}"/>
                                         <div class="sn-title">
                                             <a href="{{ route('frontend.post.show',$post->slug) }}" title="{{$post->title}}">{{$post->title}}</a>
                                         </div>

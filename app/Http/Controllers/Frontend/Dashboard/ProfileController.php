@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use App\Utils\imageManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -27,21 +28,9 @@ class ProfileController extends Controller
 
             $post = auth()->user()->posts()->create($request->except('images'));
 
-            if ($request->hasFile('images')) {
+            // upload images from imageManager File
+            imageManager::uploadImages($request, $post);
 
-                $images = $request->file('images');
-
-                foreach ($images as $image) {
-
-                    $filename = $post->slug . '_' . time() . '.' . $image->getClientOriginalExtension();
-
-                    $path = $image->storeAs('uploads/posts', $filename, 'uploads');
-
-                    $post->images()->create([
-                        'path' => $path,
-                    ]);
-                }
-            }
             DB::commit();
 
         } catch (\Exception $e) {

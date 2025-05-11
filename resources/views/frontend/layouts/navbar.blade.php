@@ -96,7 +96,6 @@
 
                     <a href="{{ route('frontend.dashboard.profile') }}" class="nav-item nav-link">Dashboard</a>
 
-
                 </div>
                 <div class="social ml-auto">
                     <a target="_blank" href="{{$getSetting->twitter_link}}" title="twitter"><i class="fab fa-twitter"></i></a>

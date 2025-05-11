@@ -20,7 +20,7 @@
                         @foreach($latest_three_posts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
+                                    <img style="height: 380px; width: 510px;" src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
                                     </div>
@@ -37,7 +37,7 @@
                         @foreach($four_posts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{asset('assets/frontend/img/news-350x223-1.jpg')}}" alt="{{$post->title}}"/>
+                                    <img style="width: 270px; height: 140px;" src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
                                     </div>
@@ -63,7 +63,7 @@
 
                                 <div class="col-md-6">
                                     <div class="cn-img">
-                                        <img src="{{asset('assets/frontend')}}/img/news-350x223-1.jpg" alt="{{$post->title}}"/>
+                                        <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                         <div class="cn-title">
                                             <a href="{{ route('frontend.post.show',$post->slug) }}">{{@$post->title}}</a>
                                         </div>
@@ -98,7 +98,7 @@
                             @foreach($oldest_posts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{asset('assets/frontend')}}/img/news-350x223-1.jpg" alt="{{$post->title}}"/>
+                                        <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
@@ -110,7 +110,7 @@
                             @foreach($popular_posts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{asset('assets/frontend')}}/img/news-350x223-4.jpg" alt="{{$post->title}}"/>
+                                        <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->comments_count }} <i
@@ -142,7 +142,7 @@
                                     <div class="tn-img">
                                         {{--<img src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>--}}
 
-                                        <img src="{{asset('assets/frontend')}}/img/news-350x223-5.jpg" alt="{{$post->title}}"/>
+                                        <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
@@ -156,7 +156,7 @@
                             @foreach($greatest_posts_views as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{asset('assets/frontend')}}/img/news-350x223-2.jpg" alt="{{$post->title}}"/>
+                                        <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->num_of_views}} <i
@@ -182,7 +182,7 @@
                         @foreach($posts as $post)
                             <div class="col-md-4">
                                 <div class="mn-img">
-                                    <img src="{{asset('assets/frontend')}}/img/news-350x223-1.jpg" alt="{{$post->title}}"/>
+                                    <img style="width: 254px; height:134px " src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     <div class="mn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
                                     </div>

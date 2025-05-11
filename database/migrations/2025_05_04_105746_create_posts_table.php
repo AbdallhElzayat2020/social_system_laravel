@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('description');
-//            $table->bigInteger('num_of_views')->default(0);
+            $table->bigInteger('num_of_views')->default(0);
             $table->boolean('comment_able')->default(true);
 
             $table->enum('status', ['active', 'inactive'])->default('active');

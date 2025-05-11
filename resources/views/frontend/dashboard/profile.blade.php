@@ -81,7 +81,6 @@
                             <!-- Category Dropdown -->
                             <select id="postCategory" name="category_id" class="form-select my-2">
                                 {{-- categories comming from ViewServicesProvider --}}
-                                <option value="" selected>Select Category</option>
                                 @foreach($categories as $category)
                                     <option @selected(old('category_id', $category->id) == $category->id) value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach

@@ -10,7 +10,7 @@
                         @forelse($posts as $post)
                             <div class="col-md-4">
                                 <div class="mn-img">
-                                    <img src="{{asset('assets/frontend')}}/img/news-350x223-1.jpg" alt="{{$post->title}}"/>
+                                    <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     <div class="mn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
                                     </div>
