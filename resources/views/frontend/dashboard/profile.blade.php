@@ -41,40 +41,68 @@
                 </div>
                 <br>
 
-                <!-- Add Post Section -->
-                <section id="add-post" class="add-post-section mb-5">
-                    <h2>Add Post</h2>
-                    <div class="post-form p-3 border rounded">
-                        <!-- Post Title -->
-                        <input type="text" id="postTitle" class="form-control mb-2" placeholder="Post Title"/>
-
-                        <!-- Post Content -->
-                        <textarea id="postContent" class="form-control mb-2" style="margin-bottom: 5px!important;" rows="3"
-                                  placeholder="What's on your mind?"></textarea>
-
-                        <!-- Image Upload -->
-                        <input type="file" id="postImage" class="form-control my-2" style="margin-top: 10px!important;" accept="image/*" multiple/>
-                        <div class="tn-slider mb-2">
-                            <div id="imagePreview" class="slick-slider"></div>
-                        </div>
-
-                        <!-- Category Dropdown -->
-                        <select id="postCategory" class="form-select my-2">
-                            <option value="">Select Category</option>
-                            <option value="general">General</option>
-                            <option value="tech">Tech</option>
-                            <option value="life">Life</option>
-                        </select>
-
-                        <!-- Enable Comments Checkbox -->
-                        <label class="form-check-label mb-2" style="margin-left: 20px">
-                            <input type="checkbox" class="form-check-input"/> Enable Comments
-                        </label><br>
-
-                        <!-- Post Button -->
-                        <button class="btn btn-primary post-btn">Post</button>
+                @if(session()->has('errors'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach(session('errors')->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                </section>
+                @endif
+                <!-- Add Post Section -->
+                <form action="{{ route('frontend.dashboard.post.store') }}" method="post" enctype="multipart/form-data" multiple="">
+                    @csrf
+                    <section id="add-post" class="add-post-section mb-5">
+                        <h2>Add Post</h2>
+                        <div class="post-form p-3 border rounded">
+                            <!-- Post Title -->
+                            <input type="text" id="postTitle" name="title" class="form-control mb-2" placeholder="Post Title"/>
+                            @error('title')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <!-- Post Content -->
+                            <textarea id="postContent" name="description" class="form-control mb-2" style="margin-bottom: 5px!important;" rows="3"
+                                      placeholder="What's on your mind?"></textarea>
+                            @error('description')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <!-- Image Upload -->
+                            <input type="file" id="postImage" name="images[]" class="form-control my-2" style="margin-top: 10px!important;"
+                                   accept="image/*"
+                                   multiple/>
+                            @error('images')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <div class="tn-slider mb-2">
+                                <div id="imagePreview" class="slick-slider"></div>
+                            </div>
+
+                            <!-- Category Dropdown -->
+                            <select id="postCategory" name="category_id" class="form-select my-2">
+                                {{-- categories comming from ViewServicesProvider --}}
+                                <option value="" disabled selected>Select Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <!-- Enable Comments Checkbox -->
+                            <label class="form-check-label mb-2" style="margin-left: 20px">
+                                <input type="checkbox" name="comment_able" class="form-check-input"/> Enable Comments
+                            </label><br>
+                            @error('comment_able')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <!-- Post Button -->
+                            <button type="submit" class="btn btn-primary post-btn">Post</button>
+                        </div>
+                    </section>
+                </form>
 
                 <!-- Posts Section -->
                 <section id="posts" class="posts-section">

@@ -44,16 +44,13 @@ Route::group([
     Route::match(['post', 'get'], 'search', SearchController::class)->name('search');
 
     /*  User Profile Routes & Notifications & Settings   */
-    Route::prefix('user/')->name('dashboard.')->middleware(['auth:web', 'verified'])->group(function () {
+    Route::prefix('account/')->name('dashboard.')->middleware(['auth:web', 'verified'])->group(function () {
 
         /* profile Routes */
         Route::controller(ProfileController::class)->group(function () {
             Route::get('/profile', 'index')->name('profile');
-            Route::get('/edit', 'edit')->name('edit');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/change-password', 'changePassword')->name('change.password');
+            Route::post('/post', 'storePost')->name('post.store');
         });
-
 
     });
 

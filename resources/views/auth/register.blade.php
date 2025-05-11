@@ -52,7 +52,6 @@
                                            value="{{ old('phone') }}" required>
                                     @error('phone')
                                     <div class="text-danger">{{ $message }}</div>
-
                                     @enderror
                                 </div>
                             </div>
@@ -64,7 +63,6 @@
                                            value="{{ old('country') }}">
                                     @error('country')
                                     <div class="text-danger">{{ $message }}</div>
-
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
@@ -73,7 +71,6 @@
                                            value="{{ old('city') }}">
                                     @error('city')
                                     <div class="text-danger">{{ $message }}</div>
-
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
@@ -82,7 +79,6 @@
                                            value="{{ old('street') }}">
                                     @error('street')
                                     <div class="text-danger">{{ $message }}</div>
-
                                     @enderror
                                 </div>
                             </div>
@@ -94,7 +90,6 @@
                                            required>
                                     @error('password')
                                     <div class="text-danger">{{ $message }}</div>
-
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
@@ -109,7 +104,6 @@
                                 <input class="form-control" name="image" type="file" id="formFileMultiple" multiple>
                                 @error('image')
                                 <div class="text-danger">{{ $message }}</div>
-
                                 @enderror
                             </div>
 
