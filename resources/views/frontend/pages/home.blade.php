@@ -20,7 +20,7 @@
                         @foreach($latest_three_posts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img style="height: 380px; width: 510px;" src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
+                                    <img style="height: 380px; width: 540px;" src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
                                     </div>
@@ -37,7 +37,7 @@
                         @foreach($four_posts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img style="width: 270px; height: 140px;" src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
+                                    <img style="width: 270px; height: 165px;" src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
                                     </div>
@@ -60,7 +60,6 @@
                         <h2>{{@$category->name}}</h2>
                         <div class="row cn-slider">
                             @foreach($category->posts as $post)
-
                                 <div class="col-md-6">
                                     <div class="cn-img">
                                         <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>

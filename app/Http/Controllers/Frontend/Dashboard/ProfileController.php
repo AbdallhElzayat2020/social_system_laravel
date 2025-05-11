@@ -9,14 +9,16 @@ use App\Utils\imageManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('frontend.dashboard.profile');
+        $posts = auth()->user()->posts()->active()->latest()->with(['images'])->get();
+
+        return view('frontend.dashboard.profile', compact('posts'));
     }
 
     public function storePost(PostRequest $request)
@@ -44,6 +46,37 @@ class ProfileController extends Controller
 
         Session::flash('success', 'Post Created Successfully');
         return redirect()->back();
+
+    }
+
+    public function deletePost(Request $request)
+    {
+        $post = Post::where('slug', $request->slug)->firstOrFail();
+
+
+        if (!$post) {
+            abort(404);
+        }
+
+        if ($post->images->count() > 0) {
+
+            foreach ($post->images as $image) {
+
+                $imagePath = public_path($image->path);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+        }
+
+        $post->delete();
+
+        return redirect()->back()->with('success', 'Post Deleted Successfully');
+
+    }
+
+    public function editPost($slug)
+    {
 
     }
 }

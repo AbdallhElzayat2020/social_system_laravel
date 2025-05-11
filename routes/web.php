@@ -46,10 +46,12 @@ Route::group([
     /*  User Profile Routes & Notifications & Settings   */
     Route::prefix('account/')->name('dashboard.')->middleware(['auth:web', 'verified'])->group(function () {
 
-        /* profile Routes */
+        /* Manage profile Routes */
         Route::controller(ProfileController::class)->group(function () {
             Route::get('/profile', 'index')->name('profile');
             Route::post('/post', 'storePost')->name('post.store');
+            Route::get('/post/{slug}', 'editPost')->name('post.edit');
+            Route::delete('/post/delete', 'deletePost')->name('post.delete');
         });
 
     });
