@@ -94,7 +94,8 @@
                     </div>
                     <a href="{{ route('frontend.contact.index') }}" class="nav-item nav-link">Contact Us</a>
 
-                    <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
+                    <a href="{{ route('frontend.dashboard.profile') }}" class="nav-item nav-link">Dashboard</a>
+
 
                 </div>
                 <div class="social ml-auto">

@@ -74,7 +74,7 @@ class RegisteredUserController extends Controller
 
         Session::flash('success', 'Registration successful!');
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('frontend.dashboard.profile', absolute: false));
 
     }
 }

@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         //flash message for Login
         $request->session()->flash('success', 'Welcome back, ' . Auth::user()->name . '!');
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('frontend.dashboard.profile', absolute: false));
     }
 
     /**

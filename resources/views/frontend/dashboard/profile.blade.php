@@ -10,15 +10,15 @@
         <aside class="col-md-3 nav-sticky dashboard-sidebar">
             <!-- User Info Section -->
             <div class="user-info text-center p-3">
-                <img src="{{asset('uploads/users/abdallh-elzayat1746861120.png')}}" alt="User Image" class="rounded-circle mb-2"
+                <img src="{{asset(auth()->guard('web')->user()->image)}}" alt="User Image" class="rounded-circle mb-2"
                      style="width: 80px; height: 80px; object-fit: cover"/>
-                <h5 class="mb-0" style="color: #ff6f61">Salem Taha</h5>
+                <h5 class="mb-0" style="color: #ff6f61">{{auth()->guard('web')->user()->name}}</h5>
             </div>
 
             <!-- Sidebar Menu -->
             <div class="list-group profile-sidebar-menu">
-                <a href="./dashboard.html" class="list-group-item list-group-item-action active menu-item" data-section="profile">
-                    <i class="fas fa-user"></i> Profile
+                <a href="{{ route('frontend.dashboard.profile') }}" class="list-group-item list-group-item-action active menu-item"
+                   data-section="profile"> <i class="fas fa-user"></i> Profile
                 </a>
                 <a href="./notifications.html" class="list-group-item list-group-item-action menu-item" data-section="notifications">
                     <i class="fas fa-bell"></i> Notifications
@@ -35,9 +35,9 @@
             <section id="profile" class="content-section active">
                 <h2>User Profile</h2>
                 <div class="user-profile mb-3">
-                    <img src="{{asset('uploads/users/abdallh-elzayat1746861120.png')}}" alt="User Image" class="profile-img rounded-circle"
+                    <img src="{{asset(auth()->guard('web')->user()->image)}}" alt="User Image" class="profile-img rounded-circle"
                          style="width: 100px; height: 100px;"/>
-                    <span class="username">Salem Taha</span>
+                    <span class="username">{{(auth()->guard('web')->user()->name)}}</span>
                 </div>
                 <br>
 
@@ -83,7 +83,7 @@
                         <!-- Post Item -->
                         <div class="post-item mb-4 p-3 border rounded">
                             <div class="post-header d-flex align-items-center mb-2">
-                                <img src="{{asset('uploads/users/abdallh-elzayat1746861120.png')}}" alt="User Image" class="rounded-circle"
+                                <img src="{{asset('uploads/users/ali-20031746896952.png')}}" alt="User Image" class="rounded-circle"
                                      style="width: 50px; height: 50px;"/>
                                 <div class="ms-3">
                                     <h5 class="mb-0">Salem Taha</h5>
@@ -101,14 +101,14 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item  active">
-                                        <img src="{{asset('uploads/users/abdallh-elzayat1746861120.png')}}" class="d-block w-100" alt="First Slide">
+                                        <img src="{{asset('uploads/users/ali-20031746896952.png')}}" class="d-block w-100" alt="First Slide">
                                         <div class="carousel-caption d-none d-md-block">
                                             <h5>dsfdk</h5>
                                             <p>oookok</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item ">
-                                        <img src="{{asset('uploads/users/abdallh-elzayat1746861120.png')}}" class="d-block w-100" alt="First Slide">
+                                        <img src="{{asset('uploads/users/ali-20031746896952.png')}}" class="d-block w-100" alt="First Slide">
                                         <div class="carousel-caption d-none d-md-block">
                                             <h5>dsfdk</h5>
                                             <p>oookok</p>
@@ -144,7 +144,7 @@
                             <!-- Display Comments -->
                             <div class="comments">
                                 <div class="comment">
-                                    <img src="{{asset('uploads/users/abdallh-elzayat1746861120.png')}}" alt="User Image" class="comment-img"/>
+                                    <img src="{{asset('uploads/users/ali-20031746896952.png')}}" alt="User Image" class="comment-img"/>
                                     <div class="comment-content">
                                         <span class="username"></span>
                                         <p class="comment-text">first comment</p>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsSubscribersController;
@@ -8,6 +7,9 @@ use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\Frontend\Dashboard\ProfileController;
+use App\Http\Controllers\Frontend\Dashboard\SettingController;
+use App\Http\Controllers\Frontend\Dashboard\NotificationController;
 
 Route::group([
     'as' => 'frontend.',
@@ -41,8 +43,18 @@ Route::group([
     /* Search Posts */
     Route::match(['post', 'get'], 'search', SearchController::class)->name('search');
 
-    Route::get('test', function () {
-        return view('frontend.dashboard.profile');
+    /*  User Profile Routes & Notifications & Settings   */
+    Route::prefix('user/')->name('dashboard.')->middleware(['auth:web', 'verified'])->group(function () {
+
+        /* profile Routes */
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('/profile', 'index')->name('profile');
+            Route::get('/edit', 'edit')->name('edit');
+            Route::post('/update', 'update')->name('update');
+            Route::post('/change-password', 'changePassword')->name('change.password');
+        });
+
+
     });
 
 });
@@ -56,7 +68,6 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
