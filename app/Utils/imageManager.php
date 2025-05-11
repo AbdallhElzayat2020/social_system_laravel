@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class imageManager
 {
-    public static function uploadImages($request, $post)
+    public static function uploadImages($request, $post): void
     {
         if ($request->hasFile('images')) {
 

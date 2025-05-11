@@ -24,7 +24,7 @@
                                     <i class="fas fa-sign-out-alt"></i> Logout
                                 </a>
                             </form>
-                            <a href="{{ route('profile.edit') }}"><i class="fas fa-user"></i> Profile</a>
+                            <a href="{{ route('frontend.dashboard.profile') }}"><i class="fas fa-user"></i> Profile</a>
                         </div>
                     @endauth
                 </div>

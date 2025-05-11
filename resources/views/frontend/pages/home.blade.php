@@ -140,8 +140,6 @@
 
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        {{--<img src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>--}}
-
                                         <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
@@ -159,8 +157,8 @@
                                         <img src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
                                     </div>
                                     <div class="tn-title">
-                                        <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->num_of_views}} <i
-                                                    class="fa-solid fa-eye"></i>)</a>
+                                        <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}} ({{$post->num_of_views}}
+                                            <i class="fa-solid fa-eye"></i>)</a>
                                     </div>
                                 </div>
                             @endforeach
@@ -182,7 +180,7 @@
                         @foreach($posts as $post)
                             <div class="col-md-4">
                                 <div class="mn-img">
-                                    <img style="width: 254px; height:134px " src="{{asset($post->images->first()->path)}}" alt="{{$post->title}}"/>
+                                    <img src="{{asset($post->images->first()->path)}}" style="width: 254px; height:134px" alt="{{$post->title}}"/>
                                     <div class="mn-title">
                                         <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
                                     </div>
@@ -201,7 +199,7 @@
                         <ul>
 
                             @foreach($read_more_posts as $post)
-                                <li><a href="">{{$post->title}}</a></li>
+                                <li><a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a></li>
                             @endforeach
 
                         </ul>

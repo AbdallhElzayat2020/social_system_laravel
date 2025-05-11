@@ -25,43 +25,47 @@
 
                             @foreach($mainPost->images as $key=> $image)
                                 <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                                    <img style=" height: 380px" src="{{asset($image->path)}}" class="d-block w-100" alt="{{$mainPost->title}}">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>{!! $mainPost->title !!}</h5>
-                                        <p>
-                                            {!! substr($mainPost->description, 0, 70) !!}
-                                        </p>
+                                    <img style="height: 300px" src="{{asset($image->path)}}" class="d-block w-100" alt="First Slide">
+                                    <div class="carousel-caption d-none d-md-block"
+                                         style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;">
+                                        <h5 style="color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">{!! $mainPost->title !!}</h5>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                         <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev"
-                           style="background: rgba(0,0,0,0.8); width: 40px; height: 40px; border-radius: 50%; margin-top: 170px;">
-                            <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: brightness(0) invert(1);"></span>
+                           style="background: linear-gradient(to right, rgba(0,0,0,0.8), transparent); width: 10%;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
                         <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next"
-                           style="background: rgba(0,0,0,0.8); width: 40px; height: 40px; border-radius: 50%; margin-top: 170px;">
-                            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: brightness(0) invert(1);"></span>
+                           style="background: linear-gradient(to left, rgba(0,0,0,0.5), transparent); width: 10%;">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
                     <div class="sn-content">
-                        {!! $mainPost->description !!}
+                        <div style="word-wrap: break-word;">{!! $mainPost->description !!}</div>
                     </div>
 
                     <!-- Comment Section -->
                     <div class="comment-section">
                         <!-- Comment Input -->
-                        <form action="{{ route('frontend.post.comments.store') }}" method="post" id="commentForm">
-                            <div class="comment-input">
-                                @csrf
-                                <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentInput"/>
-                                <input type="hidden" name="user_id" value="1">
-                                <input type="hidden" name="post_id" value="{{$mainPost->id}}">
-                                <button type="submit">Post</button>
+                        @if($mainPost->comment_able === true)
+                            <form action="{{ route('frontend.post.comments.store') }}" method="post" id="commentForm">
+                                <div class="comment-input">
+                                    @csrf
+                                    <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentInput"/>
+                                    <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                                    <input type="hidden" name="post_id" value="{{$mainPost->id}}">
+                                    <button type="submit">Post</button>
+                                </div>
+                            </form>
+                        @else
+                            <div class="alert alert-info">
+                                <strong>Info!</strong> Comments are disabled for this post.
                             </div>
-                        </form>
+                        @endif
 
                         <div style="display: none" id="errorMsg" class="alert alert-danger">
                             {{-- display errors--}}
@@ -81,7 +85,9 @@
                         </div>
 
                         <!-- Show More Button -->
-                        <button id="showMoreBtn" class="show-more-btn">Show more</button>
+                        @if($mainPost->comments->count() > 3)
+                            <button id="showMoreBtn" class="show-more-btn">Show more</button>
+                        @endif
                     </div>
 
                     <!-- Related News -->
@@ -92,9 +98,8 @@
 
                                 <div class="col-md-4">
                                     <div class="sn-img">
-                                        <img style="width: 254px; height:134px " src="{{asset($post->images->first()->path)}}"
+                                        <img src="{{$post->images->first()->path}}" class="img-fluid" title="{{$post->title}}"
                                              alt="{{$post->title}}"/>
-                                        alt="{{$post->title}}"/>
                                         <div class="sn-title">
                                             <a href="{{ route('frontend.post.show',$post->slug) }}" title="{{$post->title}}">{{$post->title}}</a>
                                         </div>
@@ -115,7 +120,7 @@
                                 @foreach($relatedPosts as $post)
                                     <div class="nl-item">
                                         <div class="nl-img">
-                                            <img src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
+                                            <img style="width: 90px; height:70px" src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
                                         </div>
                                         <div class="nl-title">
                                             <a href="{{ route('frontend.post.show',$post->slug) }}">{{$post->title}}</a>
@@ -144,7 +149,8 @@
                                         @foreach($latest_posts as $post)
                                             <div class="tn-news">
                                                 <div class="tn-img">
-                                                    <img src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
+                                                    <img style="width: 90px; height:70px" src="{{asset($post->images->first()->path)}}"
+                                                         alt="{{$post->title}}"/>
                                                 </div>
                                                 <div class="tn-title">
                                                     <a href="{{ route('frontend.post.show',$post->slug) }}" title="{{$post->title}}">
@@ -159,7 +165,8 @@
                                         @foreach($popular_posts_comments as $post)
                                             <div class="tn-news">
                                                 <div class="tn-img">
-                                                    <img src="{{$post->images->first()->path}}" alt="{{$post->title}}"/>
+                                                    <img style="width: 90px; height:70px" src="{{$post->images->first()->path}}"
+                                                         alt="{{$post->title}}"/>
                                                 </div>
                                                 <div class="tn-title">
                                                     <a href="{{ route('frontend.post.show',$post->slug) }}" title="{{$post->title}}">
