@@ -81,9 +81,9 @@
                             <!-- Category Dropdown -->
                             <select id="postCategory" name="category_id" class="form-select my-2">
                                 {{-- categories comming from ViewServicesProvider --}}
-                                <option value="" disabled selected>Select Category</option>
+                                <option value="" selected>Select Category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option @selected(old('category_id', $category->id) == $category->id) value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                             @error('category_id')
@@ -91,7 +91,7 @@
                             @enderror
 
                             <!-- Enable Comments Checkbox -->
-                            <label class="form-check-label mb-2" style="margin-left: 20px">
+                            <label class="form-check-label mb-2 mt-3" style="margin-left: 20px">
                                 <input type="checkbox" name="comment_able" class="form-check-input"/> Enable Comments
                             </label><br>
                             @error('comment_able')
