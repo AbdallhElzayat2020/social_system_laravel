@@ -14,14 +14,16 @@ class PostController extends Controller
         $mainPost = Post::active()->with(['comments' => function ($query) {
             $query->latest()->limit(3);
         }])->whereSlug($slug)->first();
-        $category = $mainPost->category;
 
+        $category = $mainPost->category;
 
         $relatedPosts = $category->posts()
             ->select('id', 'slug', 'title')
             ->limit(5)
             ->latest()
             ->get();
+
+        $mainPost->increment('num_of_views');
 
         return view('frontend.pages.show-post', compact('mainPost', 'relatedPosts'));
     }

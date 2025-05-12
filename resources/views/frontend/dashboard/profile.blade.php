@@ -172,8 +172,15 @@
                                             <i class="fas fa-thumbs-up"></i> Delete
                                         </a>
 
-                                        <button class="btn getComments btn-sm btn-outline-secondary" post-id="{{$post->id}}">
+                                        <button id="commentbtn_{{$post->id}}" class="btn getComments btn-sm btn-outline-secondary"
+                                                post-id="{{$post->id}}">
                                             <i class="fas fa-comment"></i> Comments
+                                        </button>
+
+                                        <button style="display: none" id="hideCommentId_{{$post->id}}"
+                                                class="btn hideComments btn-sm btn-outline-danger"
+                                                post-id="{{$post->id}}">
+                                            <i class="fas fa-comment"></i> Hide Comments
                                         </button>
 
                                         <form id="deleteForm_{{$post->id}}" action="{{ route('frontend.dashboard.post.delete') }}" method="post">
@@ -213,7 +220,6 @@
     <br>
     <!-- Profile End -->
 @endsection
-
 @push('js')
     <script>
         $(function () {
@@ -223,36 +229,60 @@
                 maxFileCount: 3,
                 enableResumableUpload: false,
                 showUpload: false,
-            })
-
+            });
 
             $('#postContent').summernote({
                 height: 300,
             });
 
-            /* get post comments */
+            /* Show Comments */
             $(document).on('click', '.getComments', function (e) {
                 e.preventDefault();
                 let postId = $(this).attr('post-id');
 
                 $.ajax({
                     type: 'GET',
-                    url: '{{route('frontend.dashboard.post.get-comments',":postId")}}'.replace(':postId', postId),
-
+                    url: '{{ route('frontend.dashboard.post.get-comments', ':postId') }}'.replace(':postId', postId),
                     success: function (response) {
-                        $.each(response.data, function (index, comment) {
-                            $('#displayComments_' + postId).append(`
-                                 <div class="comment mt-4">
-                                    <img src="${comment.user.image}" alt="User Image" class="comment-img"/>
+                        let commentContainer = $('#displayComments_' + postId);
+                        commentContainer.empty();
+
+                        if (response.data.length > 0) {
+                            $.each(response.data, function (index, comment) {
+                                commentContainer.append(`
+                                <div class="comment mt-4">
+                                    <img src="{{ asset('') }}${comment.user.image}" alt="User Image" class="comment-img"/>
                                     <div class="comment-content">
                                         <span class="username">${comment.user.name}</span>
                                         <p class="comment-text">${comment.comment}</p>
                                     </div>
                                 </div>
-                                `).show();
-                        });
+                            `);
+                            });
+                        } else {
+                            commentContainer.append(`
+                            <div class="alert alert-info">No comments found for this post.</div>
+                        `);
+                        }
+
+                        commentContainer.slideDown();
+                        $('#commentbtn_' + postId).hide();
+                        $('#hideCommentId_' + postId).show();
+                    },
+                    error: function () {
+                        alert('Error loading comments.');
                     }
-                })
+                });
+            });
+
+            /* Hide Comments */
+            $(document).on('click', '.hideComments', function (e) {
+                e.preventDefault();
+                const postId = $(this).attr('post-id');
+
+                $('#displayComments_' + postId).slideUp();
+                $('#hideCommentId_' + postId).hide();
+                $('#commentbtn_' + postId).show();
             });
         });
     </script>
