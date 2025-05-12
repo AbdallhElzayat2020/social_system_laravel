@@ -63,6 +63,9 @@ Route::group([
             Route::get('settings', 'index')->name('settings');
             Route::post('settings/update', 'update')->name('settings.update');
         });
+        Route::controller(NotificationController::class)->group(function () {
+
+        });
 
     });
 

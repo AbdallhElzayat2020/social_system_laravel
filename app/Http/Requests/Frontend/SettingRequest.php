@@ -23,13 +23,14 @@ class SettingRequest extends FormRequest
     {
 
         return [
-            'name' => ['required', 'string', 'max:60', 'max:3'],
-            'username' => ['required', 'string', 'min:3'],
-            'email' => ['required', 'email', 'max:100', 'unique:users,email'],
-            'phone' => ['required', 'numeric', 'max:20'],
-            'country' => ['nullable', 'string', 'min:2', 'max:20'],
-            'city' => ['nullable', 'string', 'min:2', 'max:20'],
-            'street' => ['nullable', 'string', 'min:2', 'max:20'],
+            'name' => ['required', 'string', 'max:100', 'min:3'],
+            'username' => ['required', 'string', 'min:3', 'unique:users,username,' . $this->user()->id],
+            'email' => ['required', 'email', 'max:100', 'unique:users,email,' . $this->user()->id],
+            'phone' => ['required', 'string', 'min:5', 'max:30', 'unique:users,phone,' . $this->user()->id],
+
+            'country' => ['nullable', 'string', 'min:2', 'max:50'],
+            'city' => ['nullable', 'string', 'min:2', 'max:50'],
+            'street' => ['nullable', 'string', 'min:2', 'max:50'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }

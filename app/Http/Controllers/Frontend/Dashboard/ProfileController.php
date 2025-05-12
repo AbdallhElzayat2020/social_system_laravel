@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Utils\imageManager;
+use App\Utils\ImageManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 
@@ -20,7 +19,8 @@ class ProfileController extends Controller
     {
         $posts = auth()->user()->posts()->active()->latest()->with(['images'])->get();
 
-        return view('frontend.dashboard.profile', compact('posts'));
+        $user = auth()->user();
+        return view('frontend.dashboard.profile', compact('posts', 'user'));
     }
 
     public function storePost(PostRequest $request)
@@ -34,7 +34,7 @@ class ProfileController extends Controller
             $post = auth()->user()->posts()->create($request->except('images'));
 
             // upload images from imageManager File
-            imageManager::uploadImages($request, $post);
+            ImageManager::uploadImages($request, $post);
 
             DB::commit();
 
@@ -56,7 +56,7 @@ class ProfileController extends Controller
         try {
 
             $post = Post::where('slug', $request->slug)->firstOrFail();
-            imageManager::deleteImages($post);
+            ImageManager::deleteImages($post);
             $post->delete();
             return redirect()->back()->with('success', 'Post Deleted Successfully');
 

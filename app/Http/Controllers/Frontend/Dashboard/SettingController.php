@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Frontend\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\SettingRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use App\Utils\ImageManager;
 
 class SettingController extends Controller
 {
@@ -19,10 +18,13 @@ class SettingController extends Controller
     public function update(SettingRequest $request)
     {
         $request->validated();
-        $user = User::findOrFail(auth()->user()->id);
-        $user->update([
-            $request->except(['image'])
-        ]);
+
+        $user = User::findOrFail(auth()->id());
+
+        $user->update($request->except('image'));
+
+        ImageManager::uploadImages($request, null, $user);
+
         return redirect()->back()->with('success', 'Your profile has been updated successfully');
     }
 }

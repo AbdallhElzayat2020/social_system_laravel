@@ -12,11 +12,13 @@
            class="list-group-item list-group-item-action menu-item {{ request()->routeIs('frontend.dashboard.profile') ? 'active' : '' }}"
            data-section="profile"> <i class="fas fa-user"></i> Profile
         </a>
-        <a href="./notifications.html"
+
+        <a href=""
            class="list-group-item list-group-item-action menu-item {{ request()->routeIs('frontend.dashboard.notifications') ? 'active' : '' }}"
            data-section="notifications">
             <i class="fas fa-bell"></i> Notifications
         </a>
+
         <a href="{{ route('frontend.dashboard.settings') }}"
            class="list-group-item list-group-item-action menu-item {{ request()->routeIs('frontend.dashboard.settings') ? 'active' : '' }}"
            data-section="settings">

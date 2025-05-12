@@ -53,7 +53,6 @@ class PostController extends Controller
             'comment' => $request->comment,
         ]);
 
-
         $comment->load('user');
 
         if (!$comment) {

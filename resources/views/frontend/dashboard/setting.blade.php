@@ -109,7 +109,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input name="name" type="text" id="username" value="{{$user->name}}" placeholder="Enter your Name"/>
+                        <input name="name" type="text" id="name" value="{{$user->name}}" placeholder="Enter your Name"/>
                         @error('name')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -117,7 +117,7 @@
                     <div class="form-group">
                         <label for="username">Username:</label>
                         <input name="username" type="text" id="username" value="{{$user->username}}" placeholder="Enter your username"/>
-                        @error('$user')
+                        @error('username')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
