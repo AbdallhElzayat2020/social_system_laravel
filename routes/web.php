@@ -59,6 +59,11 @@ Route::group([
             Route::get('/post/get-comments/{id}', 'getComments')->name('post.get-comments');
         });
 
+        Route::controller(SettingController::class)->group(function () {
+            Route::get('settings', 'index')->name('settings');
+            Route::post('settings/update', 'update')->name('settings.update');
+        });
+
     });
 
 });
@@ -75,5 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('test', function () {
+    return view('frontend.dashboard.setting');
+});
 require __DIR__ . '/auth.php';

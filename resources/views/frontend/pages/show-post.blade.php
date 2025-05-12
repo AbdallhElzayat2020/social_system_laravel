@@ -7,6 +7,7 @@
     <li class="breadcrumb-item active">{{$mainPost->title}}</li>
 @endsection
 <!-- Breadcrumb End -->
+
 @section('content')
 
     <!-- Single News Start-->
