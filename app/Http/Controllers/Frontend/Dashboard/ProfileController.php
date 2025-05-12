@@ -52,27 +52,21 @@ class ProfileController extends Controller
 
     public function deletePost(Request $request)
     {
-        $post = Post::where('slug', $request->slug)->firstOrFail();
+        try {
 
+            DB::beginTransaction();
+            $post = Post::where('slug', $request->slug)->firstOrFail();
+            imageManager::deleteImages($post);
+            $post->delete();
+            DB::commit();
+            return redirect()->back()->with('success', 'Post Deleted Successfully');
 
-        if (!$post) {
-            abort(404);
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
 
-        if ($post->images->count() > 0) {
-
-            foreach ($post->images as $image) {
-
-                $imagePath = public_path($image->path);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-            }
-        }
-
-        $post->delete();
-
-        return redirect()->back()->with('success', 'Post Deleted Successfully');
 
     }
 

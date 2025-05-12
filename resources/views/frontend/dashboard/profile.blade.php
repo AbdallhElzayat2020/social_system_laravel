@@ -121,7 +121,7 @@
                                 </div>
                                 <h4 class="post-title" style="word-wrap: break-word;">{{$post->title}}</h4>
                                 <p class="post-content" style="word-wrap: break-word !important; overflow-wrap: break-word; white-space: pre-wrap;">
-                                    {!! $post->description !!}
+                                    {!! chunk_split($post->description , 60) !!}
                                 </p>
 
                                 <div id="newsCarousel" class="carousel slide" data-ride="carousel">
@@ -157,8 +157,8 @@
                                     <div class="post-stats">
                                         <!-- View Count -->
                                         <span class="me-3">
-                                  <i class="fas fa-eye"></i> {{$post->num_of_views}}
-                              </span>
+                                        <i class="fas fa-eye"></i> {{$post->num_of_views}}
+                                        </span>
                                     </div>
                                     <div>
                                         <a href="{{ route('frontend.dashboard.post.edit',$post->slug) }}" class="btn btn-sm btn-outline-primary">

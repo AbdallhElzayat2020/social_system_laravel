@@ -9,8 +9,8 @@
 {{-- fileInput js --}}
 <script src="{{asset('assets/vendor/file-input/js/fileinput.min.js')}}"></script>
 <script src="{{asset('assets/vendor/file-input/themes/fa5/theme.min.js')}}"></script>
-{{-- summernote Plugine --}}
 
+{{-- summernote Plugine --}}
 <script src="{{asset('assets/vendor/summernote/summernote-bs4.min.js')}}"></script>
 
 
