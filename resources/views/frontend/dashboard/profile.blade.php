@@ -185,7 +185,7 @@
                                 </div>
 
                                 <!-- Display Comments -->
-                                <div class="comments">
+                                <div id="displayComments_{{$post->id}}" class="comments mt-3" style="display: none">
                                     <div class="comment">
                                         <img src="{{asset('uploads/users/ali-20031746896952.png')}}" alt="User Image" class="comment-img"/>
                                         <div class="comment-content">
@@ -239,8 +239,18 @@
                     type: 'GET',
                     url: '{{route('frontend.dashboard.post.get-comments',":postId")}}'.replace(':postId', postId),
 
-                    success: function (data) {
-                        console.log(data)
+                    success: function (response) {
+                        $.each(response.data, function (index, comment) {
+                            $('#displayComments_' + postId).append(`
+                                 <div class="comment mt-4">
+                                    <img src="${comment.user.image}" alt="User Image" class="comment-img"/>
+                                    <div class="comment-content">
+                                        <span class="username">${comment.user.name}</span>
+                                        <p class="comment-text">${comment.comment}</p>
+                                    </div>
+                                </div>
+                                `).show();
+                        });
                     }
                 })
             });
