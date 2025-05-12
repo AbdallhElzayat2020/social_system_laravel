@@ -49,9 +49,14 @@ Route::group([
         /* Manage profile Routes */
         Route::controller(ProfileController::class)->group(function () {
             Route::get('/profile', 'index')->name('profile');
+            /* store post */
             Route::post('/post', 'storePost')->name('post.store');
+            /* edit post  */
             Route::get('/post/{slug}', 'editPost')->name('post.edit');
+            /* update post */
             Route::delete('/post/delete', 'deletePost')->name('post.delete');
+            /* get comments  */
+            Route::get('/post/get-comments/{id}', 'getComments')->name('post.get-comments');
         });
 
     });

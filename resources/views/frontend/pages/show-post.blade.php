@@ -51,7 +51,7 @@
                     <!-- Comment Section -->
                     <div class="comment-section">
                         <!-- Comment Input -->
-                        @if($mainPost->comment_able === true)
+                        @if($mainPost->comment_able == true)
                             <form action="{{ route('frontend.post.comments.store') }}" method="post" id="commentForm">
                                 <div class="comment-input">
                                     @csrf
@@ -74,7 +74,7 @@
                         <div class="comments">
                             @foreach($mainPost->comments as $comment)
                                 <div class="comment">
-                                    <img src="{{$comment->user->image}}" alt="User Image" class="comment-img"/>
+                                    <img src="{{asset($comment->user->image)}}" alt="User Image" class="comment-img"/>
                                     <div class="comment-content">
                                         <span class="username">{{@$comment->user->name}}</span>
                                         <p class="comment-text">{{@$comment->comment}}</p>

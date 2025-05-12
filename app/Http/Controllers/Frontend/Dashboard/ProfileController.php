@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Utils\imageManager;
 use Illuminate\Http\Request;
@@ -54,16 +55,12 @@ class ProfileController extends Controller
     {
         try {
 
-            DB::beginTransaction();
             $post = Post::where('slug', $request->slug)->firstOrFail();
             imageManager::deleteImages($post);
             $post->delete();
-            DB::commit();
             return redirect()->back()->with('success', 'Post Deleted Successfully');
 
         } catch (\Exception $e) {
-
-            DB::rollBack();
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
 
@@ -72,6 +69,25 @@ class ProfileController extends Controller
 
     public function editPost($slug)
     {
+
+    }
+
+    public function getComments($id)
+    {
+//        $post = Post::findOrFail($id);
+//        $comments = $post->comments->get();
+
+//        return $id;
+        $comments = Comment::with(['user'])->where('post_id', $id)->get();
+        if (!$comments) {
+            return response()->json([
+                'data' => null,
+                'message' => 'No Comments Found'
+            ]);
+        }
+        return response()->json([
+            'data' => $comments,
+        ]);
 
     }
 }

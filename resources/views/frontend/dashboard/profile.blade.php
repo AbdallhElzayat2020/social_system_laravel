@@ -172,7 +172,9 @@
                                             <i class="fas fa-thumbs-up"></i> Delete
                                         </a>
 
-                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-comment"></i> Comments</button>
+                                        <button class="btn getComments btn-sm btn-outline-secondary" post-id="{{$post->id}}">
+                                            <i class="fas fa-comment"></i> Comments
+                                        </button>
 
                                         <form id="deleteForm_{{$post->id}}" action="{{ route('frontend.dashboard.post.delete') }}" method="post">
                                             @csrf
@@ -226,6 +228,21 @@
 
             $('#postContent').summernote({
                 height: 300,
+            });
+
+            /* get post comments */
+            $(document).on('click', '.getComments', function (e) {
+                e.preventDefault();
+                let postId = $(this).attr('post-id');
+
+                $.ajax({
+                    type: 'GET',
+                    url: '{{route('frontend.dashboard.post.get-comments',":postId")}}'.replace(':postId', postId),
+
+                    success: function (data) {
+                        console.log(data)
+                    }
+                })
             });
         });
     </script>
