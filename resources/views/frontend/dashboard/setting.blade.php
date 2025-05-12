@@ -168,19 +168,29 @@
 
                 <hr class="my-4"/>
 
-                <form class="change-password-form">
+                <form action="{{ route('frontend.dashboard.settings.changePassword') }}" method="post" class="change-password-form">
+                    @csrf
                     <h2>Change Password</h2>
                     <div class="form-group">
                         <label for="current-password">Current Password:</label>
-                        <input type="password" id="current-password" placeholder="Enter Current Password"/>
+                        <input type="password" name="current_password" id="current-password" placeholder="Enter Current Password"/>
+                        @error('current_password')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="new-password">New Password:</label>
-                        <input type="password" id="new-password" placeholder="Enter New Password"/>
+                        <input type="password" name="password" id="new-password" placeholder="Enter New Password"/>
+                        @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="confirm-password">Confirm New Password:</label>
-                        <input type="password" id="confirm-password" placeholder="Enter Confirm New Password"/>
+                        <input type="password" name="password_confirmation" id="confirm-password" placeholder="Enter Confirm New Password"/>
+                        @error('password_confirmation')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <button type="submit" class="change-password-btn">Change Password</button>
                 </form>

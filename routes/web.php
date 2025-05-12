@@ -59,9 +59,10 @@ Route::group([
             Route::get('/post/get-comments/{id}', 'getComments')->name('post.get-comments');
         });
 
-        Route::controller(SettingController::class)->group(function () {
-            Route::get('settings', 'index')->name('settings');
-            Route::post('settings/update', 'update')->name('settings.update');
+        Route::controller(SettingController::class)->prefix('settings')->group(function () {
+            Route::get('/', 'index')->name('settings');
+            Route::post('/update', 'update')->name('settings.update');
+            Route::post('/change-password', 'changePassword')->name('settings.changePassword');
         });
         Route::controller(NotificationController::class)->group(function () {
 
