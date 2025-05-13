@@ -23,12 +23,10 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'min:3', 'max:100'],
-//            'slug' => ['required', 'string', 'max:255', 'unique:posts,slug'],
             'description' => ['required', 'string', 'min:3'],
             'category_id' => ['required', 'exists:categories,id'],
             'comment_able' => ['nullable', 'in:on,off'],
-//            'status' => ['required', 'in:active,inactive'],
-            'images' => ['required'],
+            'images' => ['nullable'],
             'images.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }

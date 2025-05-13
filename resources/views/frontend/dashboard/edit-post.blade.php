@@ -9,6 +9,16 @@
 
         <!-- Main Content -->
         <div class="main-content col-md-9">
+            {{-- Validation errors--}}
+            @if(session()->has('errors'))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach(session('errors')->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <!-- Show/Edit Post Section -->
             <form action="{{ route('frontend.dashboard.post.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -20,7 +30,7 @@
                         <li class="post-item">
                             <!-- Editable Title -->
                             <input type="text" name="title" class="form-control mb-2 post-title" value="{{old('title',$post->title)}}"/>
-
+                            <input type="hidden" name="post_id" value="{{$post->id}}"/>
                             <!-- Editable Content -->
                             <textarea id="post-description" name="description"
                                       class="form-control mb-2 post-content">{!! $post->description !!}</textarea>
@@ -89,15 +99,15 @@
                 @endif
             ],
             initialPreviewConfig: [
-                @if($post->images->count() > 0)
+                    @if($post->images->count() > 0)
                     @foreach($post->images as $image)
-                        {
-                            caption: '{{$image->path}}',
-                            width: '120px',
-                            url: '{{route('frontend.dashboard.post.image.delete', [$image->id , '_token'=> csrf_token()])}}',
-                            key: {{$image->id}},
-                        },
-                     @endforeach
+                {
+                    caption: '{{$image->path}}',
+                    width: '120px',
+                    url: '{{route('frontend.dashboard.post.image.delete', [$image->id , '_token'=> csrf_token()])}}',
+                    key: {{$image->id}},
+                },
+                @endforeach
                 @endif
 
             ]

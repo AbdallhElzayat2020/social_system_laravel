@@ -94,9 +94,30 @@ class ProfileController extends Controller
         return view('frontend.dashboard.edit-post', compact('post', 'user'));
     }
 
-    public function updatePost(Request $request)
+    public function updatePost(PostRequest $request)
     {
-        return $request;
+        $request->validated();
+        $post = Post::findOrFail($request->post_id);
+        $request->comment_able == 'on' ? $request->merge(['comment_able' => 1]) : $request->merge(['comment_able' => 0]);
+        $post->update($request->except('images', '_token', 'post_id'));
+
+        if ($request->hasFile('images')) {
+            // delete old images from local
+            if ($post->images->count() > 0) {
+                foreach ($post->images as $image) {
+                    ImageManager::deleteImageFromLocal($image->path);
+                    $image->delete();
+                }
+
+            }
+
+            // store new images
+            ImageManager::uploadImages($request, $post, null);
+        }
+
+        Session::flash('success', 'Post Updated Successfully');
+        return to_route('frontend.dashboard.profile');
+
     }
 
     public function deletePostImage(Request $request, $image_id)
@@ -110,10 +131,6 @@ class ProfileController extends Controller
             ]);
         };
 
-        // delete image from local
-//        if (File::exists(public_path($image->path))) {
-//            File::delete(public_path($image->path));
-//        }
         ImageManager::deleteImageFromLocal($image->path);
         // delete image from database
         $image->delete();
