@@ -17,8 +17,10 @@ Route::group([
 
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
+    /* Subscribers */
     Route::post('news-subscribers', [NewsSubscribersController::class, 'store'])->name('news.subscribers');
 
+    /* show single Category */
     Route::get('category/{slug}', CategoryController::class)->name('category.posts');
 
     /* Contact Routes */
@@ -57,6 +59,8 @@ Route::group([
             Route::get('/post/{slug}/edit', 'showEditPost')->name('post.edit');
             /* Update post */
             Route::put('/post/update', 'updatePost')->name('post.update');
+            /* delete single image when edit post */
+            Route::post('/post/image/delete/{image_id}', 'deletePostImage')->name('post.image.delete');
             /* get comments  */
             Route::get('/post/get-comments/{id}', 'getComments')->name('post.get-comments');
         });
@@ -67,6 +71,8 @@ Route::group([
             Route::post('/update', 'update')->name('settings.update');
             Route::post('/change-password', 'changePassword')->name('settings.changePassword');
         });
+
+        /* Notification Routes */
         Route::controller(NotificationController::class)->group(function () {
 
         });

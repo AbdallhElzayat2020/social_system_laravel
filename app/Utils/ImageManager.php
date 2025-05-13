@@ -52,18 +52,18 @@ class ImageManager
         }
     }
 
-    private static function generateImageName($image): string
+    public static function generateImageName($image): string
     {
         return $imageName = Str::uuid() . '_' . time() . '.' . $image->getClientOriginalExtension();
     }
 
-    private static function storeImageInLocal($image, $path, $filename): string
+    public static function storeImageInLocal($image, $path, $filename): string
     {
         return $path = $image->storeAs('uploads/' . $path, $filename, 'uploads');
 
     }
 
-    private static function deleteImageFromLocal($image_path): void
+    public static function deleteImageFromLocal($image_path): void
     {
         if (File::exists(public_path($image_path))) {
             File::delete(public_path($image_path));

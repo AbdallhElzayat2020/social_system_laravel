@@ -208,7 +208,7 @@
             $('#postImage').fileinput({
                 theme: 'fa5',
                 allowFileTypes: ['jpg', 'png', 'jpeg'],
-                maxFileCount: 3,
+                maxFileCount: 4,
                 enableResumableUpload: false,
                 showUpload: false,
             });

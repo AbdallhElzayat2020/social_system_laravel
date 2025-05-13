@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Frontend\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Comment;
+use App\Models\Image;
 use App\Models\Post;
 use App\Utils\ImageManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 
@@ -95,5 +97,31 @@ class ProfileController extends Controller
     public function updatePost(Request $request)
     {
         return $request;
+    }
+
+    public function deletePostImage(Request $request, $image_id)
+    {
+        $image = Image::find($request->key);
+
+        if (!$image) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Image Not Found'
+            ]);
+        };
+
+        // delete image from local
+//        if (File::exists(public_path($image->path))) {
+//            File::delete(public_path($image->path));
+//        }
+        ImageManager::deleteImageFromLocal($image->path);
+        // delete image from database
+        $image->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Image Deleted Successfully'
+        ]);
+
     }
 }
