@@ -27,12 +27,12 @@ class ProfileController extends Controller
 
     public function storePost(PostRequest $request)
     {
+        $request->validated();
+
         try {
             DB::beginTransaction();
 
-            $request->validated();
-            $request->comment_able == 'on' ? $request->merge(['comment_able' => 1]) : $request->merge(['comment_able' => 0]);
-
+            $this->commentAble($request);
             $post = auth()->user()->posts()->create($request->except('images'));
 
             // upload images from imageManager File
@@ -60,6 +60,11 @@ class ProfileController extends Controller
             $post = Post::where('slug', $request->slug)->firstOrFail();
             ImageManager::deleteImages($post);
             $post->delete();
+
+            Cache::forget('latest_posts');
+            Cache::forget('read_more_posts');
+            Cache::forget('popular_posts_comments');
+
             return redirect()->back()->with('success', 'Post Deleted Successfully');
 
         } catch (\Exception $e) {
@@ -97,22 +102,20 @@ class ProfileController extends Controller
     public function updatePost(PostRequest $request)
     {
         $request->validated();
-        $post = Post::findOrFail($request->post_id);
-        $request->comment_able == 'on' ? $request->merge(['comment_able' => 1]) : $request->merge(['comment_able' => 0]);
-        $post->update($request->except('images', '_token', 'post_id'));
+        try {
+            DB::beginTransaction();
+            $post = Post::findOrFail($request->post_id);
+            $this->commentAble($request);
+            $post->update($request->except('images', '_token', 'post_id'));
 
-        if ($request->hasFile('images')) {
-            // delete old images from local
-            if ($post->images->count() > 0) {
-                foreach ($post->images as $image) {
-                    ImageManager::deleteImageFromLocal($image->path);
-                    $image->delete();
-                }
-
+            if ($request->hasFile('images')) {
+                ImageManager::deleteImages($post);
+                ImageManager::uploadImages($request, $post);
             }
-
-            // store new images
-            ImageManager::uploadImages($request, $post, null);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
 
         Session::flash('success', 'Post Updated Successfully');
@@ -140,5 +143,14 @@ class ProfileController extends Controller
             'message' => 'Image Deleted Successfully'
         ]);
 
+    }
+
+
+    /*
+     * ==================== in line Functions =================== 
+     */
+    private function commentAble($request)
+    {
+        $request->comment_able == 'on' ? $request->merge(['comment_able' => 1]) : $request->merge(['comment_able' => 0]);
     }
 }

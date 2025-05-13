@@ -48,6 +48,7 @@ class ImageManager
 
             foreach ($post->images as $image) {
                 self::deleteImageFromLocal($image->path);
+                $image->delete();
             }
         }
     }
