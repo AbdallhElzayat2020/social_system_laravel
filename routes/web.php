@@ -51,14 +51,17 @@ Route::group([
             Route::get('/profile', 'index')->name('profile');
             /* store post */
             Route::post('/post', 'storePost')->name('post.store');
-            /* edit post  */
-            Route::get('/post/{slug}', 'editPost')->name('post.edit');
-            /* update post */
+            /* delete post */
             Route::delete('/post/delete', 'deletePost')->name('post.delete');
+            /* Update post */
+            Route::get('/post/{slug}/edit', 'showEditPost')->name('post.edit');
+            /* Update post */
+            Route::put('/post/update', 'updatePost')->name('post.update');
             /* get comments  */
             Route::get('/post/get-comments/{id}', 'getComments')->name('post.get-comments');
         });
 
+        /* setting Routes */
         Route::controller(SettingController::class)->prefix('settings')->group(function () {
             Route::get('/', 'index')->name('settings');
             Route::post('/update', 'update')->name('settings.update');

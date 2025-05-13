@@ -8,18 +8,18 @@
 
     <!-- Sidebar Menu -->
     <div class="list-group profile-sidebar-menu">
-        <a href="{{ route('frontend.dashboard.profile') }}"
+        <a title="Profile" href="{{ route('frontend.dashboard.profile') }}"
            class="list-group-item list-group-item-action menu-item {{ request()->routeIs('frontend.dashboard.profile') ? 'active' : '' }}"
            data-section="profile"> <i class="fas fa-user"></i> Profile
         </a>
 
-        <a href=""
+        <a title="Notifications" href=""
            class="list-group-item list-group-item-action menu-item {{ request()->routeIs('frontend.dashboard.notifications') ? 'active' : '' }}"
            data-section="notifications">
             <i class="fas fa-bell"></i> Notifications
         </a>
 
-        <a href="{{ route('frontend.dashboard.settings') }}"
+        <a title="Settings" href="{{ route('frontend.dashboard.settings') }}"
            class="list-group-item list-group-item-action menu-item {{ request()->routeIs('frontend.dashboard.settings') ? 'active' : '' }}"
            data-section="settings">
             <i class="fas fa-cog"></i> Settings

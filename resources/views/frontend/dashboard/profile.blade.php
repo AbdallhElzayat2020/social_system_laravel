@@ -141,23 +141,25 @@
                                         </span>
                                     </div>
                                     <div>
-                                        <a href="{{ route('frontend.dashboard.post.edit',$post->slug) }}" class="btn btn-sm btn-outline-primary">
+
+                                        <a title="editBtn" href="{{ route('frontend.dashboard.post.edit',$post->slug) }}"
+                                           class="btn btn-sm btn-outline-primary">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
 
-                                        <a onclick="if (confirm('Are you Sure to delete This post?')) {
+                                        <a title="deleteBtn" onclick="if (confirm('Are you sure to delete this post?')) {
                                                  document.getElementById('deleteForm_{{$post->id}}').submit();
-                                            } return false"
+                                            } return false;"
                                            href="javascript:void(0)" class="btn btn-sm btn-outline-primary">
                                             <i class="fas fa-thumbs-up"></i> Delete
                                         </a>
 
-                                        <button id="commentbtn_{{$post->id}}" class="btn getComments btn-sm btn-outline-secondary"
-                                                post-id="{{$post->id}}">
+                                        <button title="ShowCommentsBtn" id="commentbtn_{{$post->id}}" post-id="{{$post->id}}"
+                                                class="btn getComments btn-sm btn-outline-secondary">
                                             <i class="fas fa-comment"></i> Comments
                                         </button>
 
-                                        <button style="display: none" id="hideCommentId_{{$post->id}}"
+                                        <button title="hideCommentBtn" style="display: none" id="hideCommentId_{{$post->id}}"
                                                 class="btn hideComments btn-sm btn-outline-danger"
                                                 post-id="{{$post->id}}">
                                             <i class="fas fa-comment"></i> Hide Comments

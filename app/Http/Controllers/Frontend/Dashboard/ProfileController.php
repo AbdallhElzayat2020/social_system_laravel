@@ -67,17 +67,11 @@ class ProfileController extends Controller
 
     }
 
-    public function editPost($slug)
-    {
-
-    }
-
     public function getComments($id)
     {
 //        $post = Post::findOrFail($id);
 //        $comments = $post->comments->get();
 
-//        return $id;
         $comments = Comment::with(['user'])->where('post_id', $id)->get();
         if (!$comments) {
             return response()->json([
@@ -89,5 +83,17 @@ class ProfileController extends Controller
             'data' => $comments,
         ]);
 
+    }
+
+    public function showEditPost($slug)
+    {
+        $post = Post::with(['images'])->whereSlug($slug)->firstOrFail();
+        $user = auth()->user();
+        return view('frontend.dashboard.edit-post', compact('post', 'user'));
+    }
+
+    public function updatePost(Request $request)
+    {
+        return $request;
     }
 }
