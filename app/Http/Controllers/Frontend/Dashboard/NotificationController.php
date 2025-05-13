@@ -7,5 +7,10 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    //
+    public function index()
+    {
+        $user = auth()->user();
+        return view('frontend.dashboard.notification', compact('user'));
+    }
+
 }

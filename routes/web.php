@@ -73,8 +73,8 @@ Route::group([
         });
 
         /* Notification Routes */
-        Route::controller(NotificationController::class)->group(function () {
-
+        Route::controller(NotificationController::class)->prefix('notifications')->name('notifications.')->group(function () {
+            Route::get('/', 'index')->name('index');
         });
 
     });
@@ -93,7 +93,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('test', function () {
-    return view('frontend.dashboard.setting');
-});
 require __DIR__ . '/auth.php';

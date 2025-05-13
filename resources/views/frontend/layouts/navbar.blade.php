@@ -98,11 +98,31 @@
 
                 </div>
                 <div class="social ml-auto">
+                    <!-- Notification Dropdown -->
+                    <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge badge-danger">99</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
+                        <h6 class="dropdown-header">Notifications</h6>
+
+                        <div class="dropdown-item d-flex justify-content-between align-items-center">
+                            <span>new comment</span>
+                            <form action="" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </div>
+
+                        <!-- <div class="dropdown-item text-center">No notifications</div>  -->
+                    </div>
                     <a target="_blank" href="{{$getSetting->twitter_link}}" title="twitter"><i class="fab fa-twitter"></i></a>
                     <a target="_blank" href="{{$getSetting->facebook_link}}" title="facebook"><i class="fab fa-facebook-f"></i></a>
                     <a target="_blank" href="{{$getSetting->linkedin_link}}" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
                     <a target="_blank" href="{{$getSetting->instagram_link}}" title="instagram"><i class="fab fa-instagram"></i></a>
                     <a target="_blank" href="{{$getSetting->youtube_link}}" title="youtube"><i class="fab fa-youtube"></i></a>
+
                 </div>
             </div>
         </nav>
