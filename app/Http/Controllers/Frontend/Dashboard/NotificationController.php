@@ -13,5 +13,11 @@ class NotificationController extends Controller
         return view('frontend.dashboard.notification', compact('user'));
     }
 
+    public function destroy($id)
+    {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification->delete();
 
+        return redirect()->back()->with('success', 'Notification deleted successfully.');
+    }
 }

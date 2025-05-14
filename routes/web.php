@@ -75,6 +75,7 @@ Route::group([
         /* Notification Routes */
         Route::controller(NotificationController::class)->prefix('notifications')->name('notifications.')->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::delete('delete/{id}', 'destroy')->name('.destroy');
         });
 
     });

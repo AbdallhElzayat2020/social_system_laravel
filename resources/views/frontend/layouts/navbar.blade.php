@@ -24,7 +24,7 @@
                                     <i class="fas fa-sign-out-alt"></i> Logout
                                 </a>
                             </form>
-                            <a href="{{ route('frontend.dashboard.profile') }}"><i class="fas fa-user"></i> Profile</a>
+                            <a href="{{ route('frontend.dashboard.profile') }}"><i class="fas fa-user"></i> {{auth()->user()->name}}</a>
                         </div>
                     @endauth
                 </div>
@@ -102,18 +102,24 @@
                     <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
                         <i class="fas fa-bell"></i>
-                        <span class="badge badge-danger">99</span>
+                        <span class="badge badge-danger">{{ auth()->check() ? auth()->user()->unreadNotifications()->count() : 0 }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
                         <h6 class="dropdown-header">Notifications</h6>
 
-                        <div class="dropdown-item d-flex justify-content-between align-items-center">
-                            <span>new comment</span>
-                            <form action="" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </div>
+                        @forelse(auth()->user()->unreadNotifications as $notification)
+                            <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                <a href="{{ $notification->data['link'] }}">
+                                    New Comment on "{{ substr($notification->data['post_title'] , 4) }} ..."
+                                </a>
+                                <form action="" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        @empty
+                            <div class="dropdown-item text-center">No notifications</div>
+                        @endforelse
 
                         <!-- <div class="dropdown-item text-center">No notifications</div>  -->
                     </div>
