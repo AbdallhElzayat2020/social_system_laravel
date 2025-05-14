@@ -17,6 +17,7 @@
                 <div class="col-lg-8">
                     <!-- Carousel -->
                     <div id="newsCarousel" class="carousel slide" data-ride="carousel">
+
                         <ol class="carousel-indicators">
                             <li data-target="#newsCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#newsCarousel" data-slide-to="1"></li>
@@ -48,6 +49,9 @@
                     <div class="sn-content">
                         <div style="word-wrap: break-word;">{!! $mainPost->description !!}</div>
                     </div>
+{{--                    <div class="alert alert-info">--}}
+{{--                        Posted By {{$mainPost->user->name}} , {{$mainPost->user->id}}--}}
+{{--                    </div>--}}
 
                     <!-- Comment Section -->
                     <div class="comment-section">
