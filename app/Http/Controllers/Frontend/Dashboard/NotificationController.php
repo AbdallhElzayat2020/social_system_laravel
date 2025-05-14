@@ -20,15 +20,13 @@ class NotificationController extends Controller
         $notification->markAsRead();
     }
 
-
     public function destroy(Request $request)
     {
         $notification = auth()->user()->notifications()->findOrFail($request->notification_id);
         $notification->delete();
         return back()->with('success', 'Notification deleted.');
     }
-
-
+    
     public function deleteAll(Request $request)
     {
         auth()->user()->notifications()->delete();
