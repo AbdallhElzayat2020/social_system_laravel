@@ -68,8 +68,6 @@ class NewCommentNotify extends Notification
     {
         return [
             'user_id' => auth()->user()->id,
-            'post_id' => $this->post->id,
-            'post_slug' => $this->post->slug,
             'username' => auth()->user()->name,
             'post_title' => $this->post->title,
             'comment' => $this->comment->comment,

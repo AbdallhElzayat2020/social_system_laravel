@@ -108,14 +108,12 @@
                         <h6 class="dropdown-header">Notifications</h6>
 
                         @forelse(auth()->user()->unreadNotifications as $notification)
-                            <div class="dropdown-item d-flex justify-content-between align-items-center">
-                                <a href="{{ $notification->data['link'] }}">
-                                    New Comment on "{{ substr($notification->data['post_title'] , 4) }} ..."
-                                </a>
-                                <form action="" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
+                            <div class="dropdown-item d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                    <span class="d-block">New Comment : {{substr($notification->data['post_title'],0,7 )}} ...</span>
+                                </div>
+                                <a href="{{$notification->data['link']}}" class="text-primary"><i class="fa fa-eye"></i></a>
                             </div>
                         @empty
                             <div class="dropdown-item text-center">No notifications</div>
