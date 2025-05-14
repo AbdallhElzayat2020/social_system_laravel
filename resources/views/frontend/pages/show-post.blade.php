@@ -57,7 +57,7 @@
                                 <div class="comment-input">
                                     @csrf
                                     <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentInput"/>
-                                    <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                                    <input type="hidden" name="user_id" value="{{auth()->check() ? auth()->user()->id : ''}}">
                                     <input type="hidden" name="post_id" value="{{$mainPost->id}}">
                                     <button type="submit">Post</button>
                                 </div>

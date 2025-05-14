@@ -22,6 +22,7 @@
                         </div>
                     </div>
                 </div>
+
                 <a href="">
                     <div class="notification alert alert-info">
                         <strong>Info!</strong> This is an informational notification.

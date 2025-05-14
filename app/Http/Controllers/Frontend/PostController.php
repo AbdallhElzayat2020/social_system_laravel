@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\NewCommentNotify;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -52,6 +53,12 @@ class PostController extends Controller
             'ip_address' => $request->ip(),
             'comment' => $request->comment,
         ]);
+
+
+        // send Notification
+        $post = Post::findOrFail($request->post_id);
+        $user = $post->user;
+        $user->notify(new NewCommentNotify($comment, $post));
 
         $comment->load('user');
 

@@ -13,4 +13,5 @@ class NotificationController extends Controller
         return view('frontend.dashboard.notification', compact('user'));
     }
 
+
 }

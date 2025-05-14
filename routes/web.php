@@ -20,7 +20,7 @@ Route::group([
     /* Subscribers */
     Route::post('news-subscribers', [NewsSubscribersController::class, 'store'])->name('news.subscribers');
 
-    /* show single Category */
+    /* show a single Category */
     Route::get('category/{slug}', CategoryController::class)->name('category.posts');
 
     /* Contact Routes */
