@@ -73,9 +73,21 @@ Route::group([
         });
 
         /* Notification Routes */
-        Route::controller(NotificationController::class)->prefix('notifications')->name('notifications.')->group(function () {
-            Route::get('/', 'index')->name('index');
-        });
+        Route::controller(NotificationController::class)->middleware(['auth', 'check.notification.read'])
+            ->prefix('notifications')->name('notifications.')->group(function () {
+
+                /* show all Notifications */
+                Route::get('/', 'index')->name('index');
+
+                /* make Notification as read */
+                Route::get('notifications/{id}/redirect', fn () => null)->name('redirect');
+                /* delete Notifications */
+                Route::delete('/dashboard/notifications/{id}', 'destroy')->name('destroy');
+
+                /* markAll Notifications Read */
+                Route::post('/dashboard/notifications/mark-all-read', 'markAllAsRead')->name('markAllAsRead');
+
+            });
 
     });
 

@@ -30,4 +30,6 @@
 
 
     <link href="{{asset('assets/frontend/css/style.css')}}" rel="stylesheet"/>
+
+
 </head>

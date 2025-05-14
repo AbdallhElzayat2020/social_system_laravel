@@ -13,8 +13,25 @@ class NotificationController extends Controller
         return view('frontend.dashboard.notification', compact('user'));
     }
 
-    public function show()
+    public function show($id)
     {
-        
-}
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification->markAsRead();
+    }
+
+
+    public function destroy($id)
+    {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification->delete();
+
+        return redirect()->back()->with('success', 'Notification deleted.');
+    }
+
+    public function markAllAsRead()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+
+        return redirect()->back()->with('success', 'All notifications marked as read.');
+    }
 }

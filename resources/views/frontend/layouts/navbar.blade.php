@@ -78,9 +78,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div
-                    class="collapse navbar-collapse justify-content-between"
-                    id="navbarCollapse">
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="{{ route('frontend.index') }}" title="home" class="nav-item nav-link active">Home</a>
                     <div class="nav-item dropdown">
@@ -104,23 +102,53 @@
                         <i class="fas fa-bell"></i>
                         <span class="badge badge-danger">{{ auth()->check() ? auth()->user()->unreadNotifications()->count() : 0 }}</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
-                        <h6 class="dropdown-header">Notifications</h6>
 
-                        @forelse(auth()->user()->unreadNotifications as $notification)
-                            <div class="dropdown-item d-flex justify-content-between align-items-center border-bottom py-2">
-                                <div>
-                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                                    <span class="d-block">New Comment : {{substr($notification->data['post_title'],0,7 )}} ...</span>
+                    @if(auth()->check())
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
+                            <h6 class="dropdown-header">Notifications</h6>
+
+                            @forelse(auth()->user()->unreadNotifications->take(4) as $notification)
+                                <div class="dropdown-item d-flex justify-content-between align-items-center border-bottom py-2">
+                                    <div>
+                                        <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                        <span class="d-block">New Comment: {{substr($notification->data['post_title'],0,7 )}}...</span>
+                                        <div class="mt-2 align-items-end">
+                                            {{-- <a href="{{$notification->data['link']}}?notify" class="btn btn-sm btn-primary text-white">--}}
+                                            <a href="{{ route('frontend.dashboard.notifications.redirect', $notification->id) }}"
+                                               class="btn btn-sm btn-primary">
+                                                <i style="font-size: 17px" class="fa fa-eye"></i>
+                                            </a>
+                                            <form action="{{ route('frontend.dashboard.notifications.destroy', $notification->id) }}" method="POST"
+                                                  style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Delete Notification">
+                                                    <i style="font-size: 17px" class="fa fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="{{$notification->data['link']}}" class="text-primary"><i class="fa fa-eye"></i></a>
-                            </div>
-                        @empty
-                            <div class="dropdown-item text-center">No notifications</div>
-                        @endforelse
+                            @empty
+                                <div class="dropdown-item text-center">No notifications</div>
+                            @endforelse
 
-                        <!-- <div class="dropdown-item text-center">No notifications</div>  -->
-                    </div>
+                            @if(auth()->user()->unreadNotifications->count() > 0)
+                                <div class="dropdown-item text-center border-top">
+                                    <form action="{{ route('frontend.dashboard.notifications.markAllAsRead') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success">Mark All as Read</button>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
+                            <div class="dropdown-item text-center">Please log in to see notifications</div>
+                        </div>
+                    @endif
+
+
                     <a target="_blank" href="{{$getSetting->twitter_link}}" title="twitter"><i class="fab fa-twitter"></i></a>
                     <a target="_blank" href="{{$getSetting->facebook_link}}" title="facebook"><i class="fab fa-facebook-f"></i></a>
                     <a target="_blank" href="{{$getSetting->linkedin_link}}" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
