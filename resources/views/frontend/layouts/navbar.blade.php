@@ -118,11 +118,12 @@
                                                class="btn btn-sm btn-primary">
                                                 <i style="font-size: 17px" class="fa fa-eye"></i>
                                             </a>
-                                            <form action="{{ route('frontend.dashboard.notifications.destroy', $notification->id) }}" method="POST"
+                                            <form action="{{ route('frontend.dashboard.notifications.destroy') }}" method="POST"
                                                   style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger" title="Delete Notification">
+                                                    <input type="hidden" name="notification_id" value="{{ $notification->id }}">
                                                     <i style="font-size: 17px" class="fa fa-trash-alt"></i>
                                                 </button>
                                             </form>

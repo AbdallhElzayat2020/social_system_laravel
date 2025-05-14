@@ -1,5 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title', 'Notifications')
+
 @section('content')
     <br>
     <!-- Dashboard Start-->
@@ -11,46 +12,56 @@
         <div class="main-content">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <h2 class="mb-4">Notifications</h2>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h2 class="mb-0">Notifications</h2>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <div class="float-right">
-                            <button class="btn btn-primary btn-sm">Mark All as Read</button>
-                            <button class="btn btn-danger btn-sm">Delete All</button>
-                        </div>
+                    <div class="col-md-6 text-end">
+                        <form action="{{ route('frontend.dashboard.notifications.markAllAsRead') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-sm">Mark All as Read</button>
+                        </form>
+
+                        <form action="{{ route('frontend.dashboard.notifications.delete-all') }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete All</button>
+                        </form>
                     </div>
                 </div>
 
-                <a href="">
-                    <div class="notification alert alert-info">
-                        <strong>Info!</strong> This is an informational notification.
-                        <div class="float-right">
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                @forelse(auth()->user()->notifications as $notification)
+                    <div class="notification alert alert-info d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ $notification->data['title'] ?? 'Info' }}</strong> {{ $notification->data['message'] ?? 'Notification' }}
+                            <small class="d-block text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <a href="{{ route('frontend.dashboard.notifications.redirect', $notification->id) }}" class="btn btn-sm btn-primary mr-2"
+                               title="View">
+                                <i class="fa fa-eye"></i>
+                            </a>
+
+                            <form action="{{ route('frontend.dashboard.notifications.destroy') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="notification_id" value="{{ $notification->id }}">
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
-                </a>
-                <a href="">
-                    <div class="notification alert alert-warning">
-                        <strong>Warning!</strong> This is a warning notification.
-                        <div class="float-right">
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </div>
+                @empty
+                    <div class="alert alert-info">
+                        <strong>No notifications available.</strong>
                     </div>
-                </a>
-                <a href="">
-                    <div class="notification alert alert-success">
-                        <strong>Success!</strong> This is a success notification.
-                        <div class="float-right">
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </div>
-                    </div>
-                </a>
+                @endforelse
+
             </div>
         </div>
     </div>
     <!-- Dashboard End-->
-    <br>
-    <br>
+    <br><br>
 @endsection

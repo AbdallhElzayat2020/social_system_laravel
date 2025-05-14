@@ -80,12 +80,17 @@ Route::group([
                 Route::get('/', 'index')->name('index');
 
                 /* make Notification as read */
-                Route::get('notifications/{id}/redirect', fn () => null)->name('redirect');
-                /* delete Notifications */
-                Route::delete('/dashboard/notifications/{id}', 'destroy')->name('destroy');
+                Route::get('notifications/{id}/redirect', fn() => null)->name('redirect');
 
-                /* markAll Notifications Read */
+                /* delete Notifications */
+                Route::delete('/dashboard/notifications', 'destroy')->name('destroy');
+
+                /* delete All Notifications */
+                Route::delete('/dashboard/all-notifications', 'deleteAll')->name('delete-all');
+
+                /* mark All Notifications Read */
                 Route::post('/dashboard/notifications/mark-all-read', 'markAllAsRead')->name('markAllAsRead');
+
 
             });
 
