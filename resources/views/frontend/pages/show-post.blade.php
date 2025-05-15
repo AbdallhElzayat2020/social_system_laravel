@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 @section('title', $mainPost->title)
+@push('header_meta')
+    <link rel="canonical" href="{{ url()->full() }}"/>
+@endpush
+<meta content="index , follow" name="robots"/>
 
 {{--Meta tags--}}
 @section('meta_content')

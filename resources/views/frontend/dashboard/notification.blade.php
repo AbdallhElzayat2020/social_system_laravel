@@ -1,6 +1,8 @@
 @extends('frontend.layouts.master')
 @section('title', 'Notifications')
-
+@push('header_meta')
+    <link rel="canonical" href="{{ url()->full() }}"/>
+@endpush
 @section('content')
     <br>
     <!-- Dashboard Start-->

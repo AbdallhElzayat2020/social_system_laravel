@@ -1,5 +1,10 @@
 @extends('frontend.layouts.master')
 @section('title','Search Posts')
+@push('header_meta')
+    <link rel="canonical" href="{{ url()->full() }}"/>
+@endpush
+<meta content="index , follow" name="robots"/>
+
 @section('content')
     <!-- Main News Start-->
     <div class="main-news">

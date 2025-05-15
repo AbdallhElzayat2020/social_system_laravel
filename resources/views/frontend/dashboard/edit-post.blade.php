@@ -1,5 +1,8 @@
 @extends('frontend.layouts.master')
 @section('title',@$post->title)
+@push('header_meta')
+    <link rel="canonical" href="{{ url()->full() }}"/>
+@endpush
 @section('meta_content')
     <meta content="{{$post->meta_title}}" name="meta_title"/>
     <meta content="{{$post->meta_description}}" name="meta_description"/>

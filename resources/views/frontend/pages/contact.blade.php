@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 @section('title', 'Contact Us')
+@push('header_meta')
+    <link rel="canonical" href="{{ url()->full() }}"/>
+@endpush
+<meta content="index , follow" name="robots"/>
 
 <!-- Breadcrumb Start -->
 @section('breadcrumb')

@@ -1,5 +1,8 @@
 @extends('frontend.layouts.master')
 @section('title','Setting Page')
+@push('header_meta')
+    <link rel="canonical" href="{{ url()->full() }}"/>
+@endpush
 @push('css')
     <style>
         .dashboard {

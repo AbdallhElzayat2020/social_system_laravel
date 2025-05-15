@@ -1,6 +1,8 @@
 @extends('frontend.layouts.master')
 @section('title', 'Profile')
-
+@push('header_meta')
+    <link rel="canonical" href="{{ url()->full() }}"/>
+@endpush
 @section('content')
     <br>
     <br>

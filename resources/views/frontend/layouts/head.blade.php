@@ -3,11 +3,14 @@
     <title>@yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="News Website" name="keywords"/>
+    <meta content="index , follow" name="robots"/>
+
     @yield('meta_content')
 
     <!-- Favicon -->
     <link href="{{asset('assets/frontend/img/favicon.ico')}}" rel="icon"/>
 
+    @stack('header_meta')
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet"/>
 
