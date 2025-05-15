@@ -12,8 +12,10 @@
                         <div class="social">
                             <a rel="nofollow" target="_blank" href="{{$getSetting->twitter_link}}" title="twitter"><i class="fab fa-twitter"></i></a>
                             <a rel="nofollow" target="_blank" href="{{$getSetting->facebook_link}}" title="facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a rel="nofollow" target="_blank" href="{{$getSetting->linkedin_link}}" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                            <a rel="nofollow" target="_blank" href="{{$getSetting->instagram_link}}" title="instagram"><i class="fab fa-instagram"></i></a>
+                            <a rel="nofollow" target="_blank" href="{{$getSetting->linkedin_link}}" title="linkedin"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            <a rel="nofollow" target="_blank" href="{{$getSetting->instagram_link}}" title="instagram"><i
+                                        class="fab fa-instagram"></i></a>
                             <a rel="nofollow" target="_blank" href="{{$getSetting->youtube_link}}" title="youtube"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
