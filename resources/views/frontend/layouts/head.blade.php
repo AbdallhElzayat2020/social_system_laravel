@@ -3,7 +3,7 @@
     <title>@yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="News Website" name="keywords"/>
-    <meta content="News Website" name="description"/>
+    @yield('meta_content')
 
     <!-- Favicon -->
     <link href="{{asset('assets/frontend/img/favicon.ico')}}" rel="icon"/>

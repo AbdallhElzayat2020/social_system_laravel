@@ -42,12 +42,27 @@
                             @error('title')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
+
+                            <input type="text" id="meta_title" name="meta_title" value="{{old('meta_title')}}" class="form-control mb-2"
+                                   placeholder="Meta title"/>
+                            @error('meta_title')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
                             <!-- Post Content -->
                             <textarea id="postContent" name="description" class="form-control mb-2" style="margin-bottom: 5px!important;" rows="3"
                                       placeholder="What's on your mind?">{{old('description')}}</textarea>
                             @error('description')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
+
+                            <input type="text" id="meta_description" name="meta_description" value="{{old('meta_description')}}"
+                                   class="form-control mb-2"
+                                   placeholder="Meta description"/>
+                            @error('meta_description')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
                             <!-- Image Upload -->
                             <input type="file" id="postImage" name="images[]" class="form-control my-2" style="margin-top: 10px!important;"
                                    accept="image/*"
@@ -55,6 +70,7 @@
                             @error('images')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
+
                             <div class="tn-slider mb-2">
                                 <div id="imagePreview" class="slick-slider"></div>
                             </div>

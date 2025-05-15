@@ -38,7 +38,7 @@ class CheckSettingProvider extends ServiceProvider
                 'linkedin_link' => 'https://www.linkedin.com/',
                 'youtube_link' => 'https://www.youtube.com/',
                 'street' => 'Elsharawy',
-                'city' => 'Mahala',
+                'city' => 'Elmansoura',
                 'country' => 'Egypt',
             ]);
         });

@@ -1,6 +1,12 @@
 @extends('frontend.layouts.master')
 @section('title', $mainPost->title)
 
+{{--Meta tags--}}
+@section('meta_content')
+    <meta content="{{$mainPost->meta_title}}" name="meta_title"/>
+    <meta content="{{$mainPost->meta_description}}" name="meta_description"/>
+@endsection
+
 <!-- Breadcrumb Start -->
 @section('breadcrumb')
     @parent

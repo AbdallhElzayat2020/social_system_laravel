@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 @section('title',@$post->title)
+@section('meta_content')
+    <meta content="{{$post->meta_title}}" name="meta_title"/>
+    <meta content="{{$post->meta_description}}" name="meta_description"/>
+@endsection
 @section('content')
     <br>
     <div class="dashboard container">
@@ -30,11 +34,27 @@
                         <li class="post-item">
                             <!-- Editable Title -->
                             <input type="text" name="title" class="form-control mb-2 post-title" value="{{old('title',$post->title)}}"/>
+                            @error('title')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <input type="text" name="meta_title" class="form-control my-2 post-title"
+                                   value="{{old('title',$post->meta_title ?? '')}}"/>
+                            @error('meta_title')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             <input type="hidden" name="post_id" value="{{$post->id}}"/>
                             <!-- Editable Content -->
                             <textarea id="post-description" name="description"
                                       class="form-control mb-2 post-content">{!! $post->description !!}</textarea>
+                            @error('description')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
 
+                            <input type="text" name="meta_description" class="form-control my-2 post-title"
+                                   value="{{old('title',$post->meta_description ?? '')}}"/>
+                            @error('meta_description')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             <!-- Image Upload Input for Editing -->
                             <input id="post-images" type="file" name="images[]" class="form-control mt-2 edit-post-image" accept="image/*" multiple/>
 
@@ -46,7 +66,9 @@
                                     </option>
                                 @endforeach
                             </select>
-
+                            @error('category_id')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             <!-- Editable Enable Comments Checkbox -->
                             <div class="form-check mb-2">
                                 <input id="comment_able" class="form-check-input enable-comments" type="checkbox"
@@ -58,11 +80,10 @@
 
                             <!-- Post Meta: Views and Comments -->
                             <div class="post-meta d-flex justify-content-between">
-                            <span class="views">
-                                <i class="fas fa-eye"></i> Views ({{$post->num_of_views}})
-                            </span>
+                                <span class="views">
+                                    <i class="fas fa-eye"></i> Views ({{$post->num_of_views}})
+                                </span>
                             </div>
-
                             <!-- Post Actions -->
                             <div class="post-actions mt-2">
                                 <button class="btn btn-primary edit-post-btn">Save</button>

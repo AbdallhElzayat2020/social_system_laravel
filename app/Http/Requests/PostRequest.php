@@ -26,6 +26,8 @@ class PostRequest extends FormRequest
             'description' => ['required', 'string', 'min:3'],
             'category_id' => ['required', 'exists:categories,id'],
             'comment_able' => ['nullable', 'in:on,off'],
+            'meta_description' => ['nullable', 'string', 'max:160'],
+            'meta_title' => ['nullable', 'string', 'max:100'],
             'images' => ['nullable'],
             'images.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];

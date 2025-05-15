@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
+
     use HasFactory, Sluggable;
 
     protected $fillable = [
@@ -21,6 +22,8 @@ class Post extends Model
         'status',
         'user_id',
         'category_id',
+        'meta_title',
+        'meta_description',
     ];
 
     /**
