@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+
     /**
      * Handle the incoming request.
      */

@@ -24,5 +24,10 @@
            data-section="settings">
             <i class="fas fa-cog"></i> Settings
         </a>
+        <a title="Settings" href=""
+           class="list-group-item list-group-item-action menu-item "
+           data-section="support">
+            <i class="fas fa-cog"></i> Contact Support
+        </a>
     </div>
 </aside>
