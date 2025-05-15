@@ -3,7 +3,7 @@
 @push('header_meta')
     <link rel="canonical" href="{{ url()->full() }}"/>
 @endpush
-<meta content="index , follow" name="robots"/>
+{{--<meta content="index , follow" name="robots"/>--}}
 
 {{--Meta tags--}}
 @section('meta_content')
