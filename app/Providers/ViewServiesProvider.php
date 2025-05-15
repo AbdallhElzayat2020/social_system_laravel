@@ -27,7 +27,7 @@ class ViewServiesProvider extends ServiceProvider
 
         // share the related sites with all views from the database
         $relatedSites = RelatedNewsSite::select('id', 'name', 'url')->get();
-        $categories = Category::select('id', 'name', 'slug')->get();
+        $categories = Category::active()->select('id', 'name', 'slug')->get();
 
 
         view()->share([

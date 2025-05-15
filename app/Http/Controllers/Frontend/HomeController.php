@@ -24,10 +24,10 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        $categories = Category::all();
+        $categories = Category::has('posts', '>=', 2)->active()->get();
 
         $categories_with_posts = $categories->map(function (Category $category) {
-            $category->posts = $category->posts()->limit(4)->get();
+            $category->posts = $category->posts()->active()->limit(4)->get();
             return $category;
         });
 

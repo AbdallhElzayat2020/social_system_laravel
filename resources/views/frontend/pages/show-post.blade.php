@@ -49,29 +49,36 @@
                     <div class="sn-content">
                         <div style="word-wrap: break-word;">{!! $mainPost->description !!}</div>
                     </div>
-{{--                    <div class="alert alert-info">--}}
-{{--                        Posted By {{$mainPost->user->name}} , {{$mainPost->user->id}}--}}
-{{--                    </div>--}}
+                    {{--                    <div class="alert alert-info">--}}
+                    {{--                        Posted By {{$mainPost->user->name}} , {{$mainPost->user->id}}--}}
+                    {{--                    </div>--}}
 
                     <!-- Comment Section -->
                     <div class="comment-section">
                         <!-- Comment Input -->
-                        @if($mainPost->comment_able == true)
-                            <form action="{{ route('frontend.post.comments.store') }}" method="post" id="commentForm">
-                                <div class="comment-input">
-                                    @csrf
-                                    <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentInput"/>
-                                    <input type="hidden" name="user_id" value="{{auth()->check() ? auth()->user()->id : ''}}">
-                                    <input type="hidden" name="post_id" value="{{$mainPost->id}}">
-                                    <button type="submit">Post</button>
+                        @auth
+                            @if($mainPost->comment_able == true)
+                                <form action="{{ route('frontend.post.comments.store') }}" method="post" id="commentForm">
+                                    <div class="comment-input">
+                                        @csrf
+                                        <input type="text" name="comment" placeholder="Add a comment..." title="comment" id="commentInput"/>
+                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                        <input type="hidden" name="post_id" value="{{$mainPost->id}}">
+                                        <button type="submit">Post</button>
+                                    </div>
+                                </form>
+                            @else
+                                <div class="alert alert-info">
+                                    <strong>Info!</strong> Comments are disabled for this post.
                                 </div>
-                            </form>
-                        @else
+                            @endif
+                        @endauth
+                        @guest
                             <div class="alert alert-info">
-                                <strong>Info!</strong> Comments are disabled for this post.
+                                <strong>Info!</strong> You need to <a class="font-weight-bold" href="{{ route('login') }}">login</a> to post a
+                                comment.
                             </div>
-                        @endif
-
+                        @endguest
                         <div style="display: none" id="errorMsg" class="alert alert-danger">
                             {{-- display errors--}}
                         </div>

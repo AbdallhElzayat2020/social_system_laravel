@@ -8,6 +8,7 @@
 
     <!-- Sidebar Menu -->
     <div class="list-group profile-sidebar-menu">
+
         <a title="Profile" href="{{ route('frontend.dashboard.profile') }}"
            class="list-group-item list-group-item-action menu-item {{ request()->routeIs('frontend.dashboard.profile') ? 'active' : '' }}"
            data-section="profile"> <i class="fas fa-user"></i> Profile
@@ -24,10 +25,11 @@
            data-section="settings">
             <i class="fas fa-cog"></i> Settings
         </a>
-        <a title="Settings" href=""
-           class="list-group-item list-group-item-action menu-item "
-           data-section="support">
-            <i class="fas fa-cog"></i> Contact Support
+
+        <a title="Settings" href="https://wa.me/201212484233" target="_blank" data-section="support"
+           class="list-group-item list-group-item-action menu-item">
+            <i class="fas fa-phone"></i> Support
         </a>
+
     </div>
 </aside>
