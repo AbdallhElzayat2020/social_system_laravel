@@ -58,6 +58,7 @@ class PostController extends Controller
         $post = Post::findOrFail($request->post_id);
         $user = $post->user;
 
+        // send notification db
         $user->notify(new NewCommentNotify($comment, $post));
 
 

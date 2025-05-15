@@ -13,10 +13,20 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
-        // Keep the alias for when you want to use it specifically on certain routes
+        /* web routes  */
+        $middleware->web(append: [
+            CheckNotificationReadAt::class,
+        ]);
+
+        /* api routes  */
+        $middleware->api(append: [
+            CheckNotificationReadAt::class,
+        ]);
+
         $middleware->alias([
             'check.notification.read' => CheckNotificationReadAt::class,
         ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
