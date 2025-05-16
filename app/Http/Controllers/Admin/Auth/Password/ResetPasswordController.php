@@ -17,11 +17,7 @@ class ResetPasswordController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $request->validate([
-            'email' => ['required', 'email', 'max:255', 'exists:admins,email'],
-            'password' => ['required', 'min:8', 'confirmed', 'max:255'],
-            'password_confirmation' => ['required', 'max:255'],
-        ]);
+        $request->validate($this->filterPassword());
         $admin = Admin::whereEmail($request->email)->first();
 
 
@@ -34,5 +30,18 @@ class ResetPasswordController extends Controller
 
         return redirect()->route('admin.show-login-form')->with('success', 'Password reset successfully');
 
+    }
+
+    /**
+     * Validation rules for password reset
+     * @return array
+     */
+    public function filterPassword(): array
+    {
+        return [
+            'email' => ['required', 'email', 'max:255', 'exists:admins,email'],
+            'password' => ['required', 'min:8', 'confirmed', 'max:255'],
+            'password_confirmation' => ['required', 'max:255'],
+        ];
     }
 }
