@@ -10,8 +10,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['guest.adm
         Route::get('/', 'showLoginForm')->name('show-login-form');
 
         Route::post('/handle', 'handleLogin')->name('handle-login');
+
     });
 });
+
+Route::get('password', function () {
+    return view('dashboard.auth.passwords.forget-password');
+})->name('admin.forget-password');
 
 // Protected routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admin']], function () {
