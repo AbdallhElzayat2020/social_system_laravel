@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\Admin\AdminAuthMiddleware;
+use App\Http\Middleware\Admin\RedirectIfAuthenticated;
 use App\Http\Middleware\CheckNotificationReadAt;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -19,18 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
-        /* web routes  */
-//        $middleware->web(append: [
-//            CheckNotificationReadAt::class,
-//        ]);
-//
-//        /* api routes  */
-//        $middleware->api(append: [
-//            CheckNotificationReadAt::class,
-//        ]);
-
         $middleware->alias([
             'check.notification.read' => CheckNotificationReadAt::class,
+            'auth.admin' => AdminAuthMiddleware::class,
+            'guest.admin' => RedirectIfAuthenticated::class,
         ]);
 
     })

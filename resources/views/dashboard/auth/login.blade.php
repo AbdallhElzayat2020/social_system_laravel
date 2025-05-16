@@ -45,7 +45,7 @@
                                 <form class="user" method="post" action="{{ route('admin.handle-login') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="email" name="email" class="form-control form-control-user"
+                                        <input type="email" name="email" value="{{old('email')}}" class="form-control form-control-user"
                                                id="exampleInputEmail" aria-describedby="emailHelp"
                                                placeholder="Enter Email Address...">
                                         @error('email')
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <input type="checkbox" name="remember" class="custom-control-input" id="customCheck">
                                             <label class="custom-control-label" for="customCheck">
                                                 Remember Me
                                             </label>
