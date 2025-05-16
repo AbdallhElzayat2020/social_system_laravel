@@ -14,7 +14,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a href="{{ url()->current() }}" class="btn btn-primary">Create User</a>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-primary float-right">Create User</a>
             </div>
             @include('dashboard.pages.users.filter.filter')
             <div class="card-body">

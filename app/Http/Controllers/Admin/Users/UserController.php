@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UserRequest;
 use App\Models\User;
 use App\Utils\ImageManager;
 use Illuminate\Database\Eloquent\Builder;
@@ -57,15 +58,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.pages.users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $request->validated();
+        return $request;
     }
 
     /**

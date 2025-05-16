@@ -79,7 +79,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.users.index') }}">Users</a>
-                <a class="collapse-item" href="">Add User</a>
+                <a class="collapse-item" href="{{ route('admin.users.create') }}">Add User</a>
                 <a class="collapse-item" href="">Blocked Users</a>
             </div>
         </div>
