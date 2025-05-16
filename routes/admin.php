@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPasswordController;
+use App\Http\Controllers\Admin\Users\UserController;
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -12,6 +14,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
         Route::get('/', 'showLoginForm')->name('show-login-form')->middleware('guest.admin');
 
         Route::post('/handle', 'handleLogin')->name('handle-login')->middleware('guest.admin');
+
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth.admin');
     });
 
     // Forgot Password routes
@@ -41,7 +45,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 // Protected routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admin']], function () {
 
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::resource('users', UserController::class);
+
+
 
     Route::get('dashboard', function () {
         return view('dashboard.pages.home');

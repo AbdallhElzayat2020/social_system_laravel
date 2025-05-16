@@ -17,6 +17,7 @@ class ResetPasswordController extends Controller
 
     public function resetPassword(Request $request)
     {
+        // validation
         $request->validate($this->filterPassword());
         $admin = Admin::whereEmail($request->email)->first();
 

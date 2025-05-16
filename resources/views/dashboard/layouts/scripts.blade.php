@@ -10,7 +10,7 @@
 
 <!-- Page level plugins -->
 <script src="{{asset('assets/dashboard/vendor/chart.js/Chart.min.js')}}"></script>
-
+@stack('js')
 <!-- Page level custom scripts -->
 <script src="{{asset('assets/dashboard/js/demo/chart-area-demo.js')}}"></script>
 <script src="{{asset('assets/dashboard/js/demo/chart-pie-demo.js')}}"></script>
