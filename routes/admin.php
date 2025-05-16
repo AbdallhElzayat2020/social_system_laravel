@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admin']], function () {
 
     Route::resource('users', UserController::class);
-
+    Route::get('users/status/{id}', [UserController::class, 'changeStatus'])->name('user.status-change');
 
 
     Route::get('dashboard', function () {
