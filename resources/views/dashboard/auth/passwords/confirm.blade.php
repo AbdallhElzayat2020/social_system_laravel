@@ -17,12 +17,11 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Enter you Verification Code</h1>
                                     </div>
-                                    <form class="user" method="post" action="{{ route('admin.handle-login') }}">
+                                    <form class="user" method="post" action="{{ route('admin.password.verify-otp') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" name="email" value="{{old('email')}}" class="form-control form-control-user"
-                                                   id="exampleInputEmail" aria-describedby="emailHelp"
-                                                   placeholder="Enter Email Address...">
+                                            <input hidden type="email" name="email" value="{{$email}}" class="form-control form-control-user"
+                                                   id="exampleInputEmail" aria-describedby="emailHelp">
                                             @error('email')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror

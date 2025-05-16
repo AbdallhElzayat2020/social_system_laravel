@@ -20,7 +20,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Forgot Password</h1>
                                     </div>
 
-                                    <form class="user" method="post" action="{{ route('admin.handle-login') }}">
+                                    <form class="user" method="post" action="{{ route('admin.password.send-otp') }}">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" name="email" value="{{old('email')}}" class="form-control form-control-user"

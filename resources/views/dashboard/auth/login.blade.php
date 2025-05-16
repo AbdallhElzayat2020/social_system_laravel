@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.auth.master')
-@section('title','Dashboard | Forget Password')
+@section('title','Dashboard | Login')
 @section('body')
     <div class="container">
 
@@ -12,8 +12,7 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            {{--                        <div class="col-lg-6 d-none d-lg-block"--}}
-                            {{--                             style="background: url({{asset('assets/dashboard/img/login.jpg')}}) !important"></div>--}}
+
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -50,7 +49,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="{{ route('admin.forget-password') }}">Forgot Password?</a>
+                                        <a class="small" href="{{ route('admin.password.email') }}">Forgot Password?</a>
                                     </div>
                                 </div>
                             </div>
