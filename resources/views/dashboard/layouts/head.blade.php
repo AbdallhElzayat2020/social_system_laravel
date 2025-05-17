@@ -13,8 +13,16 @@
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-    @stack('css')
+
+
     <!-- Custom styles for this template-->
     <link href="{{asset('assets/dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
+    {{-- fileInput Css --}}
+    <link rel="stylesheet" href="{{asset('assets/vendor/file-input/css/fileinput.min.css')}}">
+
+    {{-- summernote Plugine --}}
+    <link rel="stylesheet" href="{{asset('assets/vendor/summernote/summernote-bs4.min.css')}}">
+
+    @stack('css')
 </head>

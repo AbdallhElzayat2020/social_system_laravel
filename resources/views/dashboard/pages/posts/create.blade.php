@@ -1,51 +1,36 @@
 @extends('dashboard.layouts.master')
-@section('title', 'Create User')
+@section('title', 'Create Post')
 @section('content')
     <div class="container-fluid">
 
-        <h1 class="h3 mb-2 text-gray-800">Create User</h1>
+        <h1 class="h3 mb-2 text-gray-800">Create Post</h1>
 
-        <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="card-body">
                 <div class="row shadow-sm p-3 mb-5 bg-white rounded">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="name">Name<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" value="{{old('name')}}" name="name"
-                                   placeholder="Enter name">
-                            @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="username">User Name<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="username" value="{{old('username')}}" name="username"
-                                   placeholder="Enter Full Name">
-                            @error('username')
+                            <label for="title">Title<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="title" value="{{old('title')}}" name="title"
+                                   placeholder="Enter title">
+                            @error('title')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="phone">Phone <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" id="phone" value="{{old('phone')}}" name="phone" placeholder="Enter User Phone">
-                            @error('phone')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="email" value="{{old('email')}}" name="email" placeholder="Enter User Email">
-                            @error('email')
+                            <label for="description">Description<span class="text-danger">*</span></label>
+                            <textarea id="postContent" class="form-control" placeholder="Enter Description" name="description" cols="30"
+                                      rows="10"></textarea>
+                            @error('description')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-
 
                     <div class="col-md-6">
                         <div class="form-group">
@@ -60,81 +45,120 @@
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email_verified_at">Email Verified <span class="text-danger">*</span></label>
-                            <select class="form-control" name="email_verified_at" id="email_verified_at">
-                                <option selected value="">--Select--</option>
-                                <option value="active">Yes</option>
-                                <option value="inactive">No</option>
+                            <label for="category_id">Category <span class="text-danger">*</span></label>
+                            <select class="form-control" name="category_id" id="category_id">
+                                <option selected value="">Select Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
                             </select>
-                            @error('email_verified_at')
+                            @error('category_id')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" class="form-control" id="city" value="{{old('city')}}" name="city" placeholder="Enter City Name">
-                            @error('city')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="street">Street</label>
-                            <input type="text" class="form-control" id="street" value="{{old('street')}}" name="street"
-                                   placeholder="Enter Street Name">
-                            @error('street')
+                            <label for="meta_description">Meta Description<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="meta_description" value="{{old('meta_description')}}" name="meta_description"
+                                   placeholder="Enter meta_description">
+                            @error('meta_description')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="password">Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
-                            @error('password')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password_confirmation">Password Confirmation <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
-                                   placeholder="Enter Password Confirmation">
-                            @error('password_confirmation')
+                            <label for="meta_title">Meta Title<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="meta_title" value="{{old('meta_title')}}" name="meta_title"
+                                   placeholder="Enter meta_title">
+                            @error('meta_title')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="image">Profile Image <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" id="image" name="image">
-                            @error('image')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="country">Country</label>
-                            <input type="text" class="form-control" id="country" value="{{old('country')}}" name="country"
-                                   placeholder="Enter Country Name">
-                            @error('country')
+                            <label for="comment_able">Enable Comments<span class="text-danger">*</span></label>
+                            <select class="form-control" name="comment_able" id="comment_able">
+                                <option value="1">Yes</option>
+                                <option value="0">Not</option>
+                            </select>
+                            @error('comment_able')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group ml-2">
-                        <button type="submit" class="btn btn-primary">Create User</button>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for=""><strong>Post Image</strong><span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" name="images[]" id="postImage" multiple accept="image/*">
+                        </div>
                     </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group ml-2">
+                            <button type="submit" class="btn btn-primary">Create Post</button>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
         </form>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#postContent').summernote({
+                height: 300,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
+            });
+
+            $('#postImage').fileinput({
+                theme: 'fa5',
+                allowFileTypes: ['jpg', 'png', 'jpeg'],
+                maxFileCount: 4,
+                enableResumableUpload: false,
+                showUpload: false,
+            });
+
+        });
+    </script>
+
+    {{--    <script>--}}
+    {{--        $(function () {--}}
+    {{--            $('#postImage').fileinput({--}}
+    {{--                theme: 'fa5',--}}
+    {{--                allowFileTypes: ['jpg', 'png', 'jpeg'],--}}
+    {{--                maxFileCount: 4,--}}
+    {{--                enableResumableUpload: false,--}}
+    {{--                showUpload: false,--}}
+    {{--            });--}}
+
+    {{--            $('#postContent').summernote({--}}
+    {{--                height: 300,--}}
+    {{--            });--}}
+    {{--        });--}}
+    {{--    </script>--}}
+
+@endpush

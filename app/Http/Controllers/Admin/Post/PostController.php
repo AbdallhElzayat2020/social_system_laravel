@@ -38,7 +38,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::select('id', 'name')->get();
+        return view('dashboard.pages.posts.create', compact('categories'));
     }
 
     /**
@@ -46,7 +47,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -54,7 +55,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('dashboard.pages.posts.show', compact('post'));
     }
 
     /**

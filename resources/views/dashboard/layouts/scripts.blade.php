@@ -10,7 +10,16 @@
 
 <!-- Page level plugins -->
 <script src="{{asset('assets/dashboard/vendor/chart.js/Chart.min.js')}}"></script>
-@stack('js')
 <!-- Page level custom scripts -->
+
+{{-- fileInput js --}}
+<script src="{{asset('assets/vendor/file-input/js/fileinput.min.js')}}"></script>
+<script src="{{asset('assets/vendor/file-input/themes/fa5/theme.min.js')}}"></script>
+
+{{-- summernote Plugine --}}
+<script src="{{asset('assets/vendor/summernote/summernote-bs4.min.js')}}"></script>
+
 <script src="{{asset('assets/dashboard/js/demo/chart-area-demo.js')}}"></script>
 <script src="{{asset('assets/dashboard/js/demo/chart-pie-demo.js')}}"></script>
+
+@stack('js')
