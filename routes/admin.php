@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\Post\PostController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -41,17 +42,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
 });
 
-
-// Protected routes
+/*  Protected routes */
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admin']], function () {
 
+    /* resource routes  */
+    Route::resources([
+        'categories' => CategoryController::class,
+        'users' => UserController::class,
+        'posts' => PostController::class,
+    ]);
+
     /* Users Routes */
-    Route::resource('users', UserController::class);
     Route::get('users/status/{id}', [UserController::class, 'changeStatus'])->name('user.status-change');
 
     /* Categories Routes */
-    Route::resource('categories', CategoryController::class);
     Route::get('categories/status/{id}', [CategoryController::class, 'changeStatus'])->name('category.status-change');
+
+    /* Categories Routes */
+    Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('post.status-change');
 
 
     Route::get('dashboard', function () {
