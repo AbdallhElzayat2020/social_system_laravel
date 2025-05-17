@@ -7,7 +7,6 @@
                 @method('DELETE')
                 <div class="modal-header">
                     <div class="">
-{{--                        <input type="hidden" name="user_id" value="{{$user->id}}">--}}
                         <h5 class="modal-title" id="exampleModalLabel"> delete this User <span class="text-danger">{{$user->name}}</span>
                         </h5>
                     </div>

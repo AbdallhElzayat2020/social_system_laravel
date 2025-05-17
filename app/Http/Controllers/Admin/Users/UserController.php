@@ -83,7 +83,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', $exception->getMessage());
         }
 
-        return redirect()->back()->with('success', 'User created successfully');
+        return to_route('admin.users.index')->with('success', 'User created successfully');
     }
 
     /**
