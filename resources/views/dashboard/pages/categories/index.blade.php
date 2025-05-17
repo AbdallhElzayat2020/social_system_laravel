@@ -1,75 +1,80 @@
 @extends('dashboard.layouts.master')
-
-@section('title', 'Users')
+@section('title', 'Categories')
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Users</h1>
+        <h1 class="h3 mb-2 text-gray-800">Categories</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a href="{{ route('admin.users.create') }}" class="btn btn-primary float-right">Create User</a>
+                <a href="#" data-toggle="modal" data-target="#create_category" class="btn btn-primary  float-right">
+                    <i class="fas fa-plus"></i> Create
+                </a>
             </div>
-            @include('dashboard.pages.users.filter.filter')
+
+            {{-- Filter --}}
+            @include('dashboard.pages.categories.filter.filter')
+            {{-- Create Modal--}}
+            @include('dashboard.pages.categories.create')
             <div class="card-body">
+
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Email</th>
                             <th>Status</th>
-                            <th>Country</th>
-                            <th>Phone</th>
+                            <th>Posts Count</th>
                             <th>Created At</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        @forelse($users as $index=> $user)
+                        @forelse($categories as $index=> $category)
                             <tr>
                                 <td>{{$index + 1}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
+                                <td>{{$category->name}}</td>
                                 <td>
-                                    @if($user->status === 'active')
+                                    @if($category->status === 'active')
                                         <span class="badge badge-success">Active</span>
-                                    @elseif($user->status === 'inactive')
+                                    @elseif($category->status === 'inactive')
                                         <span class="badge badge-danger">Not Active</span>
                                     @endif
                                 </td>
-                                <td>{{$user->country}}</td>
-                                <td>{{$user->phone}}</td>
-                                <td>{{ $user->created_at->diffForHumans() }}</td>
+                                <td>{{ $category->posts_count }}</td>
+                                <td>{{ $category->created_at->diffForHumans() }}</td>
                                 <td>
-                                    <a href="#" data-toggle="modal" data-target="#delete_user_{{$user->id}}" class="btn btn-danger">
+                                    <a href="#" data-toggle="modal" data-target="#delete_user_{{$category->id}}" class="btn btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                    <a href="{{ route('admin.user.status-change',$user->id) }}" class="btn btn-warning">
-                                        @if($user->status == 'active')
+                                    <a  href="#" data-toggle="modal" data-target="#edit_category{{$category->id}}" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{{ route('admin.category.status-change',$category->id) }}" class="btn btn-warning">
+                                        @if($category->status == 'active')
                                             <i class="fas fa-ban"></i>
                                         @else
                                             <i class="fas fa-play"></i>
                                         @endif
                                     </a>
-                                    <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                 </td>
                             </tr>
-                            @include('dashboard.pages.users.delete')
+                            @include('dashboard.pages.categories.delete')
+                            @include('dashboard.pages.categories.edit')
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center alert alert-info">No users found</td>
+                                <td colspan="7" class="text-center alert alert-info">No Categories found</td>
                             </tr>
                         @endforelse
 
                         </tbody>
                     </table>
-                    {{$users->links()}}
+                    {{$categories->links()}}
                 </div>
             </div>
         </div>

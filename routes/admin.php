@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Admin\Users\UserController;
-
+use App\Http\Controllers\Admin\Category\CategoryController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -45,8 +45,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 // Protected routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admin']], function () {
 
+    /* Users Routes */
     Route::resource('users', UserController::class);
     Route::get('users/status/{id}', [UserController::class, 'changeStatus'])->name('user.status-change');
+
+    /* Categories Routes */
+    Route::resource('categories', CategoryController::class);
+    Route::get('categories/status/{id}', [CategoryController::class, 'changeStatus'])->name('category.status-change');
 
 
     Route::get('dashboard', function () {

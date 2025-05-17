@@ -28,7 +28,7 @@ class UserController extends Controller
             $query->where('status', request()->status);
 
         })->orderBy(request('sort_by', 'id'), request('order_by', 'desc'))
-            ->paginate(request('limit_by', 3))->withQueryString();
+            ->paginate(request('limit_by', 5))->withQueryString();
 
 
         return view('dashboard.pages.users.index', compact('users'));

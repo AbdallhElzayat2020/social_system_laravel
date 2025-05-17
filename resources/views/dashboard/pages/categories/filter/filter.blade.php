@@ -55,7 +55,7 @@
             </div>
 
             <div class="col-lg-1">
-                <label for="">-Search</label>
+                <label for="">-</label>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
