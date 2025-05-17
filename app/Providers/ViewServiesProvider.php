@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\RelatedNewsSite;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class ViewServiesProvider extends ServiceProvider
 {
@@ -23,16 +24,15 @@ class ViewServiesProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-
         // share the related sites with all views from the database
-        $relatedSites = RelatedNewsSite::select('id', 'name', 'url')->get();
-        $categories = Category::active()->select('id', 'name', 'slug')->get();
+        if (Schema::hasTable('related_sites') && Schema::hasTable('categories')) {
+            $relatedSites = RelatedNewsSite::select('id', 'name', 'url')->get();
+            $categories = Category::active()->select('id', 'name', 'slug')->get();
 
-
-        view()->share([
-            'relatedSites' => $relatedSites,
-            'categories' => $categories,
-        ]);
+            view()->share([
+                'relatedSites' => $relatedSites,
+                'categories' => $categories,
+            ]);
+        }
     }
 }

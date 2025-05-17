@@ -29,7 +29,6 @@ return new class extends Migration {
             $table->string('street');
             $table->string('city');
             $table->string('country');
-            $table->string('meta_title');
             $table->timestamps();
         });
     }

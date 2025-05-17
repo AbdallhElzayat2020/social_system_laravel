@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin\Post;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use App\Utils\ImageManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -45,9 +49,30 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
+        $request->validated();
 
+        try {
+            DB::beginTransaction();
+
+            $post = auth()->guard('admin')->user()->posts()->create($request->except('images'));
+
+            // upload images from imageManager File
+            ImageManager::uploadImages($request, $post);
+
+            DB::commit();
+
+            Cache::forget('latest_posts');
+            Cache::forget('read_more_posts');
+            Cache::forget('popular_posts_comments');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+        }
+
+        Session::flash('success', 'Post Created Successfully');
+        return redirect()->back();
     }
 
     /**
@@ -86,6 +111,10 @@ class PostController extends Controller
 
             ImageManager::deleteImages($post);
             $post->delete();
+
+            Cache::forget('latest_posts');
+            Cache::forget('read_more_posts');
+            Cache::forget('popular_posts_comments');
 
             return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully');
 

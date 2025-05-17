@@ -36,7 +36,7 @@
                                 <td>{{$index + 1}}</td>
                                 <td>{{$post->title}}</td>
                                 <td>{{$post->category->name}}</td>
-                                <td>{{$post->user->name}}</td>
+                                <td>{{$post->user->name ?? $post->admin->name}}</td>
                                 <td>
                                     @if($post->status === 'active')
                                         <span class="badge badge-success">Active</span>

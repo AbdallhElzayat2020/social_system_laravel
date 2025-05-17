@@ -56,6 +56,11 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
+
     public function comments(): hasMany
     {
         return $this->hasMany(Comment::class, 'post_id');

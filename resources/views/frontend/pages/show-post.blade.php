@@ -59,9 +59,6 @@
                     <div class="sn-content">
                         <div style="word-wrap: break-word;">{!! $mainPost->description !!}</div>
                     </div>
-                    {{--                    <div class="alert alert-info">--}}
-                    {{--                        Posted By {{$mainPost->user->name}} , {{$mainPost->user->id}}--}}
-                    {{--                    </div>--}}
 
                     <!-- Comment Section -->
                     <div class="comment-section">

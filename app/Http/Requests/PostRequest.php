@@ -25,10 +25,11 @@ class PostRequest extends FormRequest
             'title' => ['required', 'string', 'min:3', 'max:100'],
             'description' => ['required', 'string', 'min:3'],
             'category_id' => ['required', 'exists:categories,id'],
-            'comment_able' => ['nullable', 'in:on,off'],
+            'comment_able' => ['nullable', 'in:on,off,0,1'],
             'meta_description' => ['nullable', 'string', 'max:160'],
             'meta_title' => ['nullable', 'string', 'max:100'],
-            'images' => ['nullable'],
+            'images' => ['required'],
+            'status' => ['nullable', 'in:active,inactive'],
             'images.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }

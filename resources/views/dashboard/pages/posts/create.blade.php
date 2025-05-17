@@ -4,12 +4,21 @@
     <div class="container-fluid">
 
         <h1 class="h3 mb-2 text-gray-800">Create Post</h1>
-
+        @if(session()->has('errors'))
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach(session('errors')->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="card-body">
                 <div class="row shadow-sm p-3 mb-5 bg-white rounded">
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="title">Title<span class="text-danger">*</span></label>
@@ -40,7 +49,6 @@
                                 <option value="active">Active</option>
                                 <option value="inactive">Not Active</option>
                             </select>
-
                             @error('status')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
