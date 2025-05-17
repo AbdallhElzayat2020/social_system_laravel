@@ -61,7 +61,7 @@
                                             <i class="fas fa-play"></i>
                                         @endif
                                     </a>
-                                    <a href="" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                 </td>
                             </tr>
                             @include('dashboard.pages.users.delete')

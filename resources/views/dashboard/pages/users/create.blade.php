@@ -76,7 +76,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="city">City <span class="text-danger">*</span></label>
+                            <label for="city">City</label>
                             <input type="text" class="form-control" id="city" value="{{old('city')}}" name="city" placeholder="Enter City Name">
                             @error('city')
                             <span class="text-danger">{{ $message }}</span>
@@ -121,7 +121,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="country">Country <span class="text-danger">*</span></label>
+                            <label for="country">Country</label>
                             <input type="text" class="form-control" id="country" value="{{old('country')}}" name="country"
                                    placeholder="Enter Country Name">
                             @error('country')

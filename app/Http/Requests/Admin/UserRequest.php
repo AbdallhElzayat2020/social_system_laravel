@@ -30,12 +30,10 @@ class UserRequest extends FormRequest
             'phone' => ['required', 'unique:users,phone', 'max:18'],
             'status' => ['required', 'in:active,inactive'],
             'email_verified_at' => ['required', 'in:active,inactive'],
-            'city' => ['nullable', 'max:255', 'string'],
-            'country' => ['nullable', 'max:255', 'string', 'min:2'],
-            'street' => ['nullable', 'max:255', 'string', 'min:2'],
+            'city' => ['nullable', 'max:80', 'string'],
+            'country' => ['nullable', 'max:80', 'string', 'min:2'],
+            'street' => ['nullable', 'max:80', 'string', 'min:2'],
             'image' => ['image', 'mimes:jpeg,png,jpg', 'max:3000', 'required'],
-
-
         ];
     }
 }

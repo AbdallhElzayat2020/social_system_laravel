@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Utils\ImageManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -67,7 +68,22 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $request->validated();
-        return $request;
+        try {
+            DB::beginTransaction();
+            $request->merge([
+                'email_verified_at' => $request->email_verified_at == 1 ? now() : null,
+            ]);
+            $user = User::create($request->except(['_token', 'image', 'password_confirmation']));
+            // upload image
+            ImageManager::uploadImages($request, null, $user);
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'User created successfully');
     }
 
     /**
@@ -83,7 +99,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findorFail($id);
+        return view('dashboard.pages.users.show', compact('user'));
     }
 
     /**
