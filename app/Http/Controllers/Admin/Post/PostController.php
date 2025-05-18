@@ -42,8 +42,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('id', 'name')->get();
-        return view('dashboard.pages.posts.create', compact('categories'));
+        return view('dashboard.pages.posts.create');
     }
 
     /**
@@ -89,7 +88,8 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('dashboard.pages.posts.edit', compact('post'));
     }
 
     /**

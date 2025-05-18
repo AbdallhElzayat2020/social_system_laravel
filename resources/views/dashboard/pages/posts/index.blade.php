@@ -57,7 +57,10 @@
                                             <i class="fas fa-play"></i>
                                         @endif
                                     </a>
-                                    <a href="{{ route('admin.posts.edit',$post->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('admin.posts.show',$post->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    @if($post->user_id == null)
+                                        <a href="{{ route('admin.posts.edit',$post->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                    @endif
                                 </td>
                             </tr>
                             @include('dashboard.pages.posts.delete')
