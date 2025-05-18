@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
 
-        <h1 class="h3 mb-2 text-gray-800">Edit Post</h1>
+        <h1 class="h3 mb-2 text-gray-800">Update Post</h1>
         @if(session()->has('errors'))
             <div class="alert alert-danger">
                 <ul>
@@ -97,8 +97,8 @@
                         <div class="form-group">
                             <label for="comment_able">Enable Comments<span class="text-danger">*</span></label>
                             <select class="form-control" name="comment_able" id="comment_able">
-                                <option @selected(old('comment_able', $post->comment_able) == '1' ) value="1">Yes</option>
-                                <option @selected(old('comment_able', $post->comment_able) == '0' ) value="0">Not</option>
+                                <option @selected(old('comment_able', $post->comment_able) == 1 ) value="1">Yes</option>
+                                <option @selected(old('comment_able', $post->comment_able) == 0) value="0">Not</option>
                             </select>
                             @error('comment_able')
                             <span class="text-danger">{{ $message }}</span>
@@ -109,7 +109,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for=""><strong>Post Image</strong><span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" name="images[]" id="postImage" multiple accept="image/*">
+                            <input type="file" class="form-control" name="images[]" id="post-images" multiple accept="image/*">
                         </div>
                     </div>
 
@@ -130,6 +130,7 @@
 @push('js')
     <script>
         $(document).ready(function () {
+            // Initialize Summernote
             $('#postContent').summernote({
                 height: 300,
                 toolbar: [
@@ -143,12 +144,35 @@
                 ]
             });
 
-            $('#postImage').fileinput({
+            // Initialize Fileinput
+            $('#post-images').fileinput({
                 theme: 'fa5',
-                allowFileTypes: ['jpg', 'png', 'jpeg'],
+                allowFileTypes: ['jpg', 'png', 'jpeg', 'image'],
                 maxFileCount: 4,
                 enableResumableUpload: false,
                 showUpload: false,
+                // delete single image
+                initialPreviewAsData: true,
+                initialPreview: [
+                    @if($post->images->count() > 0)
+                            @foreach($post->images as $image)
+                        "{{asset($image->path)}}",
+                    @endforeach
+                    @endif
+                ],
+                initialPreviewConfig: [
+                        @if($post->images->count() > 0)
+                        @foreach($post->images as $image)
+                    {
+                        caption: '{{$image->path}}',
+                        width: '120px',
+                            url: '{{route('admin.post.image.delete', [$image->id , '_token'=> csrf_token()])}}',
+                        key: {{$image->id}},
+                    },
+                    @endforeach
+                    @endif
+
+                ]
             });
 
         });

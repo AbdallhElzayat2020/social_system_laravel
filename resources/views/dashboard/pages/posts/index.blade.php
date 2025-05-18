@@ -11,7 +11,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a href="{{ route('admin.posts.create') }}" class="btn btn-primary float-right">Create User</a>
+                <a href="{{ route('admin.posts.create') }}" class="btn btn-primary float-right">Create Post</a>
             </div>
             @include('dashboard.pages.posts.filter.filter')
             <div class="card-body">
@@ -57,9 +57,14 @@
                                             <i class="fas fa-play"></i>
                                         @endif
                                     </a>
-                                    <a href="{{ route('admin.posts.show',$post->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                    @if($post->user_id == null)
-                                        <a href="{{ route('admin.posts.edit',$post->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('admin.posts.show',$post->id) }}" class="btn btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+
+                                    @if($post->admin_id !== null)
+                                        <a href="{{ route('admin.posts.edit',$post->id) }}" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                     @endif
                                 </td>
                             </tr>

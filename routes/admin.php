@@ -58,9 +58,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
     /* Categories Routes */
     Route::get('categories/status/{id}', [CategoryController::class, 'changeStatus'])->name('category.status-change');
 
-    /* Categories Routes */
+    /* Posts Routes */
     Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('post.status-change');
-
+    /* delete single image when edit post */
+    Route::post('/post/image/delete/{image_id}', [PostController::class, 'deletePostImage'])->name('post.image.delete');
 
     Route::get('dashboard', function () {
         return view('dashboard.pages.home');
