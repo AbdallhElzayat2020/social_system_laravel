@@ -156,8 +156,8 @@
                 initialPreview: [
                     @if($post->images->count() > 0)
                             @foreach($post->images as $image)
-                        "{{asset($image->path)}}",
-                    @endforeach
+                                 "{{asset($image->path)}}",
+                            @endforeach
                     @endif
                 ],
                 initialPreviewConfig: [
