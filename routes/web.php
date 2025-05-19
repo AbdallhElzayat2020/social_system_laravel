@@ -72,7 +72,7 @@ Route::group([
             Route::get('/post/get-comments/{id}', 'getComments')->name('post.get-comments');
         });
 
-        /* setting Routes */
+        /* settings Routes */
         Route::controller(SettingController::class)->prefix('settings')->group(function () {
             Route::get('/', 'index')->name('settings');
             Route::post('/update', 'update')->name('settings.update');

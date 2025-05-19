@@ -17,9 +17,9 @@ return new class extends Migration {
             $table->string('site_phone');
             $table->string('site_address');
             $table->string('site_logo');
+            $table->string('site_favicon');
             $table->string('meta_title');
             $table->text('meta_description');
-            $table->string('site_favicon');
             $table->string('facebook_link')->nullable();
             $table->string('twitter_link')->nullable();
             $table->string('instagram_link')->nullable();

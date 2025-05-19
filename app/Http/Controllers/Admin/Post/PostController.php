@@ -32,8 +32,8 @@ class PostController extends Controller
             ->with(['user', 'category'])
             ->paginate(request('limit_by', 5))->withQueryString();
 
-
         return view('dashboard.pages.posts.index', compact('posts'));
+
     }
 
     /**

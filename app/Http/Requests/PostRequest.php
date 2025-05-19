@@ -28,8 +28,8 @@ class PostRequest extends FormRequest
             'comment_able' => ['nullable', 'in:on,off,0,1'],
             'meta_description' => ['nullable', 'string', 'max:160'],
             'meta_title' => ['nullable', 'string', 'max:100'],
-            'images' => ['sometimes', 'required'],
             'status' => ['nullable', 'in:active,inactive'],
+            'images' => ['sometimes', 'required'],
             'images.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }

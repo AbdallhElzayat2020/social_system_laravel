@@ -6790,7 +6790,7 @@ function getNearestItems(chart, position, intersect, distanceMetric) {
 
 /**
  * Get a distance metric function for two points based on the
- * axis mode setting
+ * axis mode settings
  * @param {string} axis - the axis mode. x|y|xy
  */
 function getDistanceMetricForAxis(axis) {
@@ -7777,7 +7777,7 @@ var platform_dom$2 = {
 		// https://github.com/chartjs/Chart.js/issues/4152
 		if (context && context.canvas === item) {
 			// Load platform resources on first chart creation, to make it possible to
-			// import the library before setting platform options.
+			// import the library before settings platform options.
 			this._ensureLoaded(item);
 			initCanvas(item, config);
 			return context;
@@ -7808,7 +7808,7 @@ var platform_dom$2 = {
 
 		// The canvas render size might have been changed (and thus the state stack discarded),
 		// we can't use save() and restore() to restore the initial state. So make sure that at
-		// least the canvas context is reset to the default state by setting the canvas width.
+		// least the canvas context is reset to the default state by settings the canvas width.
 		// https://www.w3.org/TR/2011/WD-html5-20110525/the-canvas-element.html
 		// eslint-disable-next-line no-self-assign
 		canvas.width = canvas.width;
@@ -9363,7 +9363,7 @@ helpers$1.extend(Chart.prototype, /** @lends Chart */ {
 
 		if (!context || !canvas) {
 			// The given item is not a compatible context2d element, let's return before finalizing
-			// the chart initialization but after setting basic chart / controller properties that
+			// the chart initialization but after settings basic chart / controller properties that
 			// can help to figure out that the chart is not valid (e.g chart.canvas !== null);
 			// https://github.com/chartjs/Chart.js/issues/2807
 			console.error("Failed to create chart: can't acquire context from the given item");
@@ -16144,7 +16144,7 @@ core_controller.LinearScaleBase = scale_linearbase;
 
 /**
  * Provided for backward compatibility, instead we should create a new Chart
- * by setting the type in the config (`new Chart(id, {type: '{chart-type}'}`).
+ * by settings the type in the config (`new Chart(id, {type: '{chart-type}'}`).
  * @deprecated since version 2.8.0
  * @todo remove at version 3
  */

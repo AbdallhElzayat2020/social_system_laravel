@@ -2739,7 +2739,7 @@
 		if ( $.isPlainObject( mSource ) )
 		{
 			/* Unlike get, only the underscore (global) option is used for for
-			 * setting data since we don't know the type here. This is why an object
+			 * settings data since we don't know the type here. This is why an object
 			 * option is not documented for `mData` (which is read/write), but it is
 			 * for `mRender` which is read only.
 			 */
@@ -2786,7 +2786,7 @@
 						b.splice( 0, i+1 );
 						innerSrc = b.join('.');
 	
-						// Traverse each entry in the array setting the properties requested
+						// Traverse each entry in the array settings the properties requested
 						if ( Array.isArray( val ) )
 						{
 							for ( var j=0, jLen=val.length ; j<jLen ; j++ )
@@ -6104,7 +6104,7 @@
 			var sTitle = col.sTitle.replace( /<.*?>/g, "" );
 			var th = col.nTh;
 	
-			// IE7 is throwing an error when setting these properties with jQuery's
+			// IE7 is throwing an error when settings these properties with jQuery's
 			// attr() and removeAttr() methods...
 			th.removeAttribute('aria-sort');
 	
@@ -7734,7 +7734,7 @@
 				settings.ajax = url;
 			}
 			// No need to consider sAjaxSource here since DataTables gives priority
-			// to `ajax` over `sAjaxSource`. So setting `ajax` here, renders any
+			// to `ajax` over `sAjaxSource`. So settings `ajax` here, renders any
 			// value of `sAjaxSource` redundant.
 		} );
 	} );
@@ -7744,7 +7744,7 @@
 	 * Load data from the newly set Ajax URL. Note that this method is only
 	 * available when `ajax.url()` is used to set a URL. Additionally, this method
 	 * has the same effect as calling `ajax.reload()` but is provided for
-	 * convenience when setting a new URL. Like `ajax.reload()` it will
+	 * convenience when settings a new URL. Like `ajax.reload()` it will
 	 * automatically redraw the table once the remote data has been loaded.
 	 *
 	 * @returns {DataTables.Api} this
@@ -10527,7 +10527,7 @@
 		 * table has already been initialised, this parameter will cause DataTables
 		 * to simply return the object that has already been set up - it will not take
 		 * account of any changes you might have made to the initialisation object
-		 * passed to DataTables (setting this parameter to true is an acknowledgement
+		 * passed to DataTables (settings this parameter to true is an acknowledgement
 		 * that you understand this). `destroy` can be used to reinitialise a table if
 		 * you need.
 		 *  @type boolean
@@ -10937,7 +10937,7 @@
 		/**
 		 * This function allows you to 'post process' each row after it have been
 		 * generated for each table draw, but before it is rendered on screen. This
-		 * function might be used for setting the row class name etc.
+		 * function might be used for settings the row class name etc.
 		 *  @type function
 		 *  @param {node} row "TR" element for the current row
 		 *  @param {array} data Raw data array for this row
@@ -11254,7 +11254,7 @@
 		/**
 		 * Number of rows to display on a single page when using pagination. If
 		 * feature enabled (`lengthChange`) then the end user will be able to override
-		 * this to a custom setting using a pop-up menu.
+		 * this to a custom settings using a pop-up menu.
 		 *  @type int
 		 *  @default 10
 		 *
@@ -12407,7 +12407,7 @@
 		 *    * Parameters:
 		 *      * `{array|object}` The data source for the row
 		 *      * `{string}` The type call data requested - this will be 'set' when
-		 *        setting data or 'filter', 'display', 'type', 'sort' or undefined
+		 *        settings data or 'filter', 'display', 'type', 'sort' or undefined
 		 *        when gathering data. Note that when `undefined` is given for the
 		 *        type DataTables expects to get the raw data for the object back<
 		 *      * `{*}` Data to set when the second parameter is 'set'.
@@ -13728,7 +13728,7 @@
 		 * Server-side processing - number of records in the result set
 		 * (i.e. before filtering), Use fnRecordsTotal rather than
 		 * this property to get the value of the number of records, regardless of
-		 * the server-side processing setting.
+		 * the server-side processing settings.
 		 *  @type int
 		 *  @default 0
 		 *  @private
@@ -13739,7 +13739,7 @@
 		 * Server-side processing - number of records in the current display set
 		 * (i.e. after filtering). Use fnRecordsDisplay rather than
 		 * this property to get the value of the number of records, regardless of
-		 * the server-side processing setting.
+		 * the server-side processing settings.
 		 *  @type boolean
 		 *  @default 0
 		 *  @private

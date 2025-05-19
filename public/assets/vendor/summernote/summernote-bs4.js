@@ -5394,7 +5394,7 @@ var Editor_Editor = /*#__PURE__*/function () {
       _this.setLastRange(_this.createRangeFromList(anchors).select());
     });
     /**
-     * setting color
+     * settings color
      *
      * @param {Object} sObjColor  color code
      * @param {String} sObjColor.foreColor foreground color

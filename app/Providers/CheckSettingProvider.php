@@ -45,7 +45,7 @@ class CheckSettingProvider extends ServiceProvider
                 ]);
             });
 
-            // Share the setting with all views
+            // Share the settings with all views
             view()->share([
                 'getSetting' => $getSetting,
             ]);

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Post\PostController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -60,8 +61,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
 
     /* Posts Routes */
     Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('post.status-change');
+
     /* delete single image when edit post */
     Route::post('/post/image/delete/{image_id}', [PostController::class, 'deletePostImage'])->name('post.image.delete');
+
+    /* =================== Settings Routes ==================== */
+    Route::controller(SettingController::class)->prefix('settings')->as('settings.')->group(function () {
+
+        Route::get('/', 'index')->name('index');
+
+        Route::put('/update', 'update')->name('update');
+
+    });
 
     Route::get('dashboard', function () {
         return view('dashboard.pages.home');
