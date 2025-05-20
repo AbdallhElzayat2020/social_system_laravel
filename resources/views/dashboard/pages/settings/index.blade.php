@@ -220,6 +220,10 @@
                                 <input type="file" class="dropify" id="site_logo" name="site_logo"
                                        data-allowed-file-extensions="png jpg jpeg"
                                        data-max-file-size="2M">
+                                <br>
+                                <br>
+                                <img src="{{asset($getSetting->site_logo)}}" style="width: 200px;  height: auto" class="img-thumbnail" alt="">
+
                                 @error('site_logo')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -230,6 +234,9 @@
                                 <input type="file" class="dropify" id="site_favicon" name="site_favicon"
                                        data-allowed-file-extensions="png jpg jpeg"
                                        data-max-file-size="1M">
+                                <br>
+                                <br>
+                                <img src="{{asset($getSetting->site_favicon)}}" style="width: 200px;  height: auto" class="img-thumbnail" alt="">
                                 @error('site_favicon')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -514,7 +521,7 @@
                 integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 // Initialize Dropify with custom messages
                 $('.dropify').dropify({
                     messages: {
@@ -530,16 +537,16 @@
                 });
 
                 // Add error handling for file input
-                $('.dropify').on('dropify.error.fileSize', function(event, element) {
+                $('.dropify').on('dropify.error.fileSize', function (event, element) {
                     toastr.error('File size is too big. Maximum size is 3MB.');
                 });
 
-                $('.dropify').on('dropify.error.fileFormat', function(event, element) {
+                $('.dropify').on('dropify.error.fileFormat', function (event, element) {
                     toastr.error('Invalid file format. Only jpeg, png, and jpg files are allowed.');
                 });
 
                 // Show loading state on form submit
-                $('#settingsForm').on('submit', function() {
+                $('#settingsForm').on('submit', function () {
                     const submitBtn = $(this).find('button[type="submit"]');
                     submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Updating...');
                 });
