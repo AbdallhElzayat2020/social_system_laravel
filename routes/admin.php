@@ -44,10 +44,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
 });
 
-/*  Protected routes */
+    /*
+    ====================================================================================
+     Protected routes
+    ====================================================================================
+     */
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admin']], function () {
 
-    /* resource routes  */
+    /* resource routes
+    ====================================================================================
+    * Categories
+    * Users
+    * Posts
+    * Admins
+    ====================================================================================
+      */
+
     Route::resources([
         'categories' => CategoryController::class,
         'users' => UserController::class,

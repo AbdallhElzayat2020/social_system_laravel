@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AdminRequest;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +19,8 @@ class AdminController extends Controller
         $admins = Admin::when(request()->keyword, function (Builder $query) {
 
             $query->where('name', 'like', '%' . request()->keyword . '%')
-                ->orWhere('email', 'like', '%' . request()->keyword . '%');
+                ->orWhere('email', 'like', '%' . request()->keyword . '%')
+                ->orWhere('username', 'like', '%' . request()->keyword . '%');
 
         })->when(request()->status, function (Builder $query) {
             $query->where('status', request()->status);
@@ -34,15 +36,27 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.pages.admins.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-        //
+        $admin = Admin::create($request->only([
+            'name',
+            'email',
+            'username',
+            'password',
+            'status',
+            'phone',
+        ]));
+        if (!$admin) {
+            return redirect()->back()->with('error', 'try again later');
+        }
+        return redirect()->route('admin.admins.index')->with('success', 'created successfully');
+
     }
 
     /**

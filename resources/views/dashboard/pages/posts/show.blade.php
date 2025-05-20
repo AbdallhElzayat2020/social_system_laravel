@@ -3,40 +3,153 @@
 @push('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <style>
+        /* General Styles */
+        .container-fluid {
+            padding: 2rem;
+            background: #f8f9fc;
+            min-height: 100vh;
+        }
+
+        /* Card Styles */
         .post-card {
             transition: all 0.3s ease;
             border: none;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #fff;
+            margin-bottom: 2rem;
         }
 
         .post-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
         }
 
+        /* Header Styles */
         .post-header {
-            background: #f8f9fc;
-            border-bottom: 2px solid #4e73df;
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
             padding: 1.5rem;
+            color: #fff;
         }
 
         .post-header h6 {
-            color: #4e73df;
+            color: #fff;
             font-weight: 600;
             margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .post-header h6 i {
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
         }
 
         .post-body {
+            padding: 2rem;
+        }
+
+        /* Back Button */
+        .btn-icon-split {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            background: #4e73df;
+            color: #fff;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .btn-icon-split:hover {
+            background: #224abe;
+            transform: translateX(-5px);
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn-icon-split .icon {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Author Info Styles */
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
             padding: 1.5rem;
+            background: linear-gradient(to right, #f8f9fc, #fff);
+            border-radius: 0.75rem;
+            border-left: 4px solid #4e73df;
+        }
+
+        .author-details h6 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #5a5c69;
+        }
+
+        .author-details .text-primary {
+            color: #4e73df !important;
+            font-weight: 600;
+        }
+
+        .author-details p {
+            margin: 0.5rem 0 0;
+            color: #858796;
+            font-size: 0.9rem;
+        }
+
+        /* Post Title */
+        .post-title {
+            font-size: 2rem;
+            color: #2e59d9;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+            border-bottom: 2px solid #eaecf4;
+            padding-bottom: 1rem;
+        }
+
+        /* Post Meta */
+        .post-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f8f9fc;
+            border-radius: 0.5rem;
+        }
+
+        .post-meta div {
+            display: flex;
+            align-items: center;
+            color: #5a5c69;
+            font-size: 0.95rem;
+        }
+
+        .post-meta i {
+            width: 24px;
+            text-align: center;
+            margin-right: 0.5rem;
+            color: #4e73df;
+            font-size: 1.1rem;
         }
 
         /* Swiper Styles */
         .swiper {
             width: 100%;
-            height: 400px;
+            height: 450px;
             margin-bottom: 2rem;
-            border-radius: 0.35rem;
+            border-radius: 0.75rem;
             overflow: hidden;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
         }
 
         .swiper-slide {
@@ -55,12 +168,19 @@
 
         .swiper-button-next,
         .swiper-button-prev {
-            color: #4e73df;
-            background: rgba(255, 255, 255, 0.9);
-            width: 40px;
-            height: 40px;
+            color: #fff;
+            background: rgba(78, 115, 223, 0.9);
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: #224abe;
+            transform: scale(1.1);
         }
 
         .swiper-button-next:after,
@@ -68,114 +188,109 @@
             font-size: 1.2rem;
         }
 
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            opacity: 0.5;
+        }
+
         .swiper-pagination-bullet-active {
             background: #4e73df;
+            opacity: 1;
         }
 
-        .post-meta {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .post-meta i {
-            width: 20px;
-            text-align: center;
-            margin-right: 0.5rem;
-        }
-
+        /* Post Content */
         .post-content {
             color: #5a5c69;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.05);
+        }
+
+        .post-content p {
             margin-bottom: 1.5rem;
         }
 
-        .post-tags {
-            margin-bottom: 1.5rem;
+        .post-content p:last-child {
+            margin-bottom: 0;
         }
 
-        .post-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: #e3e6f0;
-            color: #4e73df;
-            border-radius: 50rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        .post-stats {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .stat-item i {
-            width: 20px;
-            text-align: center;
-            margin-right: 0.5rem;
-            color: #4e73df;
-        }
-
+        /* Post Actions */
         .post-actions {
-            border-top: 1px solid #e3e6f0;
+            border-top: 1px solid #eaecf4;
             padding-top: 1.5rem;
             margin-top: 1.5rem;
-        }
-
-        .btn-icon-split {
-            padding: 0.375rem 0.75rem;
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
-        }
-
-        .btn-icon-split i {
-            margin-right: 0.5rem;
-        }
-
-        .author-info {
             display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: #f8f9fc;
-            border-radius: 0.35rem;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 1rem;
-            object-fit: cover;
-        }
-
-        .author-details h6 {
-            margin: 0;
-            color: #4e73df;
-        }
-
-        .author-details p {
-            margin: 0;
-            color: #6c757d;
+        .post-actions .btn {
+            padding: 0.5rem 1.25rem;
             font-size: 0.9rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
         }
 
+        .post-actions .btn i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .post-actions .btn-primary {
+            background: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .post-actions .btn-primary:hover {
+            background: #224abe;
+            border-color: #224abe;
+            transform: translateY(-2px);
+        }
+
+        .post-actions .btn-warning {
+            background: #f6c23e;
+            border-color: #f6c23e;
+            color: #fff;
+        }
+
+        .post-actions .btn-warning:hover {
+            background: #dda20a;
+            border-color: #dda20a;
+            transform: translateY(-2px);
+        }
+
+        .post-actions .btn-danger {
+            background: #e74a3b;
+            border-color: #e74a3b;
+        }
+
+        .post-actions .btn-danger:hover {
+            background: #be2617;
+            border-color: #be2617;
+            transform: translateY(-2px);
+        }
+
+        /* Comments Section */
         .comment-section {
             margin-top: 2rem;
         }
 
         .comment-item {
-            padding: 1rem;
-            border-bottom: 1px solid #e3e6f0;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eaecf4;
+            transition: all 0.3s ease;
+        }
+
+        .comment-item:hover {
+            background: #f8f9fc;
         }
 
         .comment-item:last-child {
@@ -185,15 +300,16 @@
         .comment-header {
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .comment-avatar {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             margin-right: 1rem;
             object-fit: cover;
+            border: 2px solid #4e73df;
         }
 
         .comment-meta {
@@ -204,18 +320,101 @@
             font-weight: 600;
             color: #4e73df;
             margin: 0;
+            font-size: 1rem;
         }
 
         .comment-date {
-            color: #6c757d;
+            color: #858796;
             font-size: 0.85rem;
-            margin: 0;
+            margin: 0.25rem 0 0;
         }
 
         .comment-content {
             color: #5a5c69;
             margin: 0;
             padding-left: 3.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Cards */
+        .sidebar-card {
+            background: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .sidebar-card .post-header {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        }
+
+        .sidebar-card .post-body {
+            padding: 1.5rem;
+        }
+
+        .sidebar-card .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-card .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-card label {
+            color: #5a5c69;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .sidebar-card .badge {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+        }
+
+        .sidebar-card .badge-success {
+            background: #1cc88a;
+        }
+
+        .sidebar-card .badge-danger {
+            background: #e74a3b;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding: 1rem;
+            }
+
+            .post-body {
+                padding: 1.5rem;
+            }
+
+            .post-title {
+                font-size: 1.5rem;
+            }
+
+            .swiper {
+                height: 300px;
+            }
+
+            .post-actions {
+                flex-direction: column;
+            }
+
+            .post-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .comment-content {
+                padding-left: 0;
+                margin-top: 1rem;
+            }
         }
     </style>
 @endpush
@@ -224,8 +423,8 @@
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Post Details</h1>
-            <a href="{{ url()->previous() }}" class="btn btn-primary btn-icon-split">
-                <span class="icon text-white">
+            <a href="{{ url()->previous() }}" class="btn-icon-split">
+                <span class="icon">
                     <i class="fas fa-arrow-left"></i>
                 </span>
                 <span class="text">Back</span>
@@ -235,12 +434,11 @@
         <div class="row">
             <!-- Post Details Card -->
             <div class="col-lg-8">
-                <div class="card post-card mb-4">
+                <div class="post-card">
                     <div class="post-header">
-                        <h6><i class="fas fa-newspaper mr-2"></i>Post Information</h6>
+                        <h6><i class="fas fa-newspaper"></i>Post Information</h6>
                     </div>
                     <div class="post-body">
-
                         <!-- Author Info -->
                         <div class="author-info">
                             <div class="author-details">
@@ -249,19 +447,21 @@
                                         {{ auth()->guard('web')->user()->name ? auth()->guard('admin')->user()->name: 'By Admin' }}
                                     </span>
                                 </h6>
-                                <p><i class="fas fa-clock mr-1"></i>Posted <span class="text-primary">{{ $post->created_at->diffForHumans() }}</span>
+                                <p>
+                                    <i class="fas fa-clock mr-1"></i>Posted 
+                                    <span class="text-primary">{{ $post->created_at->diffForHumans() }}</span>
                                 </p>
                             </div>
                         </div>
 
                         <!-- Post Title -->
-                        <h4 class="mb-3">{{ $post->title }}</h4>
+                        <h4 class="post-title">{{ $post->title }}</h4>
 
                         <!-- Post Meta -->
                         <div class="post-meta">
                             <div><i class="fas fa-folder"></i>Category: {{ $post->category->name }}</div>
                             <div><i class="fas fa-eye"></i>Views: {{ $post->num_of_views }}</div>
-                            <div><i class="fas fa-comments"></i>Comments: {{ $post->comments_count }}</div>
+                            <div><i class="fas fa-comments"></i>{{ $post->comments_count > 0 ? $post->comments_count.' Comments' : 'No Comments Yet' }}</div>
                         </div>
 
                         <!-- Post Images Slider -->
@@ -274,10 +474,8 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <!-- Add Navigation -->
                                 <div class="swiper-button-next"></div>
                                 <div class="swiper-button-prev"></div>
-                                <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div>
                             </div>
                         @endif
@@ -287,34 +485,19 @@
                             {!! $post->content !!}
                         </div>
 
-                        <!-- Post Stats -->
-                        <div class="post-stats">
-
-                            <div class="stat-item">
-                                <i class="fas fa-comment"></i>
-                                <span>{{ $post->comments_count > 0 ? $post->comments_count.' Comments' : 'No Comments Yet' }}</span>
-                            </div>
-
-                        </div>
-
                         <!-- Post Actions -->
                         <div class="post-actions">
-                            <a href="{{ route('admin.posts.edit', $post->id) }}"
-                               class="btn btn-primary btn-icon-split">
+                            <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-primary">
                                 <i class="fas fa-edit"></i>
                                 <span>Edit Post</span>
                             </a>
 
-                            <a href="{{ route('admin.post.status-change', $post->id) }}"
-                               class="btn btn-warning btn-icon-split">
+                            <a href="{{ route('admin.post.status-change', $post->id) }}" class="btn btn-warning">
                                 <i class="fas fa-{{ $post->status == 'active' ? 'ban' : 'check' }}"></i>
                                 <span>{{ $post->status == 'active' ? 'Deactivate' : 'Activate' }}</span>
                             </a>
 
-                            <a href="#"
-                               data-toggle="modal"
-                               data-target="#delete_post_{{$post->id}}"
-                               class="btn btn-danger btn-icon-split">
+                            <a href="#" data-toggle="modal" data-target="#delete_post_{{$post->id}}" class="btn btn-danger">
                                 <i class="fas fa-trash"></i>
                                 <span>Delete Post</span>
                             </a>
@@ -324,9 +507,9 @@
 
                 <!-- Comments Section -->
                 @if($post->comments->count() > 0)
-                    <div class="card post-card">
+                    <div class="post-card">
                         <div class="post-header">
-                            <h6><i class="fas fa-comments mr-2"></i>Comments ({{ $post->comments->count() }})</h6>
+                            <h6><i class="fas fa-comments"></i>Comments ({{ $post->comments->count() }})</h6>
                         </div>
                         <div class="post-body">
                             @foreach($post->comments as $comment)
@@ -351,13 +534,13 @@
             <!-- Sidebar -->
             <div class="col-lg-4">
                 <!-- Post Status Card -->
-                <div class="card post-card mb-4">
+                <div class="sidebar-card">
                     <div class="post-header">
-                        <h6><i class="fas fa-info-circle mr-2"></i>Post Status</h6>
+                        <h6><i class="fas fa-info-circle"></i>Post Status</h6>
                     </div>
                     <div class="post-body">
                         <div class="form-group">
-                            <label class="font-weight-bold">Status</label>
+                            <label>Status</label>
                             <div>
                                 <span class="badge badge-{{ $post->status == 'active' ? 'success' : 'danger' }}">
                                     {{ ucfirst($post->status) }}
@@ -365,34 +548,29 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="font-weight-bold">Published At</label>
-                            <div>{{ $post->created_at->format('F j, Y g:i A') }}</div>
+                            <label>Published At</label>
+                            <div class="text-primary">{{ $post->created_at->format('F j, Y g:i A') }}</div>
                         </div>
                         <div class="form-group">
-                            <label class="font-weight-bold">Last Updated</label>
-                            <div>{{ $post->updated_at->format('F j, Y g:i A') }}</div>
+                            <label>Last Updated</label>
+                            <div class="text-primary">{{ $post->updated_at->format('F j, Y g:i A') }}</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Category Info Card -->
-                <div class="card post-card mb-4">
+                <div class="sidebar-card">
                     <div class="post-header">
-                        <h6><i class="fas fa-folder mr-2"></i>Category Information</h6>
+                        <h6><i class="fas fa-folder"></i>Category Information</h6>
                     </div>
                     <div class="post-body">
                         <div class="form-group">
-                            <label class="font-weight-bold">Category Name</label>
-                            <div>{{ $post->category->name }}</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="font-weight-bold">Category Description</label>
-                            <div>{{ $post->category->description }}</div>
+                            <label>Category Name</label>
+                            <div class="text-primary">{{ $post->category->name }}</div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -404,40 +582,32 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             new Swiper('.post-images-slider', {
-                // Enable loop if there are multiple images
                 loop: {{ $post->images->count() > 1 ? 'true' : 'false' }},
-
-                // Enable autoplay
                 autoplay: {
                     delay: 3000,
                     disableOnInteraction: false,
                 },
-
-                // Navigation arrows
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
-
-                // Pagination
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
                 },
-
-                // Responsive breakpoints
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
                 breakpoints: {
-                    // when window width is >= 320px
                     320: {
                         slidesPerView: 1,
                         spaceBetween: 20
                     },
-                    // when window width is >= 480px
                     480: {
                         slidesPerView: 1,
                         spaceBetween: 30
                     },
-                    // when window width is >= 640px
                     640: {
                         slidesPerView: 1,
                         spaceBetween: 40
