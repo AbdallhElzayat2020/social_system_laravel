@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Post\PostController;
 use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\Admin\AdminController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -51,16 +52,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
         'categories' => CategoryController::class,
         'users' => UserController::class,
         'posts' => PostController::class,
+        'admins' => AdminController::class,
     ]);
 
-    /* Users Routes */
+    /*  user change status */
     Route::get('users/status/{id}', [UserController::class, 'changeStatus'])->name('user.status-change');
 
-    /* Categories Routes */
+    /*  categories change status */
     Route::get('categories/status/{id}', [CategoryController::class, 'changeStatus'])->name('category.status-change');
 
-    /* Posts Routes */
+    /*  posts change status */
     Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('post.status-change');
+
+    /* Admins change status */
+    Route::get('admins/status/{id}', [AdminController::class, 'changeStatus'])->name('admins.status-change');
 
     /* delete single image when edit post */
     Route::post('/post/image/delete/{image_id}', [PostController::class, 'deletePostImage'])->name('post.image.delete');

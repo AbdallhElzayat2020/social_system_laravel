@@ -224,11 +224,11 @@
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Post Details</h1>
-            <a href="{{ route('admin.posts.index') }}" class="btn btn-primary btn-icon-split">
+            <a href="{{ url()->previous() }}" class="btn btn-primary btn-icon-split">
                 <span class="icon text-white">
                     <i class="fas fa-arrow-left"></i>
                 </span>
-                <span class="text">Back to Posts</span>
+                <span class="text">Back</span>
             </a>
         </div>
 
@@ -240,6 +240,7 @@
                         <h6><i class="fas fa-newspaper mr-2"></i>Post Information</h6>
                     </div>
                     <div class="post-body">
+
                         <!-- Author Info -->
                         <div class="author-info">
                             <div class="author-details">
@@ -391,6 +392,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
