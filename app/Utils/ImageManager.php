@@ -60,8 +60,11 @@ class ImageManager
 
     public static function storeImageInLocal($image, $path, $filename): string
     {
+        $uploadPath = public_path('uploads/' . $path);
+        if (!File::exists($uploadPath)) {
+            File::makeDirectory($uploadPath, 0755, true);
+        }
         return $path = $image->storeAs('uploads/' . $path, $filename, 'uploads');
-
     }
 
     public static function deleteImageFromLocal($image_path): void
