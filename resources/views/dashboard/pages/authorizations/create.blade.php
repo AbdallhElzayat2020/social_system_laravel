@@ -258,6 +258,7 @@
                         <div class="permissions-grid">
                             @foreach(config('authorizations.permissions') as $key => $value)
                                 <div class="permission-item">
+                                    {{-- Accessors from Model for json_decode  --}}
                                     <input type="checkbox"
                                            id="permission_{{ $key }}"
                                            name="permissions[]"

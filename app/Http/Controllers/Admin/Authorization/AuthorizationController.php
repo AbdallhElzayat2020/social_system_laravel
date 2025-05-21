@@ -41,9 +41,9 @@ class AuthorizationController extends Controller
         ]);
 
         if (!$authorization) {
-            return redirect()->back()->with('error', 'Failed to create authorization.');
+            return redirect()->back()->with('error', 'Failed to create.');
         }
-        return redirect()->route('admin.authorizations.index')->with('success', 'Authorization created successfully.');
+        return to_route('admin.authorizations.index')->with('success', 'created successfully.');
 
 
     }
@@ -61,7 +61,8 @@ class AuthorizationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $authorization = Authorization::findOrFail($id);
+        return view('dashboard.pages.authorizations.edit', compact('authorization'));
     }
 
     /**
@@ -69,7 +70,17 @@ class AuthorizationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $authorization = Authorization::findOrFail($id);
+        $authorization->update([
+            'role_name' => $request->role_name,
+            'status' => $request->status,
+            'permissions' => json_encode($request->permissions),
+        ]);
+
+        if (!$authorization) {
+            return redirect()->back()->with('error', 'Failed to update authorization.');
+        }
+        return to_route('admin.authorizations.index')->with('success', 'updated successfully.');
     }
 
     /**
@@ -78,14 +89,14 @@ class AuthorizationController extends Controller
     public function destroy(string $id)
     {
         try {
-
             $role = Authorization::findOrFail($id);
             $role->delete();
 
         } catch (\Exception $exception) {
-            return redirect()->back()->with('error', 'Failed to delete Role. Please try again.');
+            return redirect()->back()->with('error', 'Failed to delete. Please try again.');
         }
-        return redirect()->route('admin.authorizations.index')->with('success', 'Role deleted successfully.');
+        return to_route('admin.authorizations.index')->with('success', 'deleted successfully.');
 
     }
+
 }
