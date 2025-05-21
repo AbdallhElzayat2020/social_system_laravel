@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Post\PostController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Admin\AdminController;
+use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -44,11 +45,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
 });
 
-    /*
-    ====================================================================================
-     Protected routes
-    ====================================================================================
-     */
+/*
+====================================================================================
+ Protected routes
+====================================================================================
+ */
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admin']], function () {
 
@@ -62,6 +63,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
       */
 
     Route::resources([
+        'authorizations' => AuthorizationController::class,
         'categories' => CategoryController::class,
         'users' => UserController::class,
         'posts' => PostController::class,

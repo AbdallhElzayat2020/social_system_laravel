@@ -50,6 +50,7 @@
                                     <a href="#" data-toggle="modal" data-target="#delete_post_{{$post->id}}" class="btn btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </a>
+
                                     <a href="{{ route('admin.post.status-change',$post->id) }}" class="btn btn-warning">
                                         @if($post->status == 'active')
                                             <i class="fas fa-ban"></i>
@@ -57,6 +58,7 @@
                                             <i class="fas fa-play"></i>
                                         @endif
                                     </a>
+
                                     <a href="{{ route('admin.posts.show',$post->id) }}" class="btn btn-info">
                                         <i class="fas fa-eye"></i>
                                     </a>

@@ -74,6 +74,22 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Authorizations"
+           aria-expanded="true" aria-controls="Authorizations">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Authorizations</span>
+        </a>
+        <div id="Authorizations" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Admins Managements:</h6>
+                <a class="collapse-item" href="{{ route('admin.authorizations.index') }}">Authorizations</a>
+                <a class="collapse-item" href="{{ route('admin.authorizations.create') }}">Add New Role</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
