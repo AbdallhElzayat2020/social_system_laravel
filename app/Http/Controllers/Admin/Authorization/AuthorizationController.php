@@ -16,16 +16,7 @@ class AuthorizationController extends Controller
      */
     public function index()
     {
-        $roles = Authorization::when(request()->keyword, function (Builder $query) {
-
-            $query->where('role_name', 'like', '%' . request()->keyword . '%')
-                ->orWhere('permissions', 'like', '%' . request()->keyword . '%');
-
-        })->when(request()->status, function (Builder $query) {
-            $query->where('status', request()->status);
-
-        })->orderBy(request('sort_by', 'id'), request('order_by', 'desc'))
-            ->paginate(request('limit_by', 5))->withQueryString();
+        $roles = Authorization::paginate(5);
 
         return view('dashboard.pages.authorizations.index', compact('roles'));
     }
@@ -86,6 +77,15 @@ class AuthorizationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+
+            $role = Authorization::findOrFail($id);
+            $role->delete();
+
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Failed to delete Role. Please try again.');
+        }
+        return redirect()->route('admin.authorizations.index')->with('success', 'Role deleted successfully.');
+
     }
 }

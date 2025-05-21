@@ -1,64 +1,56 @@
 <div class="card-body">
-    <form action="{{url()->current()}}" method="get">
-        <div class="row">
+    <form action="{{ route('admin.authorizations.index') }}" method="GET" class="row g-3">
+        <div class="col-md-3">
+            <label for="name" class="form-label">Role Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   value="{{ request('role_name') }}"
+                   placeholder="Search by role name">
+        </div>
 
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label for="sort_by">Sorting</label>
-                    <select class="form-control" name="sort_by" id="sort_by">
-                        <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>Name</option>
-                        <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>Id</option>
-                        <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>Created_at</option>
-                    </select>
-                </div>
-            </div>
+        <div class="col-md-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-control" id="status" name="status">
+                <option value="">All Status</option>
+                <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+            </select>
+        </div>
 
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label for="order_by">Order By</label>
-                    <select class="form-control" name="order_by" id="order_by">
-                        <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>ASC</option>
-                        <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>DESC</option>
-                    </select>
-                </div>
-            </div>
+        <div class="col-md-3">
+            <label for="permission" class="form-label">Permission</label>
+            <select class="form-control" id="permission" name="permission">
+                <option value="">All Permissions</option>
+                @foreach($permissions as $permission)
+                    <option value="{{ $permission->name }}"
+                            {{ request('permission') === $permission->name ? 'selected' : '' }}>
+                        {{ $permission->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label for="limit_by">Limit By</label>
-                    <select class="form-control" name="limit_by" id="per_page">
-                        <option value="5" {{ request('limit_by') == '5' ? 'selected' : '' }}>5</option>
-                        <option value="10" {{ request('limit_by') == '10' ? 'selected' : '' }}>10</option>
-                        <option value="20" {{ request('limit_by') == '20' ? 'selected' : '' }}>20</option>
-                        <option value="30" {{ request('limit_by') == '30' ? 'selected' : '' }}>30</option>
-                        <option value="50" {{ request('limit_by') == '50' ? 'selected' : '' }}>50</option>
-                        <option value="100" {{ request('limit_by') == '100' ? 'selected' : '' }}>100</option>
-                    </select>
-                </div>
-            </div>
+        <div class="col-md-3">
+            <label for="date" class="form-label">Created Date</label>
+            <input type="date"
+                   class="form-control"
+                   id="date"
+                   name="date"
+                   value="{{ request('date') }}">
+        </div>
 
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select class="form-control" name="status" id="status">
-                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Not Active</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <label for="keyword">Search</label>
-                    <input type="search" name="keyword" class="form-control" placeholder="search here" id="keyword" value="{{ request('keyword') }}">
-                </div>
-            </div>
-
-            <div class="col-lg-1">
-                <label for="">-Search</label>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
+        <div class="col-12">
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search me-1"></i>
+                    Search
+                </button>
+                <a href="{{ route('admin.authorizations.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-redo me-1"></i>
+                    Reset
+                </a>
             </div>
         </div>
     </form>

@@ -228,12 +228,12 @@
                     <div class="form-group">
                         <label for="role_name" class="required-field">Role Name</label>
                         <input type="text"
-                               class="form-control @error('name') is-invalid @enderror"
+                               class="form-control @error('role_name') is-invalid @enderror"
                                id="role_name"
                                name="role_name"
                                value="{{ old('role_name') }}"
                                placeholder="Enter role name">
-                        @error('name')
+                        @error('role_name')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
