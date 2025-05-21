@@ -2,6 +2,7 @@
 
 return [
     'permissions' => [
+        'home_dashboard' => 'Home Dashboard',
         'create_posts' => 'Create Posts',
         'edit_posts' => 'Edit Posts',
         'delete_posts' => 'Delete Posts',
