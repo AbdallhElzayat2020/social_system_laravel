@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\Post\PostController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Admin\AdminController;
 use App\Http\Controllers\Admin\Authorization\AuthorizationController;
-
+use App\Http\Controllers\Admin\Contact\ContactController;
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
     Route::prefix('login')->controller(LoginController::class)->group(function () {
@@ -102,6 +102,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
         Route::get('/', 'index')->name('index');
 
         Route::put('/update', 'update')->name('update');
+
+    });
+
+    /* =================== Contact Routes ==================== */
+    Route::controller(ContactController::class)->prefix('contact')->as('contact.')->group(function () {
+
+        Route::get('/', 'index')->name('index');
+        Route::get('show/{id}', 'show')->name('show');
+        Route::get('destroy/{id}', 'destroy')->name('destroy');
 
     });
 
