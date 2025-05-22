@@ -7,7 +7,7 @@
                 @method('DELETE')
                 <div class="modal-header">
                     <div class="">
-                        <h5 class="modal-title" id="exampleModalLabel"> delete this User <span class="text-danger">{{$contact->name}}</span>
+                        <h5 class="modal-title" id="exampleModalLabel"> delete this <span class="text-danger">{{$contact->name}}</span>
                         </h5>
                     </div>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">

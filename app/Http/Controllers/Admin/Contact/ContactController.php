@@ -21,7 +21,6 @@ class ContactController extends Controller
             ->paginate(request('limit_by', 5))->withQueryString();
 
         return view('dashboard.pages.contact.index', compact('contacts'));
-
     }
 
     public function show(string $id)

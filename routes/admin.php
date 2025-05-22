@@ -113,6 +113,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
         Route::get('/', 'index')->name('index');
         Route::get('show/{id}', 'show')->name('show');
         Route::get('destroy/{id}', 'destroy')->name('destroy');
+
         Route::post('mark-as-read/{contact}', 'markAsRead')->name('mark-as-read');
         Route::post('mark-as-pending/{contact}', 'markAsPending')->name('mark-as-pending');
         Route::get('reply/{contact}', 'showReplyForm')->name('reply');

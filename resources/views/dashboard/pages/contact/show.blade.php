@@ -119,13 +119,21 @@
                             </span>
                             <span class="text">Delete Message</span>
                         </a>
+
+                        <a href="mailto:{{ $contact->email }}"
+                           class="btn btn-primary mx-1 btn-icon-split">
+                            <span class="icon text-white">
+                                <i class="fas fa-reply"></i>
+                            </span>
+                            <span class="text">Reply</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @include('dashboard.pages.users.delete')
+    @include('dashboard.pages.contact.delete')
 
     <style>
         .icon-circle {
