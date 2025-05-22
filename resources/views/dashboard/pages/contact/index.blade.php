@@ -10,9 +10,11 @@
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
+
             <div class="card-header py-3">
                 <a href="javascript:;" class="btn btn-primary float-right">Contact Management</a>
             </div>
+
             @include('dashboard.pages.contact.filter.filter')
             <div class="card-body">
                 <div class="table-responsive">

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Admin\AdminController;
 use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Contact\ContactController;
 
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
     Route::prefix('login')->controller(LoginController::class)->group(function () {
@@ -117,6 +118,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
         Route::get('reply/{contact}', 'showReplyForm')->name('reply');
         Route::post('reply/{contact}', 'sendReply')->name('send-reply');
         Route::post('status/{contact}', 'updateStatus')->name('update-status');
+
     });
 
     Route::get('dashboard', function () {
