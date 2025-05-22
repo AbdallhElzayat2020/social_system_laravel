@@ -7,18 +7,40 @@
                 <i class="fas fa-envelope-open-text text-primary mr-2"></i>
                 Message Details
             </h1>
-            <a href="{{ route('admin.contact.index') }}" class="btn btn-outline-primary">
-                <i class="fas fa-arrow-left mr-1"></i>
-                Back to Messages
-            </a>
+            <div class="d-flex align-items-center">
+                <!-- Status Badge -->
+                <div class="mr-3">
+                    @if($contact->status === 'active')
+                        <span class="badge badge-success px-3 py-2">
+                            <i class="fas fa-check-circle mr-1"></i> Read
+                        </span>
+                    @elseif($contact->status === 'inactive')
+                        <span class="badge badge-warning px-3 py-2">
+                            <i class="fas fa-clock mr-1"></i> Unread
+                        </span>
+                    @endif
+                </div>
+                <a href="{{ route('admin.contact.index') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left mr-1"></i>
+                    Back to Messages
+                </a>
+            </div>
         </div>
 
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header bg-gradient-primary text-white py-3">
-                <h5 class="mb-0">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    Sender Information
-                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Sender Information
+                    </h5>
+                    <div class="text-white-50">
+                        <small>
+                            <i class="fas fa-calendar-alt mr-1"></i>
+                            {{ $contact->created_at->format('M d, Y H:i') }}
+                        </small>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -90,24 +112,13 @@
                 <!-- Action Buttons -->
                 <div class="mt-4 pt-3 border-top">
                     <div class="d-flex justify-content-end">
-                        @can('reply_contact')
-                            <a href="#" class="btn btn-success btn-icon-split ml-2">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-reply"></i>
-                            </span>
-                                <span class="text">Reply to Message</span>
-                            </a>
-                        @endcan
-
-                        @can('delete_contact')
-                            <a href="#" data-toggle="modal" data-target="#delete_user_{{$contact->id}}"
-                               class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
+                        <a href="#" data-toggle="modal" data-target="#delete_user_{{$contact->id}}"
+                           class="btn btn-danger mx-1 btn-icon-split">
+                            <span class="icon text-white">
                                 <i class="fas fa-trash"></i>
                             </span>
-                                <span class="text">Delete Message</span>
-                            </a>
-                        @endcan
+                            <span class="text">Delete Message</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -145,6 +156,15 @@
 
         .btn-icon-split:hover {
             transform: translateY(-2px);
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .badge i {
+            font-size: 0.9rem;
         }
     </style>
 @endsection

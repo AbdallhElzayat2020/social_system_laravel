@@ -442,13 +442,16 @@
                         <!-- Author Info -->
                         <div class="author-info">
                             <div class="author-details">
-                                <h6>Publisher:
-                                    <span class="text-primary">
-                                        {{ auth()->guard('web')->user()->name ? auth()->guard('admin')->user()->name: 'By Admin' }}
+                                @auth
+                                    <h6>Publisher:
+                                        <span class="text-primary">
+                                        {{ auth()->guard('web')->user()->name ? auth()->guard('admin')->user()->name : 'By Admin' }}
                                     </span>
-                                </h6>
+                                    </h6>
+                                @endauth
+
                                 <p>
-                                    <i class="fas fa-clock mr-1"></i>Posted 
+                                    <i class="fas fa-clock mr-1"></i>Posted
                                     <span class="text-primary">{{ $post->created_at->diffForHumans() }}</span>
                                 </p>
                             </div>
@@ -461,7 +464,9 @@
                         <div class="post-meta">
                             <div><i class="fas fa-folder"></i>Category: {{ $post->category->name }}</div>
                             <div><i class="fas fa-eye"></i>Views: {{ $post->num_of_views }}</div>
-                            <div><i class="fas fa-comments"></i>{{ $post->comments_count > 0 ? $post->comments_count.' Comments' : 'No Comments Yet' }}</div>
+                            <div>
+                                <i class="fas fa-comments"></i>{{ $post->comments_count > 0 ? $post->comments_count.' Comments' : 'No Comments Yet' }}
+                            </div>
                         </div>
 
                         <!-- Post Images Slider -->

@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <label for="order_by">Order By</label>
                     <select class="form-control" name="order_by" id="order_by">
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <label for="limit_by">Limit By</label>
                     <select class="form-control" name="limit_by" id="per_page">
@@ -33,6 +33,16 @@
                         <option value="30" {{ request('limit_by') == '30' ? 'selected' : '' }}>30</option>
                         <option value="50" {{ request('limit_by') == '50' ? 'selected' : '' }}>50</option>
                         <option value="100" {{ request('limit_by') == '100' ? 'selected' : '' }}>100</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" name="status" id="status">
+                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Read</option>
+                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Not Read</option>
                     </select>
                 </div>
             </div>

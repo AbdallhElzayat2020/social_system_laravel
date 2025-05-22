@@ -22,6 +22,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Status</th>
                             <th>Phone</th>
                             <th>Created At</th>
                             <th>Actions</th>
@@ -34,6 +35,7 @@
                                 <td>{{$index + 1}}</td>
                                 <td>{{$contact->name}}</td>
                                 <td>{{$contact->email}}</td>
+                                <td>{{$contact->status == 'active'? 'Read' : 'unRead'}}</td>
                                 <td>{{$contact->phone}}</td>
                                 <td>{{ $contact->created_at->diffForHumans() }}</td>
                                 <td>

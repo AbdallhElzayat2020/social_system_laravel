@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -14,8 +13,11 @@ class ContactController extends Controller
     {
         $contacts = Contact::when(request()->keyword, function (Builder $query) {
 
-            $query->where('title', 'like', '%' . request()->keyword . '%')
-                ->orWhere('name', 'like', '%' . request()->keyword . '%');
+            $query->where('title', 'like', '%' . request()->keyword . '%');
+
+        })->when(request()->status, function (Builder $query) {
+
+            $query->where('status', request()->status);
 
         })->orderBy(request('sort_by', 'id'), request('order_by', 'desc'))
             ->paginate(request('limit_by', 5))->withQueryString();
@@ -26,6 +28,7 @@ class ContactController extends Controller
     public function show(string $id)
     {
         $contact = Contact::findOrFail($id);
+        $contact->update(['status' => 'active']);
         return view('dashboard.pages.contact.show', compact('contact'));
     }
 
