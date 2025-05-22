@@ -13,10 +13,14 @@ class Authorization extends Model
         'status',
     ];
 
-    /*  Accessors */
+    /*  Accessors for json_decode permissions  */
     public function getPermissionsAttribute($permissions)
     {
         return json_decode($permissions, true);
     }
 
+    public function admins(): HasMany
+    {
+        return $this->hasMany(Admin::class, 'role_id');
+    }
 }

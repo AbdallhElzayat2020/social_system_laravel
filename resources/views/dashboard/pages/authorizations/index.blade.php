@@ -272,10 +272,12 @@
                 <i class="fas fa-user-tag"></i>
                 Roles Management
             </h1>
-            <a href="{{ route('admin.authorizations.create') }}" class="create-btn">
-                <i class="fas fa-plus"></i>
-                Create New
-            </a>
+{{--            @can('create_roles')--}}
+                <a href="{{ route('admin.authorizations.create') }}" class="create-btn">
+                    <i class="fas fa-plus"></i>
+                    Create New
+                </a>
+{{--            @endcan--}}
         </div>
 
         @if($roles->count() > 0)
@@ -286,6 +288,7 @@
                         <th>Name</th>
                         <th>Status</th>
                         <th>Permissions</th>
+                        <th>Related Admins</th>
                         <th>Created At</th>
                         <th>Actions</th>
                     </tr>
@@ -307,21 +310,29 @@
                                     <span class="badge badge-info">{{ $value }}</span>
                                 @endforeach
                             </td>
+                            <td>
+                                {{$role->admins->count()}}
+                            </td>
                             <td>{{ $role->created_at->diffForHumans() }}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="{{ route('admin.authorizations.edit', $role->id) }}"
-                                       class="btn btn-primary"
-                                       title="Edit Role">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="#"
-                                       data-toggle="modal"
-                                       data-target="#delete_role_{{$role->id}}"
-                                       class="btn btn-danger"
-                                       title="Delete Role">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+{{--                                    @can('edit_roles')--}}
+                                        <a href="{{ route('admin.authorizations.edit', $role->id) }}"
+                                           class="btn btn-primary"
+                                           title="Edit Role">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+{{--                                    @endcan--}}
+
+{{--                                    @can('delete_roles')--}}
+                                        <a href="#"
+                                           data-toggle="modal"
+                                           data-target="#delete_role_{{$role->id}}"
+                                           class="btn btn-danger"
+                                           title="Delete Role">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+{{--                                    @endcan--}}
                                 </div>
                             </td>
                         </tr>

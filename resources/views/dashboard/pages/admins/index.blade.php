@@ -11,7 +11,9 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
+                {{--                @can('create_admins')--}}
                 <a href="{{ route('admin.admins.create') }}" class="btn btn-primary float-right">Create Admin</a>
+                {{--                @endcan--}}
             </div>
             @include('dashboard.pages.admins.filter.filter')
             <div class="card-body">
@@ -24,6 +26,7 @@
                             <th>Email</th>
                             <th>UserName</th>
                             <th>Status</th>
+                            <th>Role</th>
                             <th>Created At</th>
                             <th>Actions</th>
                         </tr>
@@ -43,12 +46,19 @@
                                         <span class="badge badge-danger">Not Active</span>
                                     @endif
                                 </td>
+                                <td>
+                                    <span class="badge badge-info">{{ $admin->role->role_name}}</span>
+                                </td>
                                 <td>{{ $admin->created_at->diffForHumans() }}</td>
                                 <td>
-                                    <a href="#" data-toggle="modal" data-target="#delete_admin_{{$admin->id}}" class="btn btn-danger">
-                                        <i class="fas fa-trash"></i>
+                                    {{--                                    @can('delete_admins')--}}
+                                    <a href="#" data-toggle="modal"
+                                       data-target="#delete_admin_{{$admin->id}}"
+                                       class="btn btn-danger"> <i class="fas fa-trash"></i>
                                     </a>
+                                    {{--                                    @endcan--}}
 
+                                    {{--                                    @can('change_status_admins')--}}
                                     <a href="{{ route('admin.user.status-change',$admin->id) }}" class="btn btn-warning">
                                         @if($admin->status == 'active')
                                             <i class="fas fa-ban"></i>
@@ -56,13 +66,18 @@
                                             <i class="fas fa-play"></i>
                                         @endif
                                     </a>
-                                    <a href="{{ route('admin.admins.edit',$admin->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    {{--                                    @endcan--}}
+
+                                    {{--                                    @can('edit_admins')--}}
+                                    <a href="{{ route('admin.admins.edit',$admin->id) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                    {{--                                    @endcan--}}
+
                                 </td>
                             </tr>
                             @include('dashboard.pages.admins.delete')
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center alert alert-info">No admins found</td>
+                                <td colspan="8" class="text-center alert alert-info">No admins found</td>
                             </tr>
                         @endforelse
 

@@ -508,11 +508,14 @@
 
 
             <input type="hidden" name="setting_id" value="{{$getSetting->id}}">
-            <div class="form-group text-left mb-4">
-                <button type="submit" class="btn btn-primary btn-save">
-                    <i class="fas fa-save mr-2"></i> Save Settings
-                </button>
-            </div>
+{{--            @can('update_settings')--}}
+                <div class="form-group text-left mb-4">
+                    <button type="submit" class="btn btn-primary btn-save">
+                        <i class="fas fa-save mr-2"></i> Save Settings
+                    </button>
+                </div>
+{{--            @endcan--}}
+
         </form>
     </div>
 

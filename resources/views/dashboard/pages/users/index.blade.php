@@ -11,7 +11,9 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
+                {{--                @can('create_users')--}}
                 <a href="{{ route('admin.users.create') }}" class="btn btn-primary float-right">Create User</a>
+                {{--                @endcan--}}
             </div>
             @include('dashboard.pages.users.filter.filter')
             <div class="card-body">
@@ -47,9 +49,14 @@
                                 <td>{{$user->phone}}</td>
                                 <td>{{ $user->created_at->diffForHumans() }}</td>
                                 <td>
+
+                                    {{--                                    @can('delete_users')--}}
                                     <a href="#" data-toggle="modal" data-target="#delete_user_{{$user->id}}" class="btn btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </a>
+                                    {{--                                    @endcan--}}
+
+                                    {{--                                    @can('change_status_users')--}}
                                     <a href="{{ route('admin.user.status-change',$user->id) }}" class="btn btn-warning">
                                         @if($user->status == 'active')
                                             <i class="fas fa-ban"></i>
@@ -57,7 +64,11 @@
                                             <i class="fas fa-play"></i>
                                         @endif
                                     </a>
+                                    {{--                                    @endcan--}}
+
+                                    {{--                                    @can('edit_users')--}}
                                     <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    {{--                                    @endcan--}}
                                 </td>
                             </tr>
                             @include('dashboard.pages.users.delete')

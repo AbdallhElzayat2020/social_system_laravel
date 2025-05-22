@@ -69,6 +69,7 @@ class AuthorizationController extends Controller
             'permissions' => json_encode($request->permissions),
         ]);
 
+
         if (!$authorization) {
             return redirect()->back()->with('error', 'Failed to update authorization.');
         }
@@ -82,7 +83,16 @@ class AuthorizationController extends Controller
     {
         try {
             $role = Authorization::findOrFail($id);
+
+            if ($role->admins->count() > 0) {
+                return redirect()->back()->with('error', 'Failed to delete. This role is assigned to one or more admins.');
+            }
+
             $role->delete();
+
+            if (!$role) {
+                return redirect()->back()->with('error', 'Failed to delete. Please try again.');
+            }
 
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'Failed to delete. Please try again.');

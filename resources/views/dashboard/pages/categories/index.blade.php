@@ -10,9 +10,11 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a href="#" data-toggle="modal" data-target="#create_category" class="btn btn-primary  float-right">
-                    <i class="fas fa-plus"></i> Create
-                </a>
+{{--                @can('create_categories')--}}
+                    <a href="#" data-toggle="modal" data-target="#create_category" class="btn btn-primary  float-right">
+                        <i class="fas fa-plus"></i> Create
+                    </a>
+{{--                @endcan--}}
             </div>
 
             {{-- Filter --}}
@@ -49,19 +51,27 @@
                                 <td>{{ $category->posts_count }}</td>
                                 <td>{{ $category->created_at->diffForHumans() }}</td>
                                 <td>
-                                    <a href="#" data-toggle="modal" data-target="#delete_user_{{$category->id}}" class="btn btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                    <a  href="#" data-toggle="modal" data-target="#edit_category{{$category->id}}" class="btn btn-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{{ route('admin.category.status-change',$category->id) }}" class="btn btn-warning">
-                                        @if($category->status == 'active')
-                                            <i class="fas fa-ban"></i>
-                                        @else
-                                            <i class="fas fa-play"></i>
-                                        @endif
-                                    </a>
+{{--                                    @can('delete_categories')--}}
+                                        <a href="#" data-toggle="modal" data-target="#delete_user_{{$category->id}}" class="btn btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+{{--                                    @endcan--}}
+
+{{--                                    @can('edit_categories')--}}
+                                        <a href="#" data-toggle="modal" data-target="#edit_category{{$category->id}}" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+{{--                                    @endcan--}}
+
+{{--                                    @can('change_status_categories')--}}
+                                        <a href="{{ route('admin.category.status-change',$category->id) }}" class="btn btn-warning">
+                                            @if($category->status == 'active')
+                                                <i class="fas fa-ban"></i>
+                                            @else
+                                                <i class="fas fa-play"></i>
+                                            @endif
+                                        </a>
+{{--                                    @endcan--}}
                                 </td>
                             </tr>
                             @include('dashboard.pages.categories.delete')

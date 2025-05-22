@@ -32,7 +32,7 @@ class SettingController extends Controller
 
     public function changePassword(Request $request)
     {
-        //filter password from request
+        //filter password from private method
         $request->validate($this->filterPasswordRequest());
 
         if (Hash::check($request->current_password, auth()->user()->password)) {

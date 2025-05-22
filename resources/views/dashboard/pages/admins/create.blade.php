@@ -322,6 +322,26 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="role_id" class="required-field">Select Role</label>
+                                <select class="form-control @error('role_id') is-invalid @enderror"
+                                        name="role_id"
+                                        id="role_id">
+                                    <option value="">Select Role</option>
+                                    @forelse($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->role_name}}</option>
+                                    @empty
+                                        <option value="" disabled selected> No Roles</option>
+                                    @endforelse
+                                </select>
+                                @error('role_id')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Submit Button -->
@@ -343,7 +363,7 @@
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
             const icon = input.nextElementSibling.querySelector('i');
-            
+
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.classList.remove('fa-eye');

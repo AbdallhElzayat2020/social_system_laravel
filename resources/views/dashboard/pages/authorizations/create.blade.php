@@ -238,18 +238,20 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="status" class="required-field">Status</label>
-                        <select class="form-control @error('status') is-invalid @enderror"
-                                name="status"
-                                id="status">
-                            <option value="">Select Status</option>
-                            <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
-                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                        </select>
-                        @error('status')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="status" class="required-field">Status</label>
+                            <select class="form-control @error('status') is-invalid @enderror"
+                                    name="status"
+                                    id="status">
+                                <option value="">Select Status</option>
+                                <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                            </select>
+                            @error('status')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- Permissions Section -->

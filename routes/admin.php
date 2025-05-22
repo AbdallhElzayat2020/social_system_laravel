@@ -62,13 +62,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
     ====================================================================================
       */
 
-    Route::resources([
-        'authorizations' => AuthorizationController::class,
-        'categories' => CategoryController::class,
-        'users' => UserController::class,
-        'posts' => PostController::class,
-        'admins' => AdminController::class,
-    ]);
+    Route::resource('authorizations', AuthorizationController::class);
+//        ->middleware('can:view_roles');
+    Route::resource('categories', CategoryController::class);
+//        ->middleware('can:view_categories');
+    Route::resource('users', UserController::class);
+//        ->middleware('can:view_users');
+    Route::resource('posts', PostController::class);
+//        ->middleware('can:view_posts');
+    Route::resource('admins', AdminController::class);
+//        ->middleware('can:view_admins');
+//    Route::resources([
+//        'authorizations' => AuthorizationController::class,
+//        'categories' => CategoryController::class,
+//        'users' => UserController::class,
+//        'posts' => PostController::class,
+//        'admins' => AdminController::class,
+//    ]);
+
 
     /*  user change status */
     Route::get('users/status/{id}', [UserController::class, 'changeStatus'])->name('user.status-change');
