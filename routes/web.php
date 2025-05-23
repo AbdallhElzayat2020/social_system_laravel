@@ -15,7 +15,11 @@ Route::group([
     'as' => 'frontend.',
 ], function () {
 
-    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/', [HomeController::class, 'index'])->name('index')->middleware('check_user_status');
+
+    Route::get('wait', function () {
+        return view('frontend.pages.waiting');
+    })->name('waiting');
 
     /* Subscribers */
     Route::post('news-subscribers', [NewsSubscribersController::class, 'store'])->name('news.subscribers');
@@ -37,16 +41,16 @@ Route::group([
 
         Route::get('{slug}', 'show')->name('show');
 
-        Route::get('comments/{slug}', 'getAllPosts')->name('getAllComments');
+        Route::get('comments/{slug}', 'getAllPosts')->name('getAllComments')->middleware('check_user_status');
 
-        Route::post('comments/store', 'saveComment')->name('comments.store');
+        Route::post('comments/store', 'saveComment')->name('comments.store')->middleware('check_user_status');
     });
 
     /* Search Posts */
     Route::match(['post', 'get'], 'search', SearchController::class)->name('search');
 
     /*  User Profile Routes & Notifications & Settings   */
-    Route::prefix('account/')->name('dashboard.')->middleware(['auth:web', 'verified'])->group(function () {
+    Route::prefix('account/')->name('dashboard.')->middleware(['auth:web', 'verified', 'check_user_status'])->group(function () {
 
         /* Manage profile Routes */
         Route::controller(ProfileController::class)->group(function () {
