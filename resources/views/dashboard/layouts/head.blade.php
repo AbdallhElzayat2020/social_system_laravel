@@ -25,4 +25,5 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/summernote/summernote-bs4.min.css')}}">
 
     @stack('css')
+    @livewireStyles
 </head>

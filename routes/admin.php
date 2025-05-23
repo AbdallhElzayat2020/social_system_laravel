@@ -11,7 +11,8 @@ use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Admin\AdminController;
 use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Contact\ContactController;
-
+use App\Http\Controllers\Admin\Profile\ProfileController;
+use App\Http\Controllers\Admin\HomeController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -109,20 +110,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
 
     /* =================== Contact Routes ==================== */
     Route::controller(ContactController::class)->prefix('contact')->as('contact.')->group(function () {
-
         Route::get('/', 'index')->name('index');
         Route::get('show/{id}', 'show')->name('show');
         Route::get('destroy/{id}', 'destroy')->name('destroy');
-
-        Route::post('mark-as-read/{contact}', 'markAsRead')->name('mark-as-read');
-        Route::post('mark-as-pending/{contact}', 'markAsPending')->name('mark-as-pending');
-        Route::get('reply/{contact}', 'showReplyForm')->name('reply');
-        Route::post('reply/{contact}', 'sendReply')->name('send-reply');
-        Route::post('status/{contact}', 'updateStatus')->name('update-status');
-
     });
 
-    Route::get('dashboard', function () {
-        return view('dashboard.pages.home');
-    })->name('dashboard.index');
+    /* =================== Profile Routes ==================== */
+    Route::controller(ProfileController::class)->prefix('profile')->as('profile.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('update', 'update')->name('update');
+    });
+
+    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 });

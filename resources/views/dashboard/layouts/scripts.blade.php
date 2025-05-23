@@ -23,3 +23,5 @@
 <script src="{{asset('assets/dashboard/js/demo/chart-pie-demo.js')}}"></script>
 
 @stack('js')
+
+@livewireScripts
