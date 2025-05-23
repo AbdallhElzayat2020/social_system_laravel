@@ -14,6 +14,7 @@
         "ichtrojan/laravel-otp": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "laraveldaily/laravel-charts": "^0.2.3",
         "livewire/livewire": "^3.6",
         "php-flasher/flasher-laravel": "^2.1",
         "predis/predis": "^2.0",
