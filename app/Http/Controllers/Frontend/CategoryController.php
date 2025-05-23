@@ -15,12 +15,12 @@ class CategoryController extends Controller
     {
         $category = Category::active()->whereSlug($slug)->first();  // => == $category = Category::where('slug', $slug)->first();
         if (!$category) {
-            return redirect()->back()->with('warning', 'Category not found');
+            abort(404);
         }
 
         $posts = $category->posts()->paginate(9)->withQueryString();
 
         return view('frontend.pages.category-posts', compact('posts', 'category'));
-        
+
     }
 }

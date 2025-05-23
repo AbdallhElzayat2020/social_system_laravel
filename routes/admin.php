@@ -14,8 +14,14 @@ use App\Http\Controllers\Admin\Contact\ContactController;
 use App\Http\Controllers\Admin\Profile\ProfileController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\Notification\NotificationController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
+
+    /* =================== Fallback for 404 error ==================== */
+    Route::fallback(function () {
+        return response()->view('errors.404');
+    });
 
     Route::prefix('login')->controller(LoginController::class)->group(function () {
 
@@ -63,26 +69,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
     * Users
     * Posts
     * Admins
+    * Authorizations
     ====================================================================================
       */
 
     Route::resource('authorizations', AuthorizationController::class);
-//        ->middleware('can:view_roles');
     Route::resource('categories', CategoryController::class);
-//        ->middleware('can:view_categories');
     Route::resource('users', UserController::class);
-//        ->middleware('can:view_users');
     Route::resource('posts', PostController::class);
-//        ->middleware('can:view_posts');
     Route::resource('admins', AdminController::class);
-//        ->middleware('can:view_admins');
-//    Route::resources([
-//        'authorizations' => AuthorizationController::class,
-//        'categories' => CategoryController::class,
-//        'users' => UserController::class,
-//        'posts' => PostController::class,
-//        'admins' => AdminController::class,
-//    ]);
 
 
     /*  user change status */

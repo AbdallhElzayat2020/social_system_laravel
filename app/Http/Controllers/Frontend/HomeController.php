@@ -31,6 +31,7 @@ class HomeController extends Controller
             return $category;
         });
 
+
         return view('frontend.pages.home', compact(
             'posts',
             'greatest_posts_views',

@@ -21,7 +21,9 @@ class ProfileController extends Controller
     {
         $posts = auth()->user()->posts()->active()->latest()->with(['images'])->get();
 
+
         $user = auth()->user();
+
         return view('frontend.dashboard.profile', compact('posts', 'user'));
     }
 

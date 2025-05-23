@@ -28,6 +28,7 @@ class SearchController extends Controller
             })->paginate(14)
             ->withQueryString();
 
+
         return view('frontend.pages.search', compact('posts'));
     }
 }

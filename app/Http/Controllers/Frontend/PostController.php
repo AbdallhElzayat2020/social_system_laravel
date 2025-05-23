@@ -16,6 +16,10 @@ class PostController extends Controller
             $query->latest()->limit(3);
         }])->whereSlug($slug)->first();
 
+        if (!$mainPost) {
+            abort(404);
+        }
+
         $category = $mainPost->category;
 
         $relatedPosts = $category->posts()
@@ -26,6 +30,7 @@ class PostController extends Controller
 
         $mainPost->increment('num_of_views');
 
+
         return view('frontend.pages.show-post', compact('mainPost', 'relatedPosts'));
     }
 
@@ -34,8 +39,20 @@ class PostController extends Controller
 
         $post = Post::active()->whereSlug($slug)->first();
 
+        if (!$post) {
+            return response()->json([
+                'data' => 'Post not found',
+                'status' => 404
+            ]);
+        }
         $comments = $post->comments()->with('user')->get();
 
+        if ($comments->isEmpty()) {
+            return response()->json([
+                'data' => 'No comments found',
+                'status' => 404
+            ]);
+        }
         return response()->json($comments);
 
     }

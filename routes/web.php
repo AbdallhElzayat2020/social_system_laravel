@@ -15,6 +15,11 @@ Route::group([
     'as' => 'frontend.',
 ], function () {
 
+    //fallback route for 404 error
+    Route::fallback(function () {
+        return response()->view('errors.404');
+    });
+
     Route::get('/', [HomeController::class, 'index'])->name('index')->middleware('check_user_status');
 
     Route::get('wait', function () {

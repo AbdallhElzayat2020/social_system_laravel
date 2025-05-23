@@ -25,13 +25,13 @@ class ContactController extends Controller
             'phone' => $request->phone,
             'ip_address' => $request->ip(),
         ]);
-        if ($contact) {
-            Session::flash('success', 'Your message has been sent successfully');
-            return redirect()->back();
-        } else {
+
+        if (!$contact) {
             Session::flash('error', 'Something went wrong. Please try again later.');
             return redirect()->back();
         }
+        Session::flash('success', 'Your message has been sent successfully');
+        return redirect()->back();
 
     }
 }
