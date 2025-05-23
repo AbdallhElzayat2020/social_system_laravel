@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('username');
             $table->string('password');
             $table->string('image')->nullable();
-            $table->string('phone')->nullable()->unique();
+            $table->string('phone')->nullable();
             $table->string('city')->nullable();
             $table->string('street')->nullable();
             $table->string('country')->nullable();

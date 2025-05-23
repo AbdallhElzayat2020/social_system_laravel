@@ -11,6 +11,8 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
 {
+
+
     public function redirect($provider)
     {
         return Socialite::driver($provider)->redirect();
@@ -24,6 +26,8 @@ class SocialLoginController extends Controller
             $user = User::where('provider', $provider)
                 ->where('provider_id', $provider_user->getId())
                 ->first();
+
+            $username = $this->generateUsernameUnique($provider_user->getName());
 
             if (!$user) {
                 $user = User::where('email', $provider_user->getEmail())->first();
@@ -50,7 +54,7 @@ class SocialLoginController extends Controller
                     $user = User::create([
                         'name' => $provider_user->getName(),
                         'email' => $provider_user->getEmail(),
-                        'username' => $provider_user->getName(),
+                        'username' => $username,
                         'image' => $provider_user->getAvatar(),
                         'password' => Hash::make(Str::random(10)),
                         'provider' => $provider,
@@ -88,9 +92,21 @@ class SocialLoginController extends Controller
     }
 
 
+    private function generateUsernameUnique($name)
+    {
+        $username = Str::slug($name);
+        $count = 1;
+        while (User::where('username', $username)->exists()) {
+            $username = Str::slug($name) . '-' . $count;
+            $count++;
+        }
+    }
 
 
-    //*  for Api  *//
+
+
+    /** ====================== for Api ======================  **/
+
 //    public function callback(Request $request, $provider)
 //    {
 //        try {
