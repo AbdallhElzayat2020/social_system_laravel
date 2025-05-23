@@ -78,7 +78,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with(['comments'])->withCount('comments')->findOrFail($id);
         return view('dashboard.pages.posts.show', compact('post'));
     }
 

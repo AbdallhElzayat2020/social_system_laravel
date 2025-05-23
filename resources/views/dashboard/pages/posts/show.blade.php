@@ -416,6 +416,178 @@
                 margin-top: 1rem;
             }
         }
+
+        /* Comment Actions Styles */
+        .comment-actions {
+            margin-left: auto;
+        }
+
+        .comment-actions .btn-danger {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .comment-actions .btn-danger:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1040;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal-backdrop.show {
+            opacity: 1;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1050;
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            outline: 0;
+        }
+
+        .modal-dialog {
+            position: relative;
+            width: auto;
+            margin: 1.75rem auto;
+            pointer-events: none;
+            transform: translate(0, -50px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal.show .modal-dialog {
+            transform: none;
+        }
+
+        .modal-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: none;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            outline: 0;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            perspective: 1000;
+            -webkit-perspective: 1000;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            color: #fff;
+            border-radius: 0.75rem 0.75rem 0 0;
+            border: none;
+        }
+
+        .modal-header .close {
+            color: #fff;
+            text-shadow: none;
+            opacity: 0.8;
+        }
+
+        .modal-header .close:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            position: relative;
+            flex: 1 1 auto;
+            padding: 1.5rem;
+            color: #5a5c69;
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eaecf4;
+            border-bottom-right-radius: 0.75rem;
+            border-bottom-left-radius: 0.75rem;
+        }
+
+        .modal-footer .btn {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-footer .btn-secondary {
+            background: #858796;
+            border-color: #858796;
+        }
+
+        .modal-footer .btn-secondary:hover {
+            background: #6e707e;
+            border-color: #6e707e;
+        }
+
+        .modal-footer .btn-danger {
+            background: #e74a3b;
+            border-color: #e74a3b;
+        }
+
+        .modal-footer .btn-danger:hover {
+            background: #be2617;
+            border-color: #be2617;
+        }
+
+        /* Modal Animation */
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal.fade .modal-dialog {
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        /* Fix for iOS Safari */
+        @supports (-webkit-touch-callout: none) {
+            .modal-backdrop {
+                position: absolute;
+            }
+
+            .modal {
+                position: absolute;
+            }
+        }
     </style>
 @endpush
 
@@ -524,11 +696,25 @@
                                              alt="{{ $comment->user->name }}"
                                              class="comment-avatar">
                                         <div class="comment-meta">
-                                            <h6 class="comment-author">{{ $comment->user->name }}</h6>
+                                            <h6 class="comment-author"><a  class="text-decoration-none"
+                                                        href="{{ route('admin.users.edit',$comment->user->id) }}">{{ $comment->user->name }}</a></h6>
                                             <p class="comment-date">{{ $comment->created_at->diffForHumans() }}</p>
                                         </div>
+                                        @auth('admin')
+                                            <div class="comment-actions">
+                                                <form action="{{ route('admin.comments.destroy', $comment->id) }}" method="POST"
+                                                      style="display: inline;"
+                                                      onsubmit="return confirm('Are you sure you want to delete this comment?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endauth
                                     </div>
-                                    <p class="comment-content">{{ $comment->content }}</p>
+                                    <p class="comment-content">{{ $comment->comment }}</p>
                                 </div>
                             @endforeach
                         </div>

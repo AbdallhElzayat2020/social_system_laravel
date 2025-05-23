@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Contact\ContactController;
 use App\Http\Controllers\Admin\Profile\ProfileController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\CommentController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.',], function () {
 
@@ -122,4 +123,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth.admi
     });
 
     Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
+
+    // Comments Routes
+    Route::delete('comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
