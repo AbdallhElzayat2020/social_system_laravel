@@ -10,10 +10,9 @@ use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\Dashboard\ProfileController;
 use App\Http\Controllers\Frontend\Dashboard\SettingController;
 use App\Http\Controllers\Frontend\Dashboard\NotificationController;
+use App\Http\Controllers\Frontend\Auth\SocialLoginController;
 
-Route::group([
-    'as' => 'frontend.',
-], function () {
+Route::group(['as' => 'frontend.',], function () {
 
     //fallback route for 404 error
     Route::fallback(function () {
@@ -114,16 +113,14 @@ Route::group([
 });
 
 
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-//
-//
-//Route::middleware('auth')->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});
+/*  ============= Social login Routes ============= */
+
+// Google Login
+
+Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])->name('auth.socialite.redirect');
+Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('auth.socialite.callback');
+
+
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
