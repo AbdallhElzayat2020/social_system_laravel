@@ -80,15 +80,24 @@ class Post extends Model
      * ================================
      */
 
-    public function scopeActive($query)
+    #[Scope]
+    protected function active(Builder $query): Builder
     {
-        return $query->where('status', 'active');
+        return $query->whereStatus('active');
     }
 
     #[Scope]
     protected function activeUser(Builder $query): Builder
     {
-        return $query->whereStatus('active');
+
+        return $query->where(function (Builder $query) {
+
+            $query->whereHas('user', function ($user) {
+
+                $user->whereStatus('active');
+
+            })->orWhere('user_id', null);
+        });
     }
 
     #[Scope]

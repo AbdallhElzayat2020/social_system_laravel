@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LatestPostResouce;
+use App\Http\Resources\PostResource;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -11,14 +13,16 @@ class GeneralController extends Controller
 {
     public function getPosts()
     {
+        $query = Post::query()->with(['user', 'category', 'admin'])->activeUser()->activeCategory()->active();
 
-        $query = Post::query()->with(['user', 'category'])->activeUser()->activeCategory()->active();
+        $all_posts = clone $query->latest()->get();
 
-        $all_posts = $this->allPosts($query);
+        $all_posts = PostResource::collection($all_posts);
 
-        $latestPosts = $this->latestPosts($query);
+//        $latest_posts = $this->latestPosts($query);
+        $latest_posts = LatestPostResouce::collection($this->latestPosts($query));
 
-        $oldestPosts = $this->oldestPosts($query);
+        $oldest_posts = $this->oldestPosts($query);
 
         $popular_posts = $this->popularPosts($query);
 
@@ -28,8 +32,8 @@ class GeneralController extends Controller
 
         return response()->json([
             'all_posts' => $all_posts,
-            'latestPosts' => $latestPosts,
-            'oldestPosts' => $oldestPosts,
+            'latest_posts' => $latest_posts,
+            'oldest_posts' => $oldest_posts,
             'popular_posts' => $popular_posts,
             'categories_withPosts' => $categories_withPosts,
             'most_read_posts' => $most_read_posts
@@ -37,19 +41,11 @@ class GeneralController extends Controller
     }
 
 
-
-
-
     /*
     --------------------------------------------------------------------------
      Functions for retrieving latest, oldest,  popular posts , categoriesWithPost
     --------------------------------------------------------------------------
     */
-
-    public function allPosts($query)
-    {
-        return $query->paginate(8);
-    }
 
     public function latestPosts($query)
     {

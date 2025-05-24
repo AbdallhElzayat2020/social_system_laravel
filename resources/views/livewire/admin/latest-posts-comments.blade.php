@@ -16,7 +16,6 @@
                         <tr>
                             <th>Title</th>
                             <th>Category</th>
-                            <th>Created By</th>
                             <th>Comments</th>
                             <th>Status</th>
                         </tr>
@@ -29,7 +28,6 @@
                                 </td>
 
                                 <td>{{$post->category->name}}</td>
-                                <td>{{$post->user->name}}</td>
                                 <td>{{$post->comments_count}}</td>
                                 <td>
                                     @if($post->status == 'active')
