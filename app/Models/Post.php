@@ -74,12 +74,26 @@ class Post extends Model
 
     /**
      *================================
-     * Global Scopes
+     * Scopes
      * ================================
      */
 
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
+    }
+
+    public function scopeActiveUser($query)
+    {
+        return $query->whereHas('user', function ($user) {
+            $user->whereStatus('active');
+        });
+    }
+
+    public function scopeActiveCategory($query)
+    {
+        return $query->whereHas('category', function ($category) {
+            $category->whereStatus('active');
+        });
     }
 }
