@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -83,17 +85,15 @@ class Post extends Model
         return $query->where('status', 'active');
     }
 
-    public function scopeActiveUser($query)
+    #[Scope]
+    protected function activeUser(Builder $query): Builder
     {
-        return $query->whereHas('user', function ($user) {
-            $user->whereStatus('active');
-        });
+        return $query->whereStatus('active');
     }
 
-    public function scopeActiveCategory($query)
+    #[Scope]
+    protected function activeCategory(Builder $query): Builder
     {
-        return $query->whereHas('category', function ($category) {
-            $category->whereStatus('active');
-        });
+        return $query->whereStatus('active');
     }
 }

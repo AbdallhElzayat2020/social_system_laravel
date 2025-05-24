@@ -9,32 +9,22 @@ use Illuminate\Http\Request;
 
 class GeneralController extends Controller
 {
-    //
     public function getPosts()
     {
 
         $query = Post::query()->with(['user', 'category'])->activeUser()->activeCategory()->active();
 
-        $all_posts = $query->paginate(8);
+        $all_posts = $this->allPosts($query);
 
-        $latestPosts = $query->latest()->take(4)->get();
+        $latestPosts = $this->latestPosts($query);
 
-        $oldestPosts = $query->oldest()->take(4)->get();
+        $oldestPosts = $this->oldestPosts($query);
 
-        $popular_posts = $query->withCount('comments')
-            ->orderBy('comments_count', 'desc')
-            ->take(4)
-            ->get();
+        $popular_posts = $this->popularPosts($query);
 
-        $categories = Category::active()->get();
+        $categories_withPosts = $this->categoriesWithPost();
 
-        $categories_withPosts = $categories->map(function (Category $category) {
-            $category->posts = $category->posts()->latest()->active()->take(4)->get();
-            return $category;
-        });
-
-        $most_read_posts = $query->active()->orderBy('num_of_views', 'desc')->take(4)->get();
-
+        $most_read_posts = $this->mostReadPosts($query);
 
         return response()->json([
             'all_posts' => $all_posts,
@@ -44,5 +34,53 @@ class GeneralController extends Controller
             'categories_withPosts' => $categories_withPosts,
             'most_read_posts' => $most_read_posts
         ]);
+    }
+
+
+
+
+
+    /*
+    --------------------------------------------------------------------------
+     Functions for retrieving latest, oldest,  popular posts , categoriesWithPost
+    --------------------------------------------------------------------------
+    */
+
+    public function allPosts($query)
+    {
+        return $query->paginate(8);
+    }
+
+    public function latestPosts($query)
+    {
+        return $query->latest()->take(4)->get();
+    }
+
+    public function oldestPosts($query)
+    {
+        return $query->oldest()->take(4)->get();
+    }
+
+    public function popularPosts($query)
+    {
+        return $query->withCount('comments')
+            ->orderBy('comments_count', 'desc')
+            ->take(4)
+            ->get();
+    }
+
+    public function categoriesWithPost()
+    {
+        $categories = Category::active()->get();
+
+        return $categories->map(function (Category $category) {
+            $category->posts = $category->posts()->latest()->active()->take(4)->get();
+            return $category;
+        });
+    }
+
+    public function mostReadPosts($query)
+    {
+        return $query->active()->orderBy('num_of_views', 'desc')->take(4)->get();
     }
 }
